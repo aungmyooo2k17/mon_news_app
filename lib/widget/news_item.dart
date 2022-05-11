@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
+import 'package:mon_news_app/ui/screen/news_detail_screen.dart';
 
 import '../theme/color_theme.dart';
 
@@ -70,35 +71,43 @@ class NewsItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: Sizes.dimen_40),
-                Padding(
-                  padding: const EdgeInsets.only(left: Sizes.dimen_8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        maxLines: 3,
-                        style: ThemeText.newsItemTitle,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            credit + ' - ' + createdAt,
-                            maxLines: 2,
-                            style: ThemeText.newsItemCreditAndTime,
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.bookmark,
-                              color: AppColor.secondaryColor,
-                              size: Sizes.dimen_20,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewsDetailPage()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: Sizes.dimen_8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          maxLines: 3,
+                          style: ThemeText.newsItemTitle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              credit + ' - ' + createdAt,
+                              maxLines: 2,
+                              style: ThemeText.newsItemCreditAndTime,
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.bookmark,
+                                color: AppColor.secondaryColor,
+                                size: Sizes.dimen_20,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
