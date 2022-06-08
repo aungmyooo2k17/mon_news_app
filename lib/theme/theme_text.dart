@@ -32,9 +32,9 @@ class ThemeText {
       );
 
   static TextStyle get blackSubtitle1 => robotoTextTheme.subtitle1!.copyWith(
-        fontSize: Sizes.dimen_16,
-        color: Colors.black87,
-      );
+      fontSize: Sizes.dimen_16,
+      color: Colors.black87,
+      fontWeight: FontWeight.bold);
 
   static TextStyle get blackBodyText2 => robotoTextTheme.bodyText2!.copyWith(
         color: Colors.black87,
@@ -53,6 +53,11 @@ class ThemeText {
       robotoTextTheme.bodyText2!.copyWith(
         fontSize: Sizes.dimen_12,
         color: Colors.white,
+      );
+
+  static TextStyle get versionText => robotoTextTheme.bodyText2!.copyWith(
+        fontSize: Sizes.dimen_12,
+        color: Colors.black26,
       );
 
   static TextStyle get appbarTitle => robotoTextTheme.headline1!.copyWith(

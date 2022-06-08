@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
+import 'package:mon_news_app/ui/screen/account/account_screen.dart';
 import 'package:mon_news_app/ui/screen/donate_screen.dart';
 import 'package:mon_news_app/ui/screen/news_screen.dart';
 import 'package:mon_news_app/ui/screen/story_post_screen.dart';
@@ -13,16 +14,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    NewsPage(),
-    StoryPostPage(),
-    DonatePage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const NewsPage(),
+    const StoryPostPage(),
+    const DonatePage(),
+    const AccountPage(),
   ];
 
   void _onItemTapped(int index) {

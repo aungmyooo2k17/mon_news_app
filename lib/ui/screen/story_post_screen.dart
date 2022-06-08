@@ -3,7 +3,7 @@ import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 
 class StoryPostPage extends StatefulWidget {
-  StoryPostPage({Key? key}) : super(key: key);
+  const StoryPostPage({Key? key}) : super(key: key);
 
   @override
   State<StoryPostPage> createState() => _StoryPostPageState();
@@ -14,10 +14,10 @@ class _StoryPostPageState extends State<StoryPostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: MyAppBar(
+          title: const MyAppBar(
             title: "Editor-In-Chief",
           ),
+          backgroundColor: Colors.white,
         ),
         body: ListView.builder(
           itemBuilder: (BuildContext, index) {
