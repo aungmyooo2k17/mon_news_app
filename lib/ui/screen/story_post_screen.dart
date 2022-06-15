@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/presentation/model/post_state.dart';
+import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
+import 'package:provider/provider.dart';
 
 class StoryPostPage extends StatefulWidget {
   const StoryPostPage({Key? key}) : super(key: key);
@@ -11,6 +14,14 @@ class StoryPostPage extends StatefulWidget {
 
 class _StoryPostPageState extends State<StoryPostPage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.scheduleFrameCallback((_) {
+      context.read<PostProvider>().fetchAllPosts();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -19,20 +30,35 @@ class _StoryPostPageState extends State<StoryPostPage> {
           ),
           backgroundColor: Colors.white,
         ),
-        body: ListView.builder(
-          itemBuilder: (BuildContext, index) {
-            return const NewsItem(
-                category: "Myanmar",
-                title:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus at quam et elit pretium egestas venenatis tellus.",
-                credit: "Mizema",
-                createdAt: "May 7, 2022",
-                imagUrl: "assets/images/news.png");
+        body: Selector<PostProvider, PostState>(
+          selector: (_, provider) => provider.postState,
+          builder: (context, state, _) {
+            return state.whenOrNull(loading: () {
+                  return const Center(child: CircularProgressIndicator());
+                }, data: (data) {
+                  print(data.length);
+                  return ListView.builder(
+                    itemBuilder: (BuildContext, index) {
+                      return NewsItem(
+                          category: data[index].category,
+                          title: data[index].title,
+                          credit: "Mizema",
+                          createdAt: "May 7, 2022",
+                          imagUrl: data[index].banner);
+                    },
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.all(5),
+                    scrollDirection: Axis.vertical,
+                  );
+                }, error: (msg) {
+                  print("error: $msg");
+                  return Center(
+                    child: Text(msg.toString()),
+                  );
+                }) ??
+                const Text('this');
           },
-          itemCount: 4,
-          shrinkWrap: true,
-          padding: EdgeInsets.all(5),
-          scrollDirection: Axis.vertical,
         ));
   }
 }

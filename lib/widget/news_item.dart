@@ -27,8 +27,8 @@ class NewsItem extends StatelessWidget {
         margin: const EdgeInsets.all(Sizes.dimen_8),
         height: Sizes.dimen_200,
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage("assets/images/news.png"),
+          image: DecorationImage(
+            image: NetworkImage(imagUrl),
             fit: BoxFit.fill,
           ),
           color: Colors.white,
