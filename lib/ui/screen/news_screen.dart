@@ -40,8 +40,9 @@ class _NewsPageState extends State<NewsPage> {
                       title: MyAppBar(),
                       backgroundColor: Colors.white,
                       bottom: TabBar(
+                        isScrollable: true,
                         labelColor: AppColor.primaryColor,
-                        unselectedLabelColor: Colors.black87,
+                        unselectedLabelColor: Colors.black54,
                         indicatorColor: AppColor.primaryColor,
                         tabs: data
                             .map((e) => Tab(

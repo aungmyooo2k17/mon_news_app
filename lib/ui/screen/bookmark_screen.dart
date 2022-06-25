@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
-import 'package:mon_news_app/presentation/provider/post_provider.dart';
+import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
 
-class StoryPostPage extends StatefulWidget {
-  const StoryPostPage({Key? key}) : super(key: key);
+class BookMarkPage extends StatefulWidget {
+  const BookMarkPage({Key? key}) : super(key: key);
 
   @override
-  State<StoryPostPage> createState() => _StoryPostPageState();
+  State<BookMarkPage> createState() => _BookMarkPageState();
 }
 
-class _StoryPostPageState extends State<StoryPostPage> {
+class _BookMarkPageState extends State<BookMarkPage> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<PostProvider>().fetchAllPosts();
+      context.read<BookmarkProvider>().fetchAllBookmarks();
     });
   }
 
@@ -30,7 +30,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
           ),
           backgroundColor: Colors.white,
         ),
-        body: Selector<PostProvider, PostState>(
+        body: Selector<BookmarkProvider, PostState>(
           selector: (_, provider) => provider.postState,
           builder: (context, state, _) {
             return state.whenOrNull(loading: () {

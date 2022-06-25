@@ -890,19 +890,413 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
   }
 }
 
+class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
+  final int id;
+  final String title;
+  final String banner;
+  final String videoUrl;
+  final String audioUrl;
+  final String content;
+  final String topic;
+  final String category;
+  BookmarkDtoData(
+      {required this.id,
+      required this.title,
+      required this.banner,
+      required this.videoUrl,
+      required this.audioUrl,
+      required this.content,
+      required this.topic,
+      required this.category});
+  factory BookmarkDtoData.fromData(Map<String, dynamic> data,
+      {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return BookmarkDtoData(
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
+      banner: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}banner'])!,
+      videoUrl: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}video_url'])!,
+      audioUrl: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}audio_url'])!,
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
+      topic: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}topic'])!,
+      category: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    map['banner'] = Variable<String>(banner);
+    map['video_url'] = Variable<String>(videoUrl);
+    map['audio_url'] = Variable<String>(audioUrl);
+    map['content'] = Variable<String>(content);
+    map['topic'] = Variable<String>(topic);
+    map['category'] = Variable<String>(category);
+    return map;
+  }
+
+  BookmarkDtoCompanion toCompanion(bool nullToAbsent) {
+    return BookmarkDtoCompanion(
+      id: Value(id),
+      title: Value(title),
+      banner: Value(banner),
+      videoUrl: Value(videoUrl),
+      audioUrl: Value(audioUrl),
+      content: Value(content),
+      topic: Value(topic),
+      category: Value(category),
+    );
+  }
+
+  factory BookmarkDtoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BookmarkDtoData(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      banner: serializer.fromJson<String>(json['banner']),
+      videoUrl: serializer.fromJson<String>(json['videoUrl']),
+      audioUrl: serializer.fromJson<String>(json['audioUrl']),
+      content: serializer.fromJson<String>(json['content']),
+      topic: serializer.fromJson<String>(json['topic']),
+      category: serializer.fromJson<String>(json['category']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'banner': serializer.toJson<String>(banner),
+      'videoUrl': serializer.toJson<String>(videoUrl),
+      'audioUrl': serializer.toJson<String>(audioUrl),
+      'content': serializer.toJson<String>(content),
+      'topic': serializer.toJson<String>(topic),
+      'category': serializer.toJson<String>(category),
+    };
+  }
+
+  BookmarkDtoData copyWith(
+          {int? id,
+          String? title,
+          String? banner,
+          String? videoUrl,
+          String? audioUrl,
+          String? content,
+          String? topic,
+          String? category}) =>
+      BookmarkDtoData(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        banner: banner ?? this.banner,
+        videoUrl: videoUrl ?? this.videoUrl,
+        audioUrl: audioUrl ?? this.audioUrl,
+        content: content ?? this.content,
+        topic: topic ?? this.topic,
+        category: category ?? this.category,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('BookmarkDtoData(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('banner: $banner, ')
+          ..write('videoUrl: $videoUrl, ')
+          ..write('audioUrl: $audioUrl, ')
+          ..write('content: $content, ')
+          ..write('topic: $topic, ')
+          ..write('category: $category')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, title, banner, videoUrl, audioUrl, content, topic, category);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BookmarkDtoData &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.banner == this.banner &&
+          other.videoUrl == this.videoUrl &&
+          other.audioUrl == this.audioUrl &&
+          other.content == this.content &&
+          other.topic == this.topic &&
+          other.category == this.category);
+}
+
+class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String> banner;
+  final Value<String> videoUrl;
+  final Value<String> audioUrl;
+  final Value<String> content;
+  final Value<String> topic;
+  final Value<String> category;
+  const BookmarkDtoCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.banner = const Value.absent(),
+    this.videoUrl = const Value.absent(),
+    this.audioUrl = const Value.absent(),
+    this.content = const Value.absent(),
+    this.topic = const Value.absent(),
+    this.category = const Value.absent(),
+  });
+  BookmarkDtoCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    required String banner,
+    required String videoUrl,
+    required String audioUrl,
+    required String content,
+    required String topic,
+    required String category,
+  })  : title = Value(title),
+        banner = Value(banner),
+        videoUrl = Value(videoUrl),
+        audioUrl = Value(audioUrl),
+        content = Value(content),
+        topic = Value(topic),
+        category = Value(category);
+  static Insertable<BookmarkDtoData> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? banner,
+    Expression<String>? videoUrl,
+    Expression<String>? audioUrl,
+    Expression<String>? content,
+    Expression<String>? topic,
+    Expression<String>? category,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (banner != null) 'banner': banner,
+      if (videoUrl != null) 'video_url': videoUrl,
+      if (audioUrl != null) 'audio_url': audioUrl,
+      if (content != null) 'content': content,
+      if (topic != null) 'topic': topic,
+      if (category != null) 'category': category,
+    });
+  }
+
+  BookmarkDtoCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? title,
+      Value<String>? banner,
+      Value<String>? videoUrl,
+      Value<String>? audioUrl,
+      Value<String>? content,
+      Value<String>? topic,
+      Value<String>? category}) {
+    return BookmarkDtoCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      banner: banner ?? this.banner,
+      videoUrl: videoUrl ?? this.videoUrl,
+      audioUrl: audioUrl ?? this.audioUrl,
+      content: content ?? this.content,
+      topic: topic ?? this.topic,
+      category: category ?? this.category,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (banner.present) {
+      map['banner'] = Variable<String>(banner.value);
+    }
+    if (videoUrl.present) {
+      map['video_url'] = Variable<String>(videoUrl.value);
+    }
+    if (audioUrl.present) {
+      map['audio_url'] = Variable<String>(audioUrl.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (topic.present) {
+      map['topic'] = Variable<String>(topic.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BookmarkDtoCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('banner: $banner, ')
+          ..write('videoUrl: $videoUrl, ')
+          ..write('audioUrl: $audioUrl, ')
+          ..write('content: $content, ')
+          ..write('topic: $topic, ')
+          ..write('category: $category')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $BookmarkDtoTable extends BookmarkDto
+    with TableInfo<$BookmarkDtoTable, BookmarkDtoData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BookmarkDtoTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+      'title', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _bannerMeta = const VerificationMeta('banner');
+  @override
+  late final GeneratedColumn<String?> banner = GeneratedColumn<String?>(
+      'banner', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _videoUrlMeta = const VerificationMeta('videoUrl');
+  @override
+  late final GeneratedColumn<String?> videoUrl = GeneratedColumn<String?>(
+      'video_url', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _audioUrlMeta = const VerificationMeta('audioUrl');
+  @override
+  late final GeneratedColumn<String?> audioUrl = GeneratedColumn<String?>(
+      'audio_url', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _contentMeta = const VerificationMeta('content');
+  @override
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _topicMeta = const VerificationMeta('topic');
+  @override
+  late final GeneratedColumn<String?> topic = GeneratedColumn<String?>(
+      'topic', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _categoryMeta = const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String?> category = GeneratedColumn<String?>(
+      'category', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, title, banner, videoUrl, audioUrl, content, topic, category];
+  @override
+  String get aliasedName => _alias ?? 'bookmark_dto';
+  @override
+  String get actualTableName => 'bookmark_dto';
+  @override
+  VerificationContext validateIntegrity(Insertable<BookmarkDtoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('banner')) {
+      context.handle(_bannerMeta,
+          banner.isAcceptableOrUnknown(data['banner']!, _bannerMeta));
+    } else if (isInserting) {
+      context.missing(_bannerMeta);
+    }
+    if (data.containsKey('video_url')) {
+      context.handle(_videoUrlMeta,
+          videoUrl.isAcceptableOrUnknown(data['video_url']!, _videoUrlMeta));
+    } else if (isInserting) {
+      context.missing(_videoUrlMeta);
+    }
+    if (data.containsKey('audio_url')) {
+      context.handle(_audioUrlMeta,
+          audioUrl.isAcceptableOrUnknown(data['audio_url']!, _audioUrlMeta));
+    } else if (isInserting) {
+      context.missing(_audioUrlMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('topic')) {
+      context.handle(
+          _topicMeta, topic.isAcceptableOrUnknown(data['topic']!, _topicMeta));
+    } else if (isInserting) {
+      context.missing(_topicMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BookmarkDtoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return BookmarkDtoData.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $BookmarkDtoTable createAlias(String alias) {
+    return $BookmarkDtoTable(attachedDatabase, alias);
+  }
+}
+
 abstract class _$ThanLwinTimesDatabase extends GeneratedDatabase {
   _$ThanLwinTimesDatabase(QueryExecutor e)
       : super(SqlTypeSystem.defaultInstance, e);
   late final $TopicDtoTable topicDto = $TopicDtoTable(this);
   late final $CategoryDtoTable categoryDto = $CategoryDtoTable(this);
   late final $PostDtoTable postDto = $PostDtoTable(this);
+  late final $BookmarkDtoTable bookmarkDto = $BookmarkDtoTable(this);
   late final TopicsDao topicsDao = TopicsDao(this as ThanLwinTimesDatabase);
   late final CategoriesDao categoriesDao =
       CategoriesDao(this as ThanLwinTimesDatabase);
   late final PostsDao postsDao = PostsDao(this as ThanLwinTimesDatabase);
+  late final BookmarksDao bookmarksDao =
+      BookmarksDao(this as ThanLwinTimesDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [topicDto, categoryDto, postDto];
+      [topicDto, categoryDto, postDto, bookmarkDto];
 }

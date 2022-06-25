@@ -40,6 +40,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 return ListView.builder(
                   itemBuilder: (BuildContext, index) {
                     return NewsItem(
+                        postEntity: data[index],
                         category: data[index].category,
                         title: data[index].title,
                         credit: "Mizema",

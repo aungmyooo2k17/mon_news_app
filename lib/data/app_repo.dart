@@ -1,4 +1,6 @@
 import 'package:injectable/injectable.dart';
+import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
+import 'package:mon_news_app/data/mapper/bookmark_entity_mapper.dart';
 import 'package:mon_news_app/data/mapper/category_dto_mapper.dart';
 
 import '../domain/category_entity.dart';
@@ -17,6 +19,11 @@ abstract class AppRepo {
   Future<List<CategoryEntity>> getCategories();
   Future<List<PostEntity>> getPosts();
   Future<List<PostEntity>> getPostsByTopicId(int topicId);
+
+  Future<List<PostEntity>> insertBookmark(PostEntity postEntity);
+  Future<List<PostEntity>> getBookmarks();
+  Future<List<PostEntity>> getBookmarksById(int id);
+  Future<List<PostEntity>> deleteBookmark(int id);
 }
 
 @LazySingleton(as: AppRepo)
@@ -32,6 +39,9 @@ class AppRepoImpl implements AppRepo {
 
   final PostDtoMapper postDtoMapper = PostDtoMapper();
   final PostEntityMapper postEntityMapper = PostEntityMapper();
+
+  final BookmarkEntityMapper bookmarkEntityMapper = BookmarkEntityMapper();
+  final BookmarkDtoMapper bookmarkDtoMapper = BookmarkDtoMapper();
 
   AppRepoImpl({required this.localDatasource, required this.remoteDataSource});
 
@@ -71,5 +81,33 @@ class AppRepoImpl implements AppRepo {
 
     final dbResult = await localDatasource.getAllPostsByTopicId(topicId);
     return postEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<List<PostEntity>> insertBookmark(PostEntity postEntity) async {
+    await localDatasource.insertBookmark(bookmarkDtoMapper.from(postEntity));
+
+    final dbResult = await localDatasource.getAllBookmark();
+    return bookmarkEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<List<PostEntity>> getBookmarks() async {
+    final dbResult = await localDatasource.getAllBookmark();
+    return bookmarkEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<List<PostEntity>> deleteBookmark(int id) async {
+    await localDatasource.deleteBookmark(id);
+
+    final dbResult = await localDatasource.getAllBookmark();
+    return bookmarkEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<List<PostEntity>> getBookmarksById(int id) async {
+    final dbResult = await localDatasource.getAllBookmarkById(id);
+    return bookmarkEntityMapper.tos(dbResult);
   }
 }

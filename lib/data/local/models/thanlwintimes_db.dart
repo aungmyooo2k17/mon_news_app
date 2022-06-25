@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mon_news_app/data/local/bookmarks_dao.dart';
 import 'package:mon_news_app/data/local/posts_dao.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -46,10 +47,24 @@ class PostDto extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class BookmarkDto extends Table {
+  IntColumn get id => integer()();
+  TextColumn get title => text()();
+  TextColumn get banner => text()();
+  TextColumn get videoUrl => text()();
+  TextColumn get audioUrl => text()();
+  TextColumn get content => text()();
+  TextColumn get topic => text()();
+  TextColumn get category => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @singleton
 @DriftDatabase(
-    tables: [TopicDto, CategoryDto, PostDto],
-    daos: [TopicsDao, CategoriesDao, PostsDao])
+    tables: [TopicDto, CategoryDto, PostDto, BookmarkDto],
+    daos: [TopicsDao, CategoriesDao, PostsDao, BookmarksDao])
 class ThanLwinTimesDatabase extends _$ThanLwinTimesDatabase {
   ThanLwinTimesDatabase() : super(_openConnection());
 

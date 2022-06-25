@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:mon_news_app/data/local/bookmarks_dao.dart';
 import 'package:mon_news_app/data/local/posts_dao.dart';
 
 import 'models/thanlwintimes_db.dart';
@@ -15,6 +16,11 @@ abstract class LocalDatasource {
   Future<void> insertAllPosts(List<PostDtoData> topics);
   Future<List<PostDtoData>> getAllPosts();
   Future<List<PostDtoData>> getAllPostsByTopicId(int topicId);
+
+  Future<void> insertBookmark(BookmarkDtoData postBookmark);
+  Future<List<BookmarkDtoData>> getAllBookmark();
+  Future<List<BookmarkDtoData>> getAllBookmarkById(int id);
+  Future<void> deleteBookmark(int id);
 }
 
 @LazySingleton(as: LocalDatasource)
@@ -22,11 +28,13 @@ class LocalDatasourceImpl implements LocalDatasource {
   final TopicsDao topicsDao;
   final CategoriesDao categoriesDao;
   final PostsDao postsDao;
+  final BookmarksDao bookmarksDao;
 
   LocalDatasourceImpl(
       {required this.topicsDao,
       required this.categoriesDao,
-      required this.postsDao});
+      required this.postsDao,
+      required this.bookmarksDao});
 
   @override
   Future<void> insertAllTopics(List<TopicDtoData> topics) async {
@@ -61,5 +69,25 @@ class LocalDatasourceImpl implements LocalDatasource {
   @override
   Future<List<PostDtoData>> getAllPostsByTopicId(int topicId) async {
     return await postsDao.fetchAllPostsByTopicId(topicId);
+  }
+
+  @override
+  Future<void> deleteBookmark(int id) async {
+    await bookmarksDao.deleteBookmark(id);
+  }
+
+  @override
+  Future<List<BookmarkDtoData>> getAllBookmark() async {
+    return await bookmarksDao.fetchAllBookmark();
+  }
+
+  @override
+  Future<void> insertBookmark(BookmarkDtoData postBookmark) async {
+    await bookmarksDao.addBookmark(postBookmark);
+  }
+
+  @override
+  Future<List<BookmarkDtoData>> getAllBookmarkById(int id) async {
+    return await bookmarksDao.fetchAllBookmarkById(id);
   }
 }

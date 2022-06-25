@@ -4,17 +4,38 @@ import 'package:mon_news_app/domain/post_entity.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/comment_screen/comment_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class NewsDetailPage extends StatefulWidget {
+class NewsMultimediaDetailPage extends StatefulWidget {
   final PostEntity postEntity;
 
-  NewsDetailPage({Key? key, required this.postEntity}) : super(key: key);
+  NewsMultimediaDetailPage({Key? key, required this.postEntity})
+      : super(key: key);
 
   @override
-  State<NewsDetailPage> createState() => _NewsDetailPageState();
+  State<NewsMultimediaDetailPage> createState() =>
+      _NewsMultimediaDetailPageState();
 }
 
-class _NewsDetailPageState extends State<NewsDetailPage> {
+class _NewsMultimediaDetailPageState extends State<NewsMultimediaDetailPage> {
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: 'w6LT7lVQX7U',
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        forceHD: false,
+        enableCaption: true,
+      ),
+    );
+  }
+
+  late YoutubePlayerController _controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,52 +90,8 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                       ],
                     ),
                   ),
-                  Image.network(widget.postEntity.banner),
-                  Padding(
-                    padding: const EdgeInsets.all(Sizes.dimen_8),
-                    child: SizedBox(
-                      height: 850,
-                      child: WebView(
-                          javascriptMode: JavascriptMode.unrestricted,
-                          onWebViewCreated:
-                              (WebViewController webViewController) async {
-                            await webViewController.loadHtmlString('''
-                        <!DOCTYPE html>
-                          <html lang="en">
-                            <head>
-                              <meta charset="UTF-8" />
-                              <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                              <title>Document</title>
-                            </head>
-                            <body>
-                              ${widget.postEntity.content}
-                            </body>
-                          </html>
-                        ''');
-                          }),
-                    ),
-                  )
-                  // WebView(
-                  //   javascriptMode: JavascriptMode.unrestricted,
-                  //   onWebViewCreated:
-                  //       (WebViewController webViewController) async {
-                  //     await webViewController.loadHtmlString('''
-                  //     <!DOCTYPE html>
-                  //       <html lang="en">
-                  //         <head>
-                  //           <meta charset="UTF-8" />
-                  //           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                  //           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                  //           <title>Document</title>
-                  //         </head>
-                  //         <body>
-                  //           ${widget.postEntity.content}
-                  //         </body>
-                  //       </html>
-                  //     ''');
-                  //   },
-                  // ),
+                  YoutubePlayer(controller: _controller),
+                  // Image.network(widget.postEntity.banner),
                 ],
               ),
             ),

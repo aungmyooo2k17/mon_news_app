@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/ui/screen/bookmark_screen.dart';
 
 import '../../../constants/size_constant.dart';
 import '../../../theme/color_theme.dart';
@@ -45,43 +46,27 @@ class _MediaSettingState extends State<MediaSetting> {
         const SizedBox(
           height: 8.0,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Auto play video over Wi-Fi',
-              style: ThemeText.blackBodyText2,
-            ),
-            Switch(
-              onChanged: toggleSwitch,
-              value: isSwitched,
-              activeColor: Colors.blue,
-              activeTrackColor: Colors.yellow,
-              inactiveThumbColor: Colors.redAccent,
-              inactiveTrackColor: Colors.orange,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 8.0,
-        ),
-        const Divider(),
-        const SizedBox(
-          height: 8.0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Bookmarks',
-              style: ThemeText.blackBodyText2,
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: AppColor.primaryColor,
-              size: Sizes.dimen_20,
-            ),
-          ],
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BookMarkPage()),
+            );
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Bookmarks',
+                style: ThemeText.blackBodyText2,
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: AppColor.primaryColor,
+                size: Sizes.dimen_20,
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 8.0,

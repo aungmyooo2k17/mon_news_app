@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mon_news_app/data/sharepreference/bookmark_preference.dart';
+import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/presentation/provider/category_provider.dart';
 import 'package:mon_news_app/presentation/provider/movie_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
@@ -11,11 +13,15 @@ import 'data/app_repo.dart';
 import 'di/injectable.dart';
 import 'provider/app_locale.dart';
 import 'theme/color_theme.dart';
+import 'globals.dart' as globals;
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   configureDependencies();
+  List<String> bookmarkList = await BookmarkPreference.getBookmark();
+  globals.gBookmarkList.addAll(bookmarkList);
+
   runApp(MyApp());
 }
 
@@ -37,6 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PostProvider>(
           create: (_) => PostProvider(appRepo: getItInstance<AppRepo>()),
         ),
+        ChangeNotifierProvider<BookmarkProvider>(
+          create: (_) => BookmarkProvider(appRepo: getItInstance<AppRepo>()),
+        )
       ],
       child: Consumer<AppLocale>(builder: (context, locale, child) {
         return MaterialApp(

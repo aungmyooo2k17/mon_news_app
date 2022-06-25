@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
+import 'package:mon_news_app/ui/screen/bookmark_screen.dart';
 import '../constants/size_constant.dart';
 import 'logo.dart';
 
@@ -33,7 +34,12 @@ class MyAppBar extends StatelessWidget {
                   style: ThemeText.appbarTitle,
                 ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookMarkPage()),
+              );
+            },
             icon: const Icon(
               Icons.bookmark,
               color: AppColor.secondaryColor,

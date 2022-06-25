@@ -7,7 +7,6 @@ class PostsResultModel {
   PostsResultModel({required this.posts});
 
   PostsResultModel.fromJson(List<dynamic> json) {
-    print(json);
     if (json != null) {
       posts = [];
       for (var v in json) {
