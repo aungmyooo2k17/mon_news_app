@@ -4,6 +4,7 @@ import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StoryPostPage extends StatefulWidget {
   const StoryPostPage({Key? key}) : super(key: key);
@@ -25,8 +26,8 @@ class _StoryPostPageState extends State<StoryPostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const MyAppBar(
-            title: "Editor-In-Chief",
+          title: MyAppBar(
+            title: AppLocalizations.of(context)!.story_post,
           ),
           backgroundColor: Colors.white,
         ),
@@ -43,7 +44,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
                           postEntity: data[index],
                           category: data[index].category,
                           title: data[index].title,
-                          credit: "Mizema",
+                          credit: "Thanlwin",
                           createdAt: "May 7, 2022",
                           imagUrl: data[index].banner);
                     },

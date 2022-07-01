@@ -10,6 +10,8 @@ class TopicDtoMapper {
 
   TopicDtoData from(TopicModel model) {
     return TopicDtoData(
-        id: model.id ?? 0, name: model.name ?? '', priority: model.priority);
+        id: model.id ?? 0,
+        name: model.name ?? '',
+        priority: model.priority ?? 0);
   }
 }

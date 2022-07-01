@@ -4,6 +4,7 @@ import 'package:mon_news_app/constants/string_constant.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/widget/app_btn.dart';
 import 'package:mon_news_app/widget/app_text_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CardsPage extends StatelessWidget {
   const CardsPage({Key? key}) : super(key: key);
@@ -18,41 +19,43 @@ class CardsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Please, kindly fill the form',
+                AppLocalizations.of(context)!.cards_title,
                 style: ThemeText.title,
               ),
               const SizedBox(
                 height: Sizes.dimen_8,
               ),
               Text(
-                'For the confidentiality of our users and donors, we process every card payments outside of the app, please fill the following form and we will contact you as soon as possible.',
+                AppLocalizations.of(context)!.cards_desc,
                 style: ThemeText.blackBodyText2,
               ),
               const SizedBox(
                 height: Sizes.dimen_12,
               ),
               AppTextField(
-                label: 'Full name',
-                hint: StringConstant.hintFullName,
+                label: AppLocalizations.of(context)!.full_name,
+                hint: AppLocalizations.of(context)!.enter_full_name,
               ),
               const SizedBox(
                 height: Sizes.dimen_8,
               ),
               AppTextField(
-                label: 'Email',
-                hint: StringConstant.hintEmail,
+                label: AppLocalizations.of(context)!.email,
+                hint: AppLocalizations.of(context)!.enter_email,
               ),
               const SizedBox(
                 height: Sizes.dimen_8,
               ),
               AppTextField(
-                label: 'Phone number',
-                hint: StringConstant.hintPhoneNumber,
+                label: AppLocalizations.of(context)!.phone,
+                hint: AppLocalizations.of(context)!.enter_phone,
               ),
               const SizedBox(
                 height: Sizes.dimen_8,
               ),
-              AppBtn(label: 'Submit')
+              AppBtn(
+                label: AppLocalizations.of(context)!.submit,
+              )
             ]),
       ),
     );

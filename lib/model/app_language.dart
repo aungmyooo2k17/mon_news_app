@@ -7,8 +7,8 @@ class AppLanguage {
   static List<AppLanguage> languages() {
     return <AppLanguage>[
       AppLanguage('English', 'en'),
-      AppLanguage('German', 'de'),
-      AppLanguage('French', 'fr'),
+      AppLanguage('Mon', 'de'),
+      AppLanguage('Myanmar', 'my'),
     ];
   }
 

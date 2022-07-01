@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
+import 'package:mon_news_app/presentation/provider/like_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/comment_screen/comment_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../globals.dart' as globals;
 
 class NewsDetailPage extends StatefulWidget {
   final PostEntity postEntity;
@@ -125,28 +128,35 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                 padding: const EdgeInsets.only(bottom: 8, top: 0),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                        ),
-                        onPressed: null,
-                        icon: Icon(
-                          Icons.thumb_up,
-                          color: Colors.grey.shade800,
-                        ),
-                        label: Text(
-                          "234",
-                          style: ThemeText.blackBodyText2,
+                    GestureDetector(
+                      onTap: () => context.read<LikeProvider>().postLike(
+                          widget.postEntity.id.toString(), globals.deviceId),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                          ),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.thumb_up,
+                            color: Colors.grey.shade800,
+                          ),
+                          label: Text(
+                            "234",
+                            style: ThemeText.blackBodyText2,
+                          ),
                         ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CommentPage()),
+                        MaterialPageRoute(
+                            builder: (context) => CommentPage(
+                                  postId: widget.postEntity.id,
+                                )),
                       ),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 4,
@@ -167,34 +177,40 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                    GestureDetector(
+                      onTap: () => {},
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                          ),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.bookmark,
+                            color: Colors.grey.shade800,
+                          ),
+                          label: const Text(''),
                         ),
-                        onPressed: null,
-                        icon: Icon(
-                          Icons.bookmark,
-                          color: Colors.grey.shade800,
-                        ),
-                        label: const Text(''),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                    GestureDetector(
+                      onTap: () => {},
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                          ),
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.share,
+                            color: Colors.grey.shade800,
+                          ),
+                          label: const Text(''),
                         ),
-                        onPressed: null,
-                        icon: Icon(
-                          Icons.share,
-                          color: Colors.grey.shade800,
-                        ),
-                        label: const Text(''),
                       ),
                     )
                   ],

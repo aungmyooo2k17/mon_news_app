@@ -1,6 +1,5 @@
 import 'package:mon_news_app/domain/post_entity.dart';
 
-import '../../domain/category_entity.dart';
 import '../local/models/thanlwintimes_db.dart';
 
 class PostEntityMapper {

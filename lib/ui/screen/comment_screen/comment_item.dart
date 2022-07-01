@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/constants/size_constant.dart';
+import 'package:mon_news_app/domain/comment_entity.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/report_screen.dart';
 
 class CommentItem extends StatelessWidget {
   final bool isInReportPage;
-  const CommentItem({Key? key, required this.isInReportPage}) : super(key: key);
+  final CommentEntity commentEntity;
+  const CommentItem(
+      {Key? key, required this.isInReportPage, required this.commentEntity})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +17,14 @@ class CommentItem extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(color: Colors.white),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           profile(context),
-          SizedBox(
-            height: 16,
+          const SizedBox(
+            height: Sizes.dimen_16,
           ),
           Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            commentEntity.comment,
             style: ThemeText.blackBodyText2,
           ),
         ],
@@ -47,10 +53,10 @@ class CommentItem extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  'Aung Myo oo',
+                  'User',
                   style: ThemeText.blackSubtitle1,
                 ),
-                Text('Apr 20', style: ThemeText.blackBodyText2)
+                Text('Apr 20, 2022', style: ThemeText.blackBodyText2)
               ],
             ),
           ],
@@ -59,7 +65,10 @@ class CommentItem extends StatelessWidget {
             ? GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ReportPage()),
+                  MaterialPageRoute(
+                      builder: (context) => ReportPage(
+                            commentEntity: commentEntity,
+                          )),
                 ),
                 child: Icon(
                   Icons.more_vert,

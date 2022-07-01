@@ -1281,6 +1281,251 @@ class $BookmarkDtoTable extends BookmarkDto
   }
 }
 
+class CommentDtoData extends DataClass implements Insertable<CommentDtoData> {
+  final int id;
+  final int postId;
+  final String comment;
+  final String uuid;
+  CommentDtoData(
+      {required this.id,
+      required this.postId,
+      required this.comment,
+      required this.uuid});
+  factory CommentDtoData.fromData(Map<String, dynamic> data, {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return CommentDtoData(
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      postId: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}post_id'])!,
+      comment: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}comment'])!,
+      uuid: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}uuid'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['post_id'] = Variable<int>(postId);
+    map['comment'] = Variable<String>(comment);
+    map['uuid'] = Variable<String>(uuid);
+    return map;
+  }
+
+  CommentDtoCompanion toCompanion(bool nullToAbsent) {
+    return CommentDtoCompanion(
+      id: Value(id),
+      postId: Value(postId),
+      comment: Value(comment),
+      uuid: Value(uuid),
+    );
+  }
+
+  factory CommentDtoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CommentDtoData(
+      id: serializer.fromJson<int>(json['id']),
+      postId: serializer.fromJson<int>(json['postId']),
+      comment: serializer.fromJson<String>(json['comment']),
+      uuid: serializer.fromJson<String>(json['uuid']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'postId': serializer.toJson<int>(postId),
+      'comment': serializer.toJson<String>(comment),
+      'uuid': serializer.toJson<String>(uuid),
+    };
+  }
+
+  CommentDtoData copyWith(
+          {int? id, int? postId, String? comment, String? uuid}) =>
+      CommentDtoData(
+        id: id ?? this.id,
+        postId: postId ?? this.postId,
+        comment: comment ?? this.comment,
+        uuid: uuid ?? this.uuid,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CommentDtoData(')
+          ..write('id: $id, ')
+          ..write('postId: $postId, ')
+          ..write('comment: $comment, ')
+          ..write('uuid: $uuid')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, postId, comment, uuid);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CommentDtoData &&
+          other.id == this.id &&
+          other.postId == this.postId &&
+          other.comment == this.comment &&
+          other.uuid == this.uuid);
+}
+
+class CommentDtoCompanion extends UpdateCompanion<CommentDtoData> {
+  final Value<int> id;
+  final Value<int> postId;
+  final Value<String> comment;
+  final Value<String> uuid;
+  const CommentDtoCompanion({
+    this.id = const Value.absent(),
+    this.postId = const Value.absent(),
+    this.comment = const Value.absent(),
+    this.uuid = const Value.absent(),
+  });
+  CommentDtoCompanion.insert({
+    this.id = const Value.absent(),
+    required int postId,
+    required String comment,
+    required String uuid,
+  })  : postId = Value(postId),
+        comment = Value(comment),
+        uuid = Value(uuid);
+  static Insertable<CommentDtoData> custom({
+    Expression<int>? id,
+    Expression<int>? postId,
+    Expression<String>? comment,
+    Expression<String>? uuid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (postId != null) 'post_id': postId,
+      if (comment != null) 'comment': comment,
+      if (uuid != null) 'uuid': uuid,
+    });
+  }
+
+  CommentDtoCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? postId,
+      Value<String>? comment,
+      Value<String>? uuid}) {
+    return CommentDtoCompanion(
+      id: id ?? this.id,
+      postId: postId ?? this.postId,
+      comment: comment ?? this.comment,
+      uuid: uuid ?? this.uuid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (postId.present) {
+      map['post_id'] = Variable<int>(postId.value);
+    }
+    if (comment.present) {
+      map['comment'] = Variable<String>(comment.value);
+    }
+    if (uuid.present) {
+      map['uuid'] = Variable<String>(uuid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CommentDtoCompanion(')
+          ..write('id: $id, ')
+          ..write('postId: $postId, ')
+          ..write('comment: $comment, ')
+          ..write('uuid: $uuid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CommentDtoTable extends CommentDto
+    with TableInfo<$CommentDtoTable, CommentDtoData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CommentDtoTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _postIdMeta = const VerificationMeta('postId');
+  @override
+  late final GeneratedColumn<int?> postId = GeneratedColumn<int?>(
+      'post_id', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _commentMeta = const VerificationMeta('comment');
+  @override
+  late final GeneratedColumn<String?> comment = GeneratedColumn<String?>(
+      'comment', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _uuidMeta = const VerificationMeta('uuid');
+  @override
+  late final GeneratedColumn<String?> uuid = GeneratedColumn<String?>(
+      'uuid', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, postId, comment, uuid];
+  @override
+  String get aliasedName => _alias ?? 'comment_dto';
+  @override
+  String get actualTableName => 'comment_dto';
+  @override
+  VerificationContext validateIntegrity(Insertable<CommentDtoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('post_id')) {
+      context.handle(_postIdMeta,
+          postId.isAcceptableOrUnknown(data['post_id']!, _postIdMeta));
+    } else if (isInserting) {
+      context.missing(_postIdMeta);
+    }
+    if (data.containsKey('comment')) {
+      context.handle(_commentMeta,
+          comment.isAcceptableOrUnknown(data['comment']!, _commentMeta));
+    } else if (isInserting) {
+      context.missing(_commentMeta);
+    }
+    if (data.containsKey('uuid')) {
+      context.handle(
+          _uuidMeta, uuid.isAcceptableOrUnknown(data['uuid']!, _uuidMeta));
+    } else if (isInserting) {
+      context.missing(_uuidMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CommentDtoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return CommentDtoData.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $CommentDtoTable createAlias(String alias) {
+    return $CommentDtoTable(attachedDatabase, alias);
+  }
+}
+
 abstract class _$ThanLwinTimesDatabase extends GeneratedDatabase {
   _$ThanLwinTimesDatabase(QueryExecutor e)
       : super(SqlTypeSystem.defaultInstance, e);
@@ -1288,15 +1533,18 @@ abstract class _$ThanLwinTimesDatabase extends GeneratedDatabase {
   late final $CategoryDtoTable categoryDto = $CategoryDtoTable(this);
   late final $PostDtoTable postDto = $PostDtoTable(this);
   late final $BookmarkDtoTable bookmarkDto = $BookmarkDtoTable(this);
+  late final $CommentDtoTable commentDto = $CommentDtoTable(this);
   late final TopicsDao topicsDao = TopicsDao(this as ThanLwinTimesDatabase);
   late final CategoriesDao categoriesDao =
       CategoriesDao(this as ThanLwinTimesDatabase);
   late final PostsDao postsDao = PostsDao(this as ThanLwinTimesDatabase);
   late final BookmarksDao bookmarksDao =
       BookmarksDao(this as ThanLwinTimesDatabase);
+  late final CommentsDao commentsDao =
+      CommentsDao(this as ThanLwinTimesDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [topicDto, categoryDto, postDto, bookmarkDto];
+      [topicDto, categoryDto, postDto, bookmarkDto, commentDto];
 }

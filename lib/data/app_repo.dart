@@ -1,13 +1,17 @@
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
 import 'package:mon_news_app/data/mapper/bookmark_entity_mapper.dart';
 import 'package:mon_news_app/data/mapper/category_dto_mapper.dart';
+import 'package:mon_news_app/domain/comment_entity.dart';
 
 import '../domain/category_entity.dart';
 import '../domain/post_entity.dart';
 import '../domain/topic_entity.dart';
 import 'local/local_datasource.dart';
 import 'mapper/category_entity_mapper.dart';
+import 'mapper/comment_dto_mapper.dart';
+import 'mapper/comment_entity_mapper.dart';
 import 'mapper/post_dto_mapper.dart';
 import 'mapper/post_entity_mapper.dart';
 import 'mapper/topic_dto_mapper.dart';
@@ -24,6 +28,9 @@ abstract class AppRepo {
   Future<List<PostEntity>> getBookmarks();
   Future<List<PostEntity>> getBookmarksById(int id);
   Future<List<PostEntity>> deleteBookmark(int id);
+
+  Future<List<CommentEntity>> getCommentByPostId(int id);
+  Future<int> postLike(String postId, String uuid);
 }
 
 @LazySingleton(as: AppRepo)
@@ -39,6 +46,9 @@ class AppRepoImpl implements AppRepo {
 
   final PostDtoMapper postDtoMapper = PostDtoMapper();
   final PostEntityMapper postEntityMapper = PostEntityMapper();
+
+  final CommentDtoMapper commentDtoMapper = CommentDtoMapper();
+  final CommentEntityMapper commentEntityMapper = CommentEntityMapper();
 
   final BookmarkEntityMapper bookmarkEntityMapper = BookmarkEntityMapper();
   final BookmarkDtoMapper bookmarkDtoMapper = BookmarkDtoMapper();
@@ -109,5 +119,22 @@ class AppRepoImpl implements AppRepo {
   Future<List<PostEntity>> getBookmarksById(int id) async {
     final dbResult = await localDatasource.getAllBookmarkById(id);
     return bookmarkEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<List<CommentEntity>> getCommentByPostId(int id) async {
+    final response = await remoteDataSource.getCommentsByPostId(id);
+    await localDatasource
+        .insertComment(commentDtoMapper.fromResponse(response));
+
+    final dbResult = await localDatasource.getAllComment();
+    return commentEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<int> postLike(String postId, String uuid) async {
+    final response = await remoteDataSource.postLike(postId, uuid);
+
+    return response;
   }
 }

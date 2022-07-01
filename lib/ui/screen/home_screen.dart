@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mon_news_app/ui/screen/account/account_screen.dart';
 import 'package:mon_news_app/ui/screen/donate_screen.dart';
 import 'package:mon_news_app/ui/screen/news_screen.dart';
@@ -34,22 +35,22 @@ class _HomePageState extends State<HomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'News',
+            icon: const Icon(Icons.home),
+            label: AppLocalizations.of(context)!.news,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Store Post',
+            icon: const Icon(Icons.business),
+            label: AppLocalizations.of(context)!.story_post,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money),
-            label: 'Donate',
+            icon: const Icon(Icons.money),
+            label: AppLocalizations.of(context)!.donate,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.verified_user_outlined),
-            label: 'Account',
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context)!.setting,
           ),
         ],
         currentIndex: _selectedIndex,

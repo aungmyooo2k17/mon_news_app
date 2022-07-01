@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/local/bookmarks_dao.dart';
+import 'package:mon_news_app/data/local/comments_dao.dart';
 import 'package:mon_news_app/data/local/posts_dao.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -27,6 +28,16 @@ class CategoryDto extends Table {
   TextColumn get name => text()();
   IntColumn get priority => integer()();
   TextColumn get topic => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class CommentDto extends Table {
+  IntColumn get id => integer()();
+  IntColumn get postId => integer()();
+  TextColumn get comment => text()();
+  TextColumn get uuid => text()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -63,8 +74,8 @@ class BookmarkDto extends Table {
 
 @singleton
 @DriftDatabase(
-    tables: [TopicDto, CategoryDto, PostDto, BookmarkDto],
-    daos: [TopicsDao, CategoriesDao, PostsDao, BookmarksDao])
+    tables: [TopicDto, CategoryDto, PostDto, BookmarkDto, CommentDto],
+    daos: [TopicsDao, CategoriesDao, PostsDao, BookmarksDao, CommentsDao])
 class ThanLwinTimesDatabase extends _$ThanLwinTimesDatabase {
   ThanLwinTimesDatabase() : super(_openConnection());
 

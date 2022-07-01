@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/size_constant.dart';
 import '../../../theme/color_theme.dart';
 import '../../../theme/theme_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GeneralSetting extends StatelessWidget {
   const GeneralSetting({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class GeneralSetting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "General",
+          AppLocalizations.of(context)!.general,
           style: ThemeText.blackSubtitle1,
         ),
         const SizedBox(
@@ -23,7 +24,7 @@ class GeneralSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Share feedbacks',
+              AppLocalizations.of(context)!.share_feedback,
               style: ThemeText.blackBodyText2,
             ),
             const Icon(
@@ -44,7 +45,7 @@ class GeneralSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Privacy policy',
+              AppLocalizations.of(context)!.privacy,
               style: ThemeText.blackBodyText2,
             ),
             const Icon(
@@ -65,7 +66,7 @@ class GeneralSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Terms of Use',
+              AppLocalizations.of(context)!.terms_of_use,
               style: ThemeText.blackBodyText2,
             ),
             const Icon(
@@ -86,7 +87,7 @@ class GeneralSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'About us',
+              AppLocalizations.of(context)!.about_us,
               style: ThemeText.blackBodyText2,
             ),
             const Icon(
@@ -107,7 +108,7 @@ class GeneralSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Contact us',
+              AppLocalizations.of(context)!.contact_us,
               style: ThemeText.blackBodyText2,
             ),
             const Icon(

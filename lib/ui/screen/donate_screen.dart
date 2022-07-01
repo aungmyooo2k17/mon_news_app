@@ -6,6 +6,7 @@ import 'package:mon_news_app/ui/screen/donate/crypto_screen.dart';
 import 'package:mon_news_app/ui/screen/news_list_screen.dart';
 import 'package:mon_news_app/ui/screen/story_post_screen.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DonatePage extends StatelessWidget {
   const DonatePage({Key? key}) : super(key: key);
@@ -17,22 +18,22 @@ class DonatePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: MyAppBar(
-            title: "Donate",
+            title: AppLocalizations.of(context)!.donate,
           ),
           backgroundColor: Colors.white,
-          bottom: const TabBar(
+          bottom: TabBar(
             labelColor: AppColor.primaryColor,
             unselectedLabelColor: Colors.black87,
             indicatorColor: AppColor.primaryColor,
             tabs: [
               Tab(
-                text: 'Crypto',
+                text: AppLocalizations.of(context)!.crypto,
               ),
               Tab(
-                text: 'Cards',
+                text: AppLocalizations.of(context)!.cards,
               ),
               Tab(
-                text: 'Ads',
+                text: AppLocalizations.of(context)!.ads,
               ),
             ],
           ),

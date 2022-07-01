@@ -116,7 +116,7 @@ class _LanguageBasedOnUserSelectionState
                 ),
               ),
               Text(
-                AppLocalizations.of(context)!.hello,
+                AppLocalizations.of(context)!.story_post,
                 style: TextStyle(fontSize: 30),
               ),
             ],

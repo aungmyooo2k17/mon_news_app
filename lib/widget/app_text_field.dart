@@ -5,19 +5,20 @@ import '../constants/size_constant.dart';
 import '../theme/theme_text.dart';
 
 class AppTextField extends StatelessWidget {
-  String label;
+  String? label;
   String hint;
 
-  AppTextField({Key? key, required this.label, required this.hint})
-      : super(key: key);
+  AppTextField({Key? key, this.label, required this.hint}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(
-        label,
-        style: ThemeText.textFieldLabel,
-      ),
+      label != null
+          ? Text(
+              label ?? "",
+              style: ThemeText.textFieldLabel,
+            )
+          : Container(),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: SizedBox(

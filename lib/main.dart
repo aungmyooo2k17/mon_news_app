@@ -3,10 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mon_news_app/data/sharepreference/bookmark_preference.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/presentation/provider/category_provider.dart';
+import 'package:mon_news_app/presentation/provider/comment_provider.dart';
+import 'package:mon_news_app/presentation/provider/like_provider.dart';
 import 'package:mon_news_app/presentation/provider/movie_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/splash_screen.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:provider/provider.dart';
 
 import 'data/app_repo.dart';
@@ -21,6 +24,8 @@ Future<void> main() async {
   configureDependencies();
   List<String> bookmarkList = await BookmarkPreference.getBookmark();
   globals.gBookmarkList.addAll(bookmarkList);
+  String? result = await PlatformDeviceId.getDeviceId;
+  globals.deviceId = result ?? "";
 
   runApp(MyApp());
 }
@@ -45,11 +50,16 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<BookmarkProvider>(
           create: (_) => BookmarkProvider(appRepo: getItInstance<AppRepo>()),
-        )
+        ),
+        ChangeNotifierProvider<CommentProvider>(
+          create: (_) => CommentProvider(appRepo: getItInstance<AppRepo>()),
+        ),
+        ChangeNotifierProvider<LikeProvider>(
+          create: (_) => LikeProvider(appRepo: getItInstance<AppRepo>()),
+        ),
       ],
       child: Consumer<AppLocale>(builder: (context, locale, child) {
         return MaterialApp(
-          title: 'Flutter translation',
           localizationsDelegates:
               AppLocalizations.localizationsDelegates, // important
           supportedLocales: AppLocalizations.supportedLocales, //

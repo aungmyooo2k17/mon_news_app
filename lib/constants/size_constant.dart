@@ -19,6 +19,7 @@ class Sizes {
   static const double dimen_42 = 42;
   static const double dimen_44 = 44;
   static const double dimen_48 = 48;
+  static const double dimen_64 = 64;
   static const double dimen_70 = 70;
   static const double dimen_74 = 74;
   static const double dimen_78 = 78;

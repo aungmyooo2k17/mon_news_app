@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/local/bookmarks_dao.dart';
+import 'package:mon_news_app/data/local/comments_dao.dart';
 import 'package:mon_news_app/data/local/posts_dao.dart';
 
 import 'models/thanlwintimes_db.dart';
@@ -21,6 +22,9 @@ abstract class LocalDatasource {
   Future<List<BookmarkDtoData>> getAllBookmark();
   Future<List<BookmarkDtoData>> getAllBookmarkById(int id);
   Future<void> deleteBookmark(int id);
+
+  Future<void> insertComment(List<CommentDtoData> comments);
+  Future<List<CommentDtoData>> getAllComment();
 }
 
 @LazySingleton(as: LocalDatasource)
@@ -29,12 +33,14 @@ class LocalDatasourceImpl implements LocalDatasource {
   final CategoriesDao categoriesDao;
   final PostsDao postsDao;
   final BookmarksDao bookmarksDao;
+  final CommentsDao commentsDao;
 
   LocalDatasourceImpl(
       {required this.topicsDao,
       required this.categoriesDao,
       required this.postsDao,
-      required this.bookmarksDao});
+      required this.bookmarksDao,
+      required this.commentsDao});
 
   @override
   Future<void> insertAllTopics(List<TopicDtoData> topics) async {
@@ -89,5 +95,16 @@ class LocalDatasourceImpl implements LocalDatasource {
   @override
   Future<List<BookmarkDtoData>> getAllBookmarkById(int id) async {
     return await bookmarksDao.fetchAllBookmarkById(id);
+  }
+
+  @override
+  Future<void> insertComment(List<CommentDtoData> comments) async {
+    print("comment lenght${comments.length}");
+    await commentsDao.insertAllComments(comments);
+  }
+
+  @override
+  Future<List<CommentDtoData>> getAllComment() async {
+    return await commentsDao.fetchAllComments();
   }
 }

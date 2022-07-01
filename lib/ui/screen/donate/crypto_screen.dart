@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScanQRPage extends StatelessWidget {
   const ScanQRPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class ScanQRPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Scan QR to donate",
+            AppLocalizations.of(context)!.scan_to_donate,
             style: ThemeText.blackSubtitle1,
           ),
           const SizedBox(

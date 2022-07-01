@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/domain/comment_entity.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/comment_screen/comment_item.dart';
 import 'package:mon_news_app/widget/app_btn.dart';
 import 'package:mon_news_app/widget/app_btn_outline.dart';
 
 class ReportPage extends StatelessWidget {
-  const ReportPage({Key? key}) : super(key: key);
+  final CommentEntity commentEntity;
+  const ReportPage({Key? key, required this.commentEntity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,9 @@ class ReportPage extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              const Card(
+              Card(
                   child: CommentItem(
+                commentEntity: commentEntity,
                 isInReportPage: true,
               )),
               SizedBox(

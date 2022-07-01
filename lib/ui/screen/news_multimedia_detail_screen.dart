@@ -123,7 +123,10 @@ class _NewsMultimediaDetailPageState extends State<NewsMultimediaDetailPage> {
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CommentPage()),
+                        MaterialPageRoute(
+                            builder: (context) => CommentPage(
+                                  postId: widget.postEntity.id,
+                                )),
                       ),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 4,
