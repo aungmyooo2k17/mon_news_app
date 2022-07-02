@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/presentation/model/bookmark_state.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
+import '../../globals.dart' as globals;
 
 class BookMarkPage extends StatefulWidget {
   const BookMarkPage({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<BookmarkProvider>().fetchAllBookmarks();
+      context.read<BookmarkProvider>().fetchBookmarkById(globals.deviceId);
     });
   }
 
@@ -30,28 +32,29 @@ class _BookMarkPageState extends State<BookMarkPage> {
           ),
           backgroundColor: Colors.white,
         ),
-        body: Selector<BookmarkProvider, PostState>(
+        body: Selector<BookmarkProvider, BookmarkState>(
           selector: (_, provider) => provider.postState,
           builder: (context, state, _) {
             return state.whenOrNull(loading: () {
                   return const Center(child: CircularProgressIndicator());
                 }, data: (data) {
                   print(data.length);
-                  return ListView.builder(
-                    itemBuilder: (BuildContext, index) {
-                      return NewsItem(
-                          postEntity: data[index],
-                          category: data[index].category,
-                          title: data[index].title,
-                          credit: "Mizema",
-                          createdAt: "May 7, 2022",
-                          imagUrl: data[index].banner);
-                    },
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(5),
-                    scrollDirection: Axis.vertical,
-                  );
+                  return Text(data.toString());
+                  // return ListView.builder(
+                  //   itemBuilder: (BuildContext, index) {
+                  //     return NewsItem(
+                  //         postEntity: data[index],
+                  //         category: data[index].category,
+                  //         title: data[index].title,
+                  //         credit: "Mizema",
+                  //         createdAt: "May 7, 2022",
+                  //         imagUrl: data[index].banner);
+                  //   },
+                  //   itemCount: data.length,
+                  //   shrinkWrap: true,
+                  //   padding: EdgeInsets.all(5),
+                  //   scrollDirection: Axis.vertical,
+                  // );
                 }, error: (msg) {
                   print("error: $msg");
                   return Center(

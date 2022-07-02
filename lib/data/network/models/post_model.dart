@@ -19,8 +19,8 @@ class PostModel {
       required this.videoUrl,
       required this.audioUrl,
       required this.content,
-      required this.topic,
-      required this.category});
+      this.topic,
+      this.category});
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
@@ -30,8 +30,8 @@ class PostModel {
       videoUrl: json['video_url'],
       audioUrl: json['audio_url'],
       content: json['content'],
-      topic: TopicModel.fromJson(json['topic']),
-      category: CategoryModel.fromJson(json['category']),
+      topic: TopicModel.fromJson(json['topic'] ?? {}),
+      category: CategoryModel.fromJson(json['category'] ?? {}),
     );
   }
 }

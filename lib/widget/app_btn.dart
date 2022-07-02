@@ -3,7 +3,8 @@ import 'package:mon_news_app/theme/color_theme.dart';
 
 class AppBtn extends StatelessWidget {
   String label;
-  AppBtn({Key? key, required this.label}) : super(key: key);
+  VoidCallback? onTap;
+  AppBtn({Key? key, required this.label, this.onTap}) : super(key: key);
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     onPrimary: Colors.white,
     primary: AppColor.primaryColor,
@@ -18,7 +19,7 @@ class AppBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: raisedButtonStyle,
-      onPressed: () {},
+      onPressed: onTap,
       child: Text(label),
     );
   }

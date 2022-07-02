@@ -26,4 +26,17 @@ class CommentProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void postComment(String postId, String comment, String uuid) async {
+    try {
+      _commentState = const CommentState.loading();
+      notifyListeners();
+      await appRepo.postComment(postId, comment, uuid);
+      final result = await appRepo.getCommentByPostId(int.parse(postId));
+      _commentState = CommentState.data(result);
+    } catch (e) {
+      _commentState = CommentState.error(e.toString());
+    }
+    notifyListeners();
+  }
 }

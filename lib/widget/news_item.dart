@@ -154,15 +154,13 @@ class _NewsItemState extends State<NewsItem> {
                   setState(() {
                     if (globals.gBookmarkList
                         .contains(widget.postEntity.id.toString())) {
-                      context
-                          .read<BookmarkProvider>()
-                          .deleteBookmark(widget.postEntity.id);
+                      context.read<BookmarkProvider>().deleteBookmark(
+                          widget.postEntity.id, globals.deviceId);
                       globals.gBookmarkList
                           .remove(widget.postEntity.id.toString());
                     } else {
-                      context
-                          .read<BookmarkProvider>()
-                          .insertBookmark(widget.postEntity);
+                      context.read<BookmarkProvider>().insertBookmark(
+                          widget.postEntity.id.toString(), globals.deviceId);
                       globals.gBookmarkList
                           .add(widget.postEntity.id.toString());
                     }

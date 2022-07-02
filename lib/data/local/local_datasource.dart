@@ -16,15 +16,17 @@ abstract class LocalDatasource {
 
   Future<void> insertAllPosts(List<PostDtoData> topics);
   Future<List<PostDtoData>> getAllPosts();
-  Future<List<PostDtoData>> getAllPostsByTopicId(int topicId);
+  Future<List<PostDtoData>> getAllPostsByTopicId(
+      int topicId, int limit, int offset);
 
   Future<void> insertBookmark(BookmarkDtoData postBookmark);
+  Future<void> insertAllBookmarks(List<BookmarkDtoData> bookmarks);
   Future<List<BookmarkDtoData>> getAllBookmark();
-  Future<List<BookmarkDtoData>> getAllBookmarkById(int id);
+  Future<List<BookmarkDtoData>> getAllBookmarkByUuid(String id);
   Future<void> deleteBookmark(int id);
 
   Future<void> insertComment(List<CommentDtoData> comments);
-  Future<List<CommentDtoData>> getAllComment();
+  Future<List<CommentDtoData>> getCommentByPostId(int postId);
 }
 
 @LazySingleton(as: LocalDatasource)
@@ -73,8 +75,9 @@ class LocalDatasourceImpl implements LocalDatasource {
   }
 
   @override
-  Future<List<PostDtoData>> getAllPostsByTopicId(int topicId) async {
-    return await postsDao.fetchAllPostsByTopicId(topicId);
+  Future<List<PostDtoData>> getAllPostsByTopicId(
+      int topicId, int limit, int offset) async {
+    return await postsDao.fetchAllPostsByTopicId(topicId, limit, offset);
   }
 
   @override
@@ -93,18 +96,22 @@ class LocalDatasourceImpl implements LocalDatasource {
   }
 
   @override
-  Future<List<BookmarkDtoData>> getAllBookmarkById(int id) async {
+  Future<List<BookmarkDtoData>> getAllBookmarkByUuid(String id) async {
     return await bookmarksDao.fetchAllBookmarkById(id);
   }
 
   @override
   Future<void> insertComment(List<CommentDtoData> comments) async {
-    print("comment lenght${comments.length}");
     await commentsDao.insertAllComments(comments);
   }
 
   @override
-  Future<List<CommentDtoData>> getAllComment() async {
-    return await commentsDao.fetchAllComments();
+  Future<List<CommentDtoData>> getCommentByPostId(int postId) async {
+    return await commentsDao.fetchCommentByPostId(postId);
+  }
+
+  @override
+  Future<void> insertAllBookmarks(List<BookmarkDtoData> bookmarks) async {
+    await bookmarksDao.insertAllBookmarks(bookmarks);
   }
 }

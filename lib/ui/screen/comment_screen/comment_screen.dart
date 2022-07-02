@@ -7,6 +7,7 @@ import 'package:mon_news_app/widget/app_btn.dart';
 import 'package:mon_news_app/widget/app_text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../globals.dart' as globals;
 
 class CommentPage extends StatefulWidget {
   final int postId;
@@ -17,6 +18,8 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
+  final TextEditingController _commentController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -45,34 +48,52 @@ class _CommentPageState extends State<CommentPage> {
             return state.whenOrNull(loading: () {
                   return const Center(child: CircularProgressIndicator());
                 }, data: (data) {
-                  return Container(
+                  return SizedBox(
                     height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
                       children: [
-                        ListView.separated(
-                          itemBuilder: (BuildContext, index) {
-                            return CommentItem(
-                              commentEntity: data[index],
-                              isInReportPage: false,
-                            );
-                          },
-                          itemCount: data.length,
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) =>
-                              Divider(height: 1, color: Colors.grey[400]),
-                          padding: const EdgeInsets.all(Sizes.dimen_8),
-                          scrollDirection: Axis.vertical,
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height - 130,
+                          child: ListView.separated(
+                            itemBuilder: (BuildContext, index) {
+                              return CommentItem(
+                                commentEntity: data[index],
+                                isInReportPage: false,
+                              );
+                            },
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) =>
+                                Divider(height: 1, color: Colors.grey[400]),
+                            padding: const EdgeInsets.all(Sizes.dimen_8),
+                            scrollDirection: Axis.vertical,
+                          ),
                         ),
-                        Container(
-                          width: 100,
+                        Positioned(
+                          bottom: -8,
                           child: Row(
                             children: [
-                              Expanded(
-                                child: AppTextField(hint: "Leave"),
-                              ),
-                              AppBtn(
-                                label: "Post",
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width -
+                                      Sizes.dimen_64,
+                                  child: AppTextField(
+                                    hint: "Leave",
+                                    controller: _commentController,
+                                  )),
+                              SizedBox(
+                                width: Sizes.dimen_64,
+                                height: Sizes.dimen_58,
+                                child: AppBtn(
+                                  label: "Post",
+                                  onTap: () => {
+                                    context.read<CommentProvider>().postComment(
+                                        widget.postId.toString(),
+                                        _commentController.text,
+                                        globals.deviceId),
+                                    _commentController.clear()
+                                  },
+                                ),
                               )
                             ],
                           ),

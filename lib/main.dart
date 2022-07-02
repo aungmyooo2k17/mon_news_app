@@ -57,6 +57,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LikeProvider>(
           create: (_) => LikeProvider(appRepo: getItInstance<AppRepo>()),
         ),
+        ChangeNotifierProvider<CommentProvider>(
+          create: (_) => CommentProvider(appRepo: getItInstance<AppRepo>()),
+        ),
       ],
       child: Consumer<AppLocale>(builder: (context, locale, child) {
         return MaterialApp(

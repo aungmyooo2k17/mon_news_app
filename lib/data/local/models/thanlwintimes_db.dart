@@ -60,13 +60,9 @@ class PostDto extends Table {
 
 class BookmarkDto extends Table {
   IntColumn get id => integer()();
-  TextColumn get title => text()();
-  TextColumn get banner => text()();
-  TextColumn get videoUrl => text()();
-  TextColumn get audioUrl => text()();
-  TextColumn get content => text()();
-  TextColumn get topic => text()();
-  TextColumn get category => text()();
+  IntColumn get postId => integer()();
+  TextColumn get uuid => text()();
+  TextColumn get post => text()();
 
   @override
   Set<Column> get primaryKey => {id};

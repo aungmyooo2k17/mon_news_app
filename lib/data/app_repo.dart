@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
 import 'package:mon_news_app/data/mapper/bookmark_entity_mapper.dart';
 import 'package:mon_news_app/data/mapper/category_dto_mapper.dart';
+import 'package:mon_news_app/data/network/models/bookmark_model.dart';
+import 'package:mon_news_app/domain/bookmark_entity.dart';
 import 'package:mon_news_app/domain/comment_entity.dart';
 
 import '../domain/category_entity.dart';
@@ -22,15 +24,16 @@ abstract class AppRepo {
   Future<List<TopicEntity>> getTopics();
   Future<List<CategoryEntity>> getCategories();
   Future<List<PostEntity>> getPosts();
-  Future<List<PostEntity>> getPostsByTopicId(int topicId);
+  Future<List<PostEntity>> getPostsByTopicId(
+      int topicId, int page, int perPage);
 
-  Future<List<PostEntity>> insertBookmark(PostEntity postEntity);
-  Future<List<PostEntity>> getBookmarks();
-  Future<List<PostEntity>> getBookmarksById(int id);
-  Future<List<PostEntity>> deleteBookmark(int id);
+  Future<int> insertBookmark(String postId, String uuid);
+  Future<List<BookmarkEntity>> getBookmarksById(String id);
+  Future<int> deleteBookmark(int id);
 
   Future<List<CommentEntity>> getCommentByPostId(int id);
   Future<int> postLike(String postId, String uuid);
+  Future<int> postComment(String postId, String comment, String uuid);
 }
 
 @LazySingleton(as: AppRepo)
@@ -85,39 +88,46 @@ class AppRepoImpl implements AppRepo {
   }
 
   @override
-  Future<List<PostEntity>> getPostsByTopicId(int topicId) async {
-    final response = await remoteDataSource.getPostsByTopicId(topicId);
+  Future<List<PostEntity>> getPostsByTopicId(
+      int topicId, int page, int perPage) async {
+    final response =
+        await remoteDataSource.getPostsByTopicId(topicId, page, perPage);
     await localDatasource.insertAllPosts(postDtoMapper.fromResponse(response));
 
-    final dbResult = await localDatasource.getAllPostsByTopicId(topicId);
+    final dbResult = await localDatasource.getAllPostsByTopicId(
+        topicId, perPage, (page - 1) * perPage);
     return postEntityMapper.tos(dbResult);
   }
 
   @override
-  Future<List<PostEntity>> insertBookmark(PostEntity postEntity) async {
-    await localDatasource.insertBookmark(bookmarkDtoMapper.from(postEntity));
+  Future<int> insertBookmark(String postId, String uuid) async {
+    final response = await remoteDataSource.postBookmark(postId, uuid);
+    return response;
+  }
 
-    final dbResult = await localDatasource.getAllBookmark();
-    return bookmarkEntityMapper.tos(dbResult);
+  // @override
+  // Future<List<BookmarkEntity>> getBookmarks() async {
+  //   final response = await remoteDataSource.getBookmarks();
+  //   await localDatasource
+  //       .insertAllBookmarks(bookmarkDtoMapper.fromResponse(response));
+
+  //   final dbResult = await localDatasource.getAllBookmark();
+  //   return bookmarkEntityMapper.tos(dbResult);
+  // }
+
+  @override
+  Future<int> deleteBookmark(int id) async {
+    final response = await remoteDataSource.deleteBookmark(id);
+    return response;
   }
 
   @override
-  Future<List<PostEntity>> getBookmarks() async {
-    final dbResult = await localDatasource.getAllBookmark();
-    return bookmarkEntityMapper.tos(dbResult);
-  }
+  Future<List<BookmarkEntity>> getBookmarksById(String id) async {
+    final response = await remoteDataSource.getBookmarks(id);
+    await localDatasource
+        .insertAllBookmarks(bookmarkDtoMapper.fromResponse(response));
 
-  @override
-  Future<List<PostEntity>> deleteBookmark(int id) async {
-    await localDatasource.deleteBookmark(id);
-
-    final dbResult = await localDatasource.getAllBookmark();
-    return bookmarkEntityMapper.tos(dbResult);
-  }
-
-  @override
-  Future<List<PostEntity>> getBookmarksById(int id) async {
-    final dbResult = await localDatasource.getAllBookmarkById(id);
+    final dbResult = await localDatasource.getAllBookmarkByUuid(id);
     return bookmarkEntityMapper.tos(dbResult);
   }
 
@@ -127,13 +137,20 @@ class AppRepoImpl implements AppRepo {
     await localDatasource
         .insertComment(commentDtoMapper.fromResponse(response));
 
-    final dbResult = await localDatasource.getAllComment();
+    final dbResult = await localDatasource.getCommentByPostId(id);
     return commentEntityMapper.tos(dbResult);
   }
 
   @override
   Future<int> postLike(String postId, String uuid) async {
     final response = await remoteDataSource.postLike(postId, uuid);
+
+    return response;
+  }
+
+  @override
+  Future<int> postComment(String postId, String comment, String uuid) async {
+    final response = await remoteDataSource.postComment(postId, comment, uuid);
 
     return response;
   }

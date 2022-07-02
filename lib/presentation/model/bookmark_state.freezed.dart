@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'comment_state.dart';
+part of 'bookmark_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,8 +15,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$CommentStateTearOff {
-  const _$CommentStateTearOff();
+class _$BookmarkStateTearOff {
+  const _$BookmarkStateTearOff();
 
   InitialState initial() {
     return const InitialState();
@@ -26,15 +26,9 @@ class _$CommentStateTearOff {
     return const LoadingState();
   }
 
-  DataState data(List<CommentEntity> entities) {
+  DataState data(List<BookmarkEntity> entities) {
     return DataState(
       entities,
-    );
-  }
-
-  CommentedDataState commentedData(int response) {
-    return CommentedDataState(
-      response,
     );
   }
 
@@ -46,16 +40,15 @@ class _$CommentStateTearOff {
 }
 
 /// @nodoc
-const $CommentState = _$CommentStateTearOff();
+const $BookmarkState = _$BookmarkStateTearOff();
 
 /// @nodoc
-mixin _$CommentState {
+mixin _$BookmarkState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
+    required TResult Function(List<BookmarkEntity> entities) data,
     required TResult Function(String? message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,8 +56,7 @@ mixin _$CommentState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,8 +64,7 @@ mixin _$CommentState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) =>
@@ -83,7 +74,6 @@ mixin _$CommentState {
     required TResult Function(InitialState value) initial,
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
     required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -92,7 +82,6 @@ mixin _$CommentState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -101,7 +90,6 @@ mixin _$CommentState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) =>
@@ -109,19 +97,20 @@ mixin _$CommentState {
 }
 
 /// @nodoc
-abstract class $CommentStateCopyWith<$Res> {
-  factory $CommentStateCopyWith(
-          CommentState value, $Res Function(CommentState) then) =
-      _$CommentStateCopyWithImpl<$Res>;
+abstract class $BookmarkStateCopyWith<$Res> {
+  factory $BookmarkStateCopyWith(
+          BookmarkState value, $Res Function(BookmarkState) then) =
+      _$BookmarkStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$CommentStateCopyWithImpl<$Res> implements $CommentStateCopyWith<$Res> {
-  _$CommentStateCopyWithImpl(this._value, this._then);
+class _$BookmarkStateCopyWithImpl<$Res>
+    implements $BookmarkStateCopyWith<$Res> {
+  _$BookmarkStateCopyWithImpl(this._value, this._then);
 
-  final CommentState _value;
+  final BookmarkState _value;
   // ignore: unused_field
-  final $Res Function(CommentState) _then;
+  final $Res Function(BookmarkState) _then;
 }
 
 /// @nodoc
@@ -132,7 +121,7 @@ abstract class $InitialStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InitialStateCopyWithImpl<$Res> extends _$CommentStateCopyWithImpl<$Res>
+class _$InitialStateCopyWithImpl<$Res> extends _$BookmarkStateCopyWithImpl<$Res>
     implements $InitialStateCopyWith<$Res> {
   _$InitialStateCopyWithImpl(
       InitialState _value, $Res Function(InitialState) _then)
@@ -149,7 +138,7 @@ class _$InitialState implements InitialState {
 
   @override
   String toString() {
-    return 'CommentState.initial()';
+    return 'BookmarkState.initial()';
   }
 
   @override
@@ -166,8 +155,7 @@ class _$InitialState implements InitialState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
+    required TResult Function(List<BookmarkEntity> entities) data,
     required TResult Function(String? message) error,
   }) {
     return initial();
@@ -178,8 +166,7 @@ class _$InitialState implements InitialState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
   }) {
     return initial?.call();
@@ -190,8 +177,7 @@ class _$InitialState implements InitialState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -207,7 +193,6 @@ class _$InitialState implements InitialState {
     required TResult Function(InitialState value) initial,
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
     required TResult Function(ErrorState value) error,
   }) {
     return initial(this);
@@ -219,7 +204,6 @@ class _$InitialState implements InitialState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
   }) {
     return initial?.call(this);
@@ -231,7 +215,6 @@ class _$InitialState implements InitialState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -242,7 +225,7 @@ class _$InitialState implements InitialState {
   }
 }
 
-abstract class InitialState implements CommentState {
+abstract class InitialState implements BookmarkState {
   const factory InitialState() = _$InitialState;
 }
 
@@ -254,7 +237,7 @@ abstract class $LoadingStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LoadingStateCopyWithImpl<$Res> extends _$CommentStateCopyWithImpl<$Res>
+class _$LoadingStateCopyWithImpl<$Res> extends _$BookmarkStateCopyWithImpl<$Res>
     implements $LoadingStateCopyWith<$Res> {
   _$LoadingStateCopyWithImpl(
       LoadingState _value, $Res Function(LoadingState) _then)
@@ -271,7 +254,7 @@ class _$LoadingState implements LoadingState {
 
   @override
   String toString() {
-    return 'CommentState.loading()';
+    return 'BookmarkState.loading()';
   }
 
   @override
@@ -288,8 +271,7 @@ class _$LoadingState implements LoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
+    required TResult Function(List<BookmarkEntity> entities) data,
     required TResult Function(String? message) error,
   }) {
     return loading();
@@ -300,8 +282,7 @@ class _$LoadingState implements LoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
   }) {
     return loading?.call();
@@ -312,8 +293,7 @@ class _$LoadingState implements LoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -329,7 +309,6 @@ class _$LoadingState implements LoadingState {
     required TResult Function(InitialState value) initial,
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
     required TResult Function(ErrorState value) error,
   }) {
     return loading(this);
@@ -341,7 +320,6 @@ class _$LoadingState implements LoadingState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
   }) {
     return loading?.call(this);
@@ -353,7 +331,6 @@ class _$LoadingState implements LoadingState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -364,7 +341,7 @@ class _$LoadingState implements LoadingState {
   }
 }
 
-abstract class LoadingState implements CommentState {
+abstract class LoadingState implements BookmarkState {
   const factory LoadingState() = _$LoadingState;
 }
 
@@ -372,11 +349,11 @@ abstract class LoadingState implements CommentState {
 abstract class $DataStateCopyWith<$Res> {
   factory $DataStateCopyWith(DataState value, $Res Function(DataState) then) =
       _$DataStateCopyWithImpl<$Res>;
-  $Res call({List<CommentEntity> entities});
+  $Res call({List<BookmarkEntity> entities});
 }
 
 /// @nodoc
-class _$DataStateCopyWithImpl<$Res> extends _$CommentStateCopyWithImpl<$Res>
+class _$DataStateCopyWithImpl<$Res> extends _$BookmarkStateCopyWithImpl<$Res>
     implements $DataStateCopyWith<$Res> {
   _$DataStateCopyWithImpl(DataState _value, $Res Function(DataState) _then)
       : super(_value, (v) => _then(v as DataState));
@@ -392,7 +369,7 @@ class _$DataStateCopyWithImpl<$Res> extends _$CommentStateCopyWithImpl<$Res>
       entities == freezed
           ? _value.entities
           : entities // ignore: cast_nullable_to_non_nullable
-              as List<CommentEntity>,
+              as List<BookmarkEntity>,
     ));
   }
 }
@@ -403,11 +380,11 @@ class _$DataState implements DataState {
   const _$DataState(this.entities);
 
   @override
-  final List<CommentEntity> entities;
+  final List<BookmarkEntity> entities;
 
   @override
   String toString() {
-    return 'CommentState.data(entities: $entities)';
+    return 'BookmarkState.data(entities: $entities)';
   }
 
   @override
@@ -432,8 +409,7 @@ class _$DataState implements DataState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
+    required TResult Function(List<BookmarkEntity> entities) data,
     required TResult Function(String? message) error,
   }) {
     return data(entities);
@@ -444,8 +420,7 @@ class _$DataState implements DataState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
   }) {
     return data?.call(entities);
@@ -456,8 +431,7 @@ class _$DataState implements DataState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -473,7 +447,6 @@ class _$DataState implements DataState {
     required TResult Function(InitialState value) initial,
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
     required TResult Function(ErrorState value) error,
   }) {
     return data(this);
@@ -485,7 +458,6 @@ class _$DataState implements DataState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
   }) {
     return data?.call(this);
@@ -497,7 +469,6 @@ class _$DataState implements DataState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -508,164 +479,12 @@ class _$DataState implements DataState {
   }
 }
 
-abstract class DataState implements CommentState {
-  const factory DataState(List<CommentEntity> entities) = _$DataState;
+abstract class DataState implements BookmarkState {
+  const factory DataState(List<BookmarkEntity> entities) = _$DataState;
 
-  List<CommentEntity> get entities;
+  List<BookmarkEntity> get entities;
   @JsonKey(ignore: true)
   $DataStateCopyWith<DataState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CommentedDataStateCopyWith<$Res> {
-  factory $CommentedDataStateCopyWith(
-          CommentedDataState value, $Res Function(CommentedDataState) then) =
-      _$CommentedDataStateCopyWithImpl<$Res>;
-  $Res call({int response});
-}
-
-/// @nodoc
-class _$CommentedDataStateCopyWithImpl<$Res>
-    extends _$CommentStateCopyWithImpl<$Res>
-    implements $CommentedDataStateCopyWith<$Res> {
-  _$CommentedDataStateCopyWithImpl(
-      CommentedDataState _value, $Res Function(CommentedDataState) _then)
-      : super(_value, (v) => _then(v as CommentedDataState));
-
-  @override
-  CommentedDataState get _value => super._value as CommentedDataState;
-
-  @override
-  $Res call({
-    Object? response = freezed,
-  }) {
-    return _then(CommentedDataState(
-      response == freezed
-          ? _value.response
-          : response // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CommentedDataState implements CommentedDataState {
-  const _$CommentedDataState(this.response);
-
-  @override
-  final int response;
-
-  @override
-  String toString() {
-    return 'CommentState.commentedData(response: $response)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CommentedDataState &&
-            const DeepCollectionEquality().equals(other.response, response));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
-
-  @JsonKey(ignore: true)
-  @override
-  $CommentedDataStateCopyWith<CommentedDataState> get copyWith =>
-      _$CommentedDataStateCopyWithImpl<CommentedDataState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
-    required TResult Function(String? message) error,
-  }) {
-    return commentedData(response);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
-    TResult Function(String? message)? error,
-  }) {
-    return commentedData?.call(response);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (commentedData != null) {
-      return commentedData(response);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitialState value) initial,
-    required TResult Function(LoadingState value) loading,
-    required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
-    required TResult Function(ErrorState value) error,
-  }) {
-    return commentedData(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
-    TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
-    TResult Function(ErrorState value)? error,
-  }) {
-    return commentedData?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitialState value)? initial,
-    TResult Function(LoadingState value)? loading,
-    TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
-    TResult Function(ErrorState value)? error,
-    required TResult orElse(),
-  }) {
-    if (commentedData != null) {
-      return commentedData(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CommentedDataState implements CommentState {
-  const factory CommentedDataState(int response) = _$CommentedDataState;
-
-  int get response;
-  @JsonKey(ignore: true)
-  $CommentedDataStateCopyWith<CommentedDataState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -678,7 +497,7 @@ abstract class $ErrorStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ErrorStateCopyWithImpl<$Res> extends _$CommentStateCopyWithImpl<$Res>
+class _$ErrorStateCopyWithImpl<$Res> extends _$BookmarkStateCopyWithImpl<$Res>
     implements $ErrorStateCopyWith<$Res> {
   _$ErrorStateCopyWithImpl(ErrorState _value, $Res Function(ErrorState) _then)
       : super(_value, (v) => _then(v as ErrorState));
@@ -709,7 +528,7 @@ class _$ErrorState implements ErrorState {
 
   @override
   String toString() {
-    return 'CommentState.error(message: $message)';
+    return 'BookmarkState.error(message: $message)';
   }
 
   @override
@@ -734,8 +553,7 @@ class _$ErrorState implements ErrorState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<CommentEntity> entities) data,
-    required TResult Function(int response) commentedData,
+    required TResult Function(List<BookmarkEntity> entities) data,
     required TResult Function(String? message) error,
   }) {
     return error(message);
@@ -746,8 +564,7 @@ class _$ErrorState implements ErrorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
   }) {
     return error?.call(message);
@@ -758,8 +575,7 @@ class _$ErrorState implements ErrorState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<CommentEntity> entities)? data,
-    TResult Function(int response)? commentedData,
+    TResult Function(List<BookmarkEntity> entities)? data,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -775,7 +591,6 @@ class _$ErrorState implements ErrorState {
     required TResult Function(InitialState value) initial,
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
-    required TResult Function(CommentedDataState value) commentedData,
     required TResult Function(ErrorState value) error,
   }) {
     return error(this);
@@ -787,7 +602,6 @@ class _$ErrorState implements ErrorState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
   }) {
     return error?.call(this);
@@ -799,7 +613,6 @@ class _$ErrorState implements ErrorState {
     TResult Function(InitialState value)? initial,
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
-    TResult Function(CommentedDataState value)? commentedData,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -810,7 +623,7 @@ class _$ErrorState implements ErrorState {
   }
 }
 
-abstract class ErrorState implements CommentState {
+abstract class ErrorState implements BookmarkState {
   const factory ErrorState(String? message) = _$ErrorState;
 
   String? get message;

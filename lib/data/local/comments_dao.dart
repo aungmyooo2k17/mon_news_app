@@ -13,6 +13,10 @@ class CommentsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
   CommentsDao(this.db) : super(db);
 
   Future<List<CommentDtoData>> fetchAllComments() => select(commentDto).get();
+  Future<List<CommentDtoData>> fetchCommentByPostId(int postId) {
+    return (select(commentDto)..where((tbl) => tbl.postId.equals(postId)))
+        .get();
+  }
 
   Future<void> insertAllComments(List<CommentDtoData> comments) async {
     await batch((batch) => {

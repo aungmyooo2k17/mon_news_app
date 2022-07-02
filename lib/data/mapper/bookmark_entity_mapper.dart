@@ -1,21 +1,13 @@
-import 'package:mon_news_app/domain/post_entity.dart';
+import 'package:mon_news_app/domain/bookmark_entity.dart';
 import '../local/models/thanlwintimes_db.dart';
 
 class BookmarkEntityMapper {
-  List<PostEntity> tos(List<BookmarkDtoData> dtos) {
+  List<BookmarkEntity> tos(List<BookmarkDtoData> dtos) {
     return dtos.map((e) => to(e)).toList();
   }
 
-  PostEntity to(BookmarkDtoData dto) {
-    return PostEntity(
-      id: dto.id,
-      title: dto.title,
-      videoUrl: dto.videoUrl,
-      content: dto.content,
-      topic: dto.topic,
-      banner: dto.banner,
-      category: dto.category,
-      audioUrl: dto.audioUrl,
-    );
+  BookmarkEntity to(BookmarkDtoData dto) {
+    return BookmarkEntity(
+        id: dto.id, postId: dto.postId, uuid: dto.uuid, post: dto.post);
   }
 }

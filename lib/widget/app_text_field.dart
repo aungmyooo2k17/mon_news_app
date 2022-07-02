@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/string_constant.dart';
+import 'package:mon_news_app/theme/color_theme.dart';
 
 import '../constants/size_constant.dart';
 import '../theme/theme_text.dart';
@@ -7,8 +8,11 @@ import '../theme/theme_text.dart';
 class AppTextField extends StatelessWidget {
   String? label;
   String hint;
+  TextEditingController controller;
 
-  AppTextField({Key? key, this.label, required this.hint}) : super(key: key);
+  AppTextField(
+      {Key? key, this.label, required this.hint, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +25,17 @@ class AppTextField extends StatelessWidget {
           : Container(),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: SizedBox(
-          height: Sizes.dimen_40,
-          child: TextField(
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
+        child: TextField(
+          controller: controller,
+          style: const TextStyle(height: 0, color: Colors.black87),
+          decoration: InputDecoration(
               hintText: hint,
-            ),
-          ),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: BorderSide.none,
+              )),
         ),
       )
     ]);

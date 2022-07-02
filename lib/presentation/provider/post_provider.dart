@@ -26,11 +26,22 @@ class PostProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void fetchPostsByTopicIdWithPagination(
+      int topicId, int page, int perPage) async {
+    try {
+      final result = await appRepo.getPostsByTopicId(topicId, page, perPage);
+      _postState = PostState.data(result);
+    } catch (e) {
+      _postState = PostState.error(e.toString());
+    }
+    notifyListeners();
+  }
+
   void fetchPostsByTopicId(int topicId) async {
     try {
       _postState = const PostState.loading();
       notifyListeners();
-      final result = await appRepo.getPostsByTopicId(topicId);
+      final result = await appRepo.getPostsByTopicId(topicId, 1, 5);
       _postState = PostState.data(result);
     } catch (e) {
       _postState = PostState.error(e.toString());
