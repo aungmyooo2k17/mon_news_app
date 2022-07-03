@@ -29,7 +29,8 @@ class PostEntityMapper {
             ?.bookmarkId);
   }
 
-  PostEntity toDetail(PostDtoData dto, List<BookmarkDtoData> bookmarkDtos) {
+  PostEntity toDetail(
+      PostDtoData dto, List<BookmarkDtoData> bookmarkDtos, int likeResponse) {
     return PostEntity(
         id: dto.id,
         title: dto.title,
@@ -49,6 +50,8 @@ class PostEntityMapper {
             ?.bookmarkId,
         views: dto.views,
         likes: dto.likes,
-        comments: dto.comments);
+        comments: dto.comments,
+        isliked: likeResponse == 0 ? false : true,
+        likeId: likeResponse);
   }
 }

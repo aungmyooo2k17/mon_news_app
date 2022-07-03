@@ -11,15 +11,21 @@ class LikeProvider with ChangeNotifier {
 
   LikeProvider({required this.appRepo});
 
-  void postLike(String postId, String uuid) async {
+  Future<int> postLike(String postId, String uuid) async {
     try {
-      _likeState = const LikeState.loading();
-      notifyListeners();
       final result = await appRepo.postLike(postId, uuid);
-      _likeState = LikeState.data(result);
+      return result;
     } catch (e) {
-      _likeState = LikeState.error(e.toString());
+      throw Exception(e);
     }
-    notifyListeners();
+  }
+
+  Future<int> deleteLike(int likeId) async {
+    try {
+      final result = await appRepo.deleteLike(likeId);
+      return result;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

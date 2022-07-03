@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/network/api_service.dart';
 import 'package:mon_news_app/data/network/models/bookmark_model.dart';
@@ -21,6 +22,8 @@ abstract class RemoteDataSource {
   Future<List<PostModel>> getPostsByTopicId(int topicId, int page, int perPage);
   Future<List<CommentModel>> getCommentsByPostId(int postId);
   Future<int> postLike(String postId, String uuid);
+  Future<int> deleteLike(int likeId);
+  Future<int> getLikes(int postId, String uuid);
   Future<int> postComment(String postId, String comment, String uuid);
 
   Future<List<BookmarkModel>> getBookmarks(String uuid);
@@ -93,7 +96,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .post(path: 'like', body: {"post_id": postId, "uuid": uuid});
 
     if (response != null) {
-      return 1;
+      return response["id"];
     }
 
     return 0;
@@ -114,8 +117,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<BookmarkModel>> getBookmarks(String uuid) async {
-    final response = await apiClient.get('bookmark',
-        params: {"search": "uuid:equal:$uuid", "page": 1, "rows": 100});
+    final response =
+        await apiClient.get('bookmark', params: {"search": "uuid:equal:$uuid"});
 
     final bookmarks = BookmarksResultModel.fromJson(response).bookmarks;
 
@@ -154,5 +157,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     final post = PostModel.fromJsonDetail(response);
 
     return post;
+  }
+
+  @override
+  Future<int> getLikes(int postId, String uuid) async {
+    final response = await apiClient.get('like',
+        params: {"search": "uuid:equal:$uuid|post_id:requal:$postId"});
+
+    List resp = response as List;
+    if (resp.isEmpty) {
+      return 0;
+    }
+
+    return response[0]["id"];
+  }
+
+  @override
+  Future<int> deleteLike(int likeId) async {
+    final response = await apiClient.delete(
+      path: 'like/$likeId',
+    );
+
+    if (response["code"] != 204) {
+      return 1;
+    }
+
+    return 0;
   }
 }

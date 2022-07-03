@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
+import 'package:mon_news_app/presentation/model/post_detail_state.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/like_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_detail_provider.dart';
@@ -38,7 +39,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
-      body: Selector<PostDetailProvider, PostState>(
+      body: Selector<PostDetailProvider, PostDetailState>(
         shouldRebuild: (previous, next) => true,
         selector: (_, provider) => provider.postState,
         builder: (context, state, _) {
@@ -130,10 +131,27 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () => context
-                                    .read<LikeProvider>()
-                                    .postLike(widget.postEntity.id.toString(),
-                                        globals.deviceId),
+                                onTap: () async {
+                                  if (data.isliked!) {
+                                    int likeId = await context
+                                        .read<LikeProvider>()
+                                        .deleteLike(data.likeId!);
+
+                                    context
+                                        .read<PostDetailProvider>()
+                                        .removeLike(likeId);
+                                  } else {
+                                    int likeId = await context
+                                        .read<LikeProvider>()
+                                        .postLike(
+                                            widget.postEntity.id.toString(),
+                                            globals.deviceId);
+
+                                    context
+                                        .read<PostDetailProvider>()
+                                        .addLike(likeId);
+                                  }
+                                },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: ElevatedButton.icon(
@@ -143,10 +161,15 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                                               Colors.white),
                                     ),
                                     onPressed: null,
-                                    icon: Icon(
-                                      Icons.thumb_up,
-                                      color: Colors.grey.shade800,
-                                    ),
+                                    icon: data.isliked!
+                                        ? const Icon(
+                                            Icons.thumb_up,
+                                            color: Colors.blue,
+                                          )
+                                        : Icon(
+                                            Icons.thumb_up,
+                                            color: Colors.grey.shade800,
+                                          ),
                                     label: Text(
                                       data.likes.toString(),
                                       style: ThemeText.blackBodyText2,

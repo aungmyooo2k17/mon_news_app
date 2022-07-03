@@ -35,6 +35,7 @@ abstract class AppRepo {
 
   Future<List<CommentEntity>> getCommentByPostId(int id);
   Future<int> postLike(String postId, String uuid);
+  Future<int> deleteLike(int likeId);
   Future<int> postComment(String postId, String comment, String uuid);
 }
 
@@ -165,6 +166,16 @@ class AppRepoImpl implements AppRepo {
 
     final bookmarkResult = await localDatasource.getAllBookmark();
 
-    return postEntityMapper.toDetail(dbResult, bookmarkResult);
+    final likeResponse =
+        await remoteDataSource.getLikes(postId, globals.deviceId);
+
+    return postEntityMapper.toDetail(dbResult, bookmarkResult, likeResponse);
+  }
+
+  @override
+  Future<int> deleteLike(int likeId) async {
+    final response = await remoteDataSource.deleteLike(likeId);
+
+    return response;
   }
 }
