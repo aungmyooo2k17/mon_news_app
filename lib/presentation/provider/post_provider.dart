@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mon_news_app/domain/post_entity.dart';
 
 import '../../data/app_repo.dart';
 import '../model/category_state.dart';
 import '../model/post_state.dart';
-import '../model/topic_state.dart';
 
 class PostProvider with ChangeNotifier {
   final AppRepo appRepo;
@@ -13,6 +13,11 @@ class PostProvider with ChangeNotifier {
   PostState get postState => _postState;
 
   PostProvider({required this.appRepo});
+
+  int _currentPage = 1;
+  List<PostEntity> _postList = [];
+  bool _isCallProcessing = false;
+  bool _isItemEmpty = false;
 
   void fetchAllPosts() async {
     try {
@@ -26,11 +31,18 @@ class PostProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchPostsByTopicIdWithPagination(
-      int topicId, int page, int perPage) async {
+  void fetchPostsByTopicIdWithPagination(int topicId) async {
     try {
-      final result = await appRepo.getPostsByTopicId(topicId, page, perPage);
-      _postState = PostState.data(result);
+      if (_isCallProcessing || _isItemEmpty) {
+        return;
+      }
+      _currentPage++;
+      _isCallProcessing = true;
+      final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
+      _isCallProcessing = false;
+     _isItemEmpty = result.length < 5;
+      _postList.addAll(result);
+      _postState = PostState.data(_postList);
     } catch (e) {
       _postState = PostState.error(e.toString());
     }
@@ -39,13 +51,26 @@ class PostProvider with ChangeNotifier {
 
   void fetchPostsByTopicId(int topicId) async {
     try {
+
       _postState = const PostState.loading();
       notifyListeners();
-      final result = await appRepo.getPostsByTopicId(topicId, 1, 5);
-      _postState = PostState.data(result);
+      _isCallProcessing = true;
+
+      final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
+      _isCallProcessing = false;
+      _postList.addAll(result);
+
+      _postState = PostState.data(_postList);
     } catch (e) {
       _postState = PostState.error(e.toString());
     }
     notifyListeners();
+  }
+
+  void resetData(){
+    _isCallProcessing = false;
+    _currentPage = 0;
+    _isItemEmpty = false;
+    _postList=[];
   }
 }

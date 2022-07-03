@@ -151,6 +151,7 @@ class _NewsItemState extends State<NewsItem> {
               right: Sizes.dimen_14,
               child: IconButton(
                 onPressed: () {
+                  //TODO : Don't use setstate() whenever possible, Add variables in provider
                   setState(() {
                     if (globals.gBookmarkList
                         .contains(widget.postEntity.id.toString())) {

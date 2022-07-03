@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
@@ -94,8 +95,8 @@ class AppRepoImpl implements AppRepo {
         await remoteDataSource.getPostsByTopicId(topicId, page, perPage);
     await localDatasource.insertAllPosts(postDtoMapper.fromResponse(response));
 
-    final dbResult = await localDatasource.getAllPostsByTopicId(
-        topicId, perPage, (page - 1) * perPage);
+    final dbResult = await localDatasource.getAllPostsByTopicId(topicId, perPage, (page-1) * perPage);
+
     return postEntityMapper.tos(dbResult);
   }
 

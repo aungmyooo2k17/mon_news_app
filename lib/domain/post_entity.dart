@@ -1,4 +1,5 @@
-class PostEntity {
+
+class PostEntity{
   final int id;
   final String title;
   final String banner;
@@ -8,7 +9,7 @@ class PostEntity {
   final String topic;
   final String category;
 
-  PostEntity(
+  const PostEntity(
       {required this.id,
       required this.title,
       required this.banner,

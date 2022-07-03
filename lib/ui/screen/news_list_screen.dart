@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
-import 'package:mon_news_app/presentation/model/topic_state.dart';
-import 'package:mon_news_app/presentation/provider/movie_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
-import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
 
-import '../../presentation/provider/category_provider.dart';
 
 class NewsListPage extends StatefulWidget {
   final int topicId;
@@ -19,40 +15,49 @@ class NewsListPage extends StatefulWidget {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
-  int currentPage = 1;
+  
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(invokeOnScrollEnd);
     WidgetsBinding.instance.scheduleFrameCallback((_) {
       context.read<PostProvider>().fetchPostsByTopicId(widget.topicId);
     });
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    context.read<PostProvider>().resetData();
+
+    super.dispose();
+    
+  }
+
+  void invokeOnScrollEnd(){
+    if(_scrollController.position.pixels >= _scrollController.position.maxScrollExtent){
+      context.read<PostProvider>().fetchPostsByTopicIdWithPagination(widget.topicId);
+      }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener(
-        onNotification: (ScrollNotification scrollInfo) {
-          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-            print("onLoadMore()");
-            currentPage = currentPage + 5;
-            WidgetsBinding.instance.scheduleFrameCallback((_) {
-              context.read<PostProvider>().fetchPostsByTopicIdWithPagination(
-                  widget.topicId, currentPage, 5);
-            });
-          }
-          return true;
-        },
-        child: Selector<PostProvider, PostState>(
+      body:  
+        Selector<PostProvider, PostState>(
+          shouldRebuild: (previous, next) => true,
           selector: (_, provider) => provider.postState,
           builder: (context, state, _) {
             return state.whenOrNull(loading: () {
                   return const Center(child: CircularProgressIndicator());
                 }, data: (data) {
-                  print(data.length);
                   return ListView.builder(
+                    controller: _scrollController,
                     itemBuilder: (buildContext, index) {
+                      //TODO : Pass whole object instead of passing separately
                       return NewsItem(
                           postEntity: data[index],
                           category: data[index].category,
@@ -63,7 +68,7 @@ class _NewsListPageState extends State<NewsListPage> {
                     },
                     itemCount: data.length,
                     shrinkWrap: true,
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     scrollDirection: Axis.vertical,
                   );
                 }, error: (msg) {
@@ -75,22 +80,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 const Text('this');
           },
         ),
-      ),
-    );
-    // return ListView.builder(
-    //   itemBuilder: (BuildContext, index) {
-    //     return NewsItem(
-    //         category: 'hi',
-    //         title:
-    //             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus at quam et elit pretium egestas venenatis tellus.",
-    //         credit: "Mizema",
-    //         createdAt: "May 7, 2022",
-    //         imagUrl: "assets/images/news.png");
-    //   },
-    //   itemCount: 7,
-    //   shrinkWrap: true,
-    //   padding: EdgeInsets.all(5),
-    //   scrollDirection: Axis.vertical,
-    // );
+      );
+  
   }
 }
