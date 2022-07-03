@@ -75,6 +75,7 @@ class ApiClient {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
+      print(response.reasonPhrase);
       throw Exception(response.reasonPhrase);
     }
   }

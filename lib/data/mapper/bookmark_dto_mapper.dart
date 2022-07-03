@@ -1,8 +1,5 @@
-import 'package:flutter/rendering.dart';
 import 'package:mon_news_app/data/local/models/thanlwintimes_db.dart';
 import 'package:mon_news_app/data/network/models/bookmark_model.dart';
-import 'package:mon_news_app/domain/bookmark_entity.dart';
-import 'package:mon_news_app/domain/post_entity.dart';
 
 class BookmarkDtoMapper {
   List<BookmarkDtoData> fromResponse(List<BookmarkModel> models) {
@@ -13,7 +10,15 @@ class BookmarkDtoMapper {
     return BookmarkDtoData(
         id: model.id,
         postId: model.postId,
-        post: model.postModel.title ?? "",
-        uuid: model.uuid);
+        uuid: model.uuid,
+        audioUrl: model.postModel.audioUrl ?? "",
+        videoUrl: model.postModel.videoUrl ?? "",
+        banner: model.postModel.banner!.url,
+        category: model.postModel.category!.name,
+        content: model.postModel.content ?? "",
+        title: model.postModel.title ?? "",
+        topic: model.postModel.topic!.name ?? "",
+        topicId: model.postModel.topic!.id!,
+        bookmarkId: model.id);
   }
 }

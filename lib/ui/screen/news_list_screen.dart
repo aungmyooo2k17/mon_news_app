@@ -4,7 +4,6 @@ import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
 
-
 class NewsListPage extends StatefulWidget {
   final int topicId;
 
@@ -15,7 +14,6 @@ class NewsListPage extends StatefulWidget {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
-  
   late ScrollController _scrollController;
 
   @override
@@ -31,56 +29,56 @@ class _NewsListPageState extends State<NewsListPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    context.read<PostProvider>().resetData();
 
     super.dispose();
-    
   }
 
-  void invokeOnScrollEnd(){
-    if(_scrollController.position.pixels >= _scrollController.position.maxScrollExtent){
-      context.read<PostProvider>().fetchPostsByTopicIdWithPagination(widget.topicId);
-      }
+  void invokeOnScrollEnd() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent) {
+      context
+          .read<PostProvider>()
+          .fetchPostsByTopicIdWithPagination(widget.topicId);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  
-        Selector<PostProvider, PostState>(
-          shouldRebuild: (previous, next) => true,
-          selector: (_, provider) => provider.postState,
-          builder: (context, state, _) {
-            return state.whenOrNull(loading: () {
-                  return const Center(child: CircularProgressIndicator());
-                }, data: (data) {
-                  return ListView.builder(
-                    controller: _scrollController,
-                    itemBuilder: (buildContext, index) {
-                      //TODO : Pass whole object instead of passing separately
-                      return NewsItem(
-                          postEntity: data[index],
-                          category: data[index].category,
-                          title: data[index].title,
-                          credit: "Mizema",
-                          createdAt: "May 7, 2022",
-                          imagUrl: data[index].banner);
-                    },
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(5),
-                    scrollDirection: Axis.vertical,
-                  );
-                }, error: (msg) {
-                  print("error: $msg");
-                  return Center(
-                    child: Text(msg.toString()),
-                  );
-                }) ??
-                const Text('this');
-          },
-        ),
-      );
-  
+      body: Selector<PostProvider, PostState>(
+        shouldRebuild: (previous, next) => true,
+        selector: (_, provider) => provider.postState,
+        builder: (context, state, _) {
+          return state.whenOrNull(loading: () {
+                return const Center(child: CircularProgressIndicator());
+              }, data: (data) {
+                debugPrint(data.length.toString());
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemBuilder: (buildContext, index) {
+                    //TODO : Pass whole object instead of passing separately
+                    return NewsItem(
+                        postEntity: data[index],
+                        category: data[index].category,
+                        title: data[index].title,
+                        credit: "Mizema",
+                        createdAt: "May 7, 2022",
+                        imagUrl: data[index].banner);
+                  },
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5),
+                  scrollDirection: Axis.vertical,
+                );
+              }, error: (msg) {
+                print("error: $msg");
+                return Center(
+                  child: Text(msg.toString()),
+                );
+              }) ??
+              const Text('this');
+        },
+      ),
+    );
   }
 }

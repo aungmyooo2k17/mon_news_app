@@ -12,11 +12,11 @@ class BookmarkProvider with ChangeNotifier {
 
   BookmarkProvider({required this.appRepo});
 
-  void fetchBookmarkById(String uuid) async {
+  void fetchBookmark() async {
     try {
       _postState = const BookmarkState.loading();
       notifyListeners();
-      final result = await appRepo.getBookmarksById(uuid);
+      final result = await appRepo.getBookmarks();
       _postState = BookmarkState.data(result);
     } catch (e) {
       _postState = BookmarkState.error(e.toString());
@@ -24,15 +24,11 @@ class BookmarkProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void insertBookmark(String postId, String uuid) async {
+  Future<int> insertBookmark(String postId, String uuid) async {
     try {
-      _postState = const BookmarkState.loading();
-      notifyListeners();
-      await appRepo.insertBookmark(postId, uuid);
-      final result = await appRepo.getBookmarksById(uuid);
-      _postState = BookmarkState.data(result);
+      return await appRepo.insertBookmark(postId, uuid);
     } catch (e) {
-      _postState = BookmarkState.error(e.toString());
+      return 0;
     }
   }
 
@@ -41,10 +37,11 @@ class BookmarkProvider with ChangeNotifier {
       _postState = const BookmarkState.loading();
       notifyListeners();
       await appRepo.deleteBookmark(id);
-      final result = await appRepo.getBookmarksById(uuid);
+      final result = await appRepo.getBookmarks();
       _postState = BookmarkState.data(result);
     } catch (e) {
       _postState = BookmarkState.error(e.toString());
     }
+    notifyListeners();
   }
 }

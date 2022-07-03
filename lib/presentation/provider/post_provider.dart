@@ -19,18 +19,6 @@ class PostProvider with ChangeNotifier {
   bool _isCallProcessing = false;
   bool _isItemEmpty = false;
 
-  void fetchAllPosts() async {
-    try {
-      _postState = const PostState.loading();
-      notifyListeners();
-      final result = await appRepo.getPosts();
-      _postState = PostState.data(result);
-    } catch (e) {
-      _postState = PostState.error(e.toString());
-    }
-    notifyListeners();
-  }
-
   void fetchPostsByTopicIdWithPagination(int topicId) async {
     try {
       if (_isCallProcessing || _isItemEmpty) {
@@ -40,7 +28,7 @@ class PostProvider with ChangeNotifier {
       _isCallProcessing = true;
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
       _isCallProcessing = false;
-     _isItemEmpty = result.length < 5;
+      _isItemEmpty = result.length < 5;
       _postList.addAll(result);
       _postState = PostState.data(_postList);
     } catch (e) {
@@ -51,6 +39,8 @@ class PostProvider with ChangeNotifier {
 
   void fetchPostsByTopicId(int topicId) async {
     try {
+      _resetData();
+      debugPrint("debug:" + _postList.length.toString());
 
       _postState = const PostState.loading();
       notifyListeners();
@@ -67,10 +57,34 @@ class PostProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetData(){
+  void _resetData() {
     _isCallProcessing = false;
     _currentPage = 0;
     _isItemEmpty = false;
-    _postList=[];
+    _postList = [];
+  }
+
+  void removeBookmark(int bookmarkId) {
+    _postList = _postList
+        .map((e) => e.bookmarkId == bookmarkId
+            ? e.copy(bookmarkId: null, isBookmark: false)
+            : e)
+        .toList();
+
+    _postState = PostState.data(_postList);
+
+    notifyListeners();
+  }
+
+  void addBookmark(int postId, int bookmarkId) {
+    _postList = _postList
+        .map((e) => e.id == postId
+            ? e.copy(bookmarkId: bookmarkId, isBookmark: true)
+            : e)
+        .toList();
+
+    _postState = PostState.data(_postList);
+
+    notifyListeners();
   }
 }

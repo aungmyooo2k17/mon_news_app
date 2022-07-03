@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../domain/bookmark_entity.dart';
+import 'package:mon_news_app/domain/bookmark_entity.dart';
 
 part 'bookmark_state.freezed.dart';
 

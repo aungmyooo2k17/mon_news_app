@@ -18,7 +18,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<PostProvider>().fetchAllPosts();
+      context.read<PostProvider>().fetchPostsByTopicId(1);
     });
   }
 

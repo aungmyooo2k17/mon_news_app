@@ -3,6 +3,7 @@ import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
+import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/news_detail_screen.dart';
 import 'package:mon_news_app/ui/screen/news_multimedia_detail_screen.dart';
@@ -150,25 +151,27 @@ class _NewsItemState extends State<NewsItem> {
               bottom: Sizes.dimen_14,
               right: Sizes.dimen_14,
               child: IconButton(
-                onPressed: () {
-                  //TODO : Don't use setstate() whenever possible, Add variables in provider
-                  setState(() {
-                    if (globals.gBookmarkList
-                        .contains(widget.postEntity.id.toString())) {
-                      context.read<BookmarkProvider>().deleteBookmark(
-                          widget.postEntity.id, globals.deviceId);
-                      globals.gBookmarkList
-                          .remove(widget.postEntity.id.toString());
-                    } else {
-                      context.read<BookmarkProvider>().insertBookmark(
-                          widget.postEntity.id.toString(), globals.deviceId);
-                      globals.gBookmarkList
-                          .add(widget.postEntity.id.toString());
-                    }
-                  });
+                onPressed: () async {
+                  if (widget.postEntity.isBookMark) {
+                    context.read<BookmarkProvider>().deleteBookmark(
+                        widget.postEntity.bookmarkId!, globals.deviceId);
+                    globals.gBookmarkList
+                        .remove(widget.postEntity.bookmarkId!.toString());
+                    context
+                        .read<PostProvider>()
+                        .removeBookmark(widget.postEntity.bookmarkId!);
+                  } else {
+                    int bookmarkId = await context
+                        .read<BookmarkProvider>()
+                        .insertBookmark(
+                            widget.postEntity.id.toString(), globals.deviceId);
+                    // ignore: use_build_context_synchronously
+                    context
+                        .read<PostProvider>()
+                        .addBookmark(widget.postEntity.id, bookmarkId);
+                  }
                 },
-                icon: globals.gBookmarkList
-                        .contains(widget.postEntity.id.toString())
+                icon: widget.postEntity.isBookMark
                     ? const Icon(
                         Icons.bookmark,
                         color: AppColor.secondaryColor,

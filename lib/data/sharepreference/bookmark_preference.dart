@@ -16,20 +16,34 @@ class BookmarkPreference {
     return prefs.getStringList('bookmark') ?? [];
   }
 
+  static Future<List<String>> getBookmarkKey() async {
+    final SharedPreferences prefs = await _prefs;
+
+    return prefs.getStringList('bookmark_key') ?? [];
+  }
+
   /// ----------------------------------------------------------
   /// Generic routine to saves an application preference
   /// ----------------------------------------------------------
-  static Future<bool> setBookmark(String value) async {
+  static Future<bool> setBookmark(String value, String key) async {
     final SharedPreferences prefs = await _prefs;
 
     List<String> list = await getBookmark();
-    print("bookmark: ${list.length}");
+    List<String> keyList = await getBookmark();
     list.add(value);
-
+    keyList.add(key);
+    prefs.setStringList('bookmark_key', keyList);
     return prefs.setStringList('bookmark', list);
   }
 
   static Future<bool> removeBookmark(String value) async {
+    final SharedPreferences prefs = await _prefs;
+    List<String> bookmarks = await getBookmark();
+    bookmarks.remove(value);
+    return prefs.setStringList('bookmark', bookmarks);
+  }
+
+  static Future<bool> removeBookmarkKey(String value) async {
     final SharedPreferences prefs = await _prefs;
     List<String> bookmarks = await getBookmark();
     bookmarks.remove(value);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mon_news_app/domain/post_entity.dart';
 import 'package:mon_news_app/presentation/model/bookmark_state.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
@@ -19,12 +20,13 @@ class _BookMarkPageState extends State<BookMarkPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<BookmarkProvider>().fetchBookmarkById(globals.deviceId);
+      context.read<BookmarkProvider>().fetchBookmark();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(globals.deviceId);
     return Scaffold(
         appBar: AppBar(
           title: const MyAppBar(
@@ -38,23 +40,31 @@ class _BookMarkPageState extends State<BookMarkPage> {
             return state.whenOrNull(loading: () {
                   return const Center(child: CircularProgressIndicator());
                 }, data: (data) {
-                  print(data.length);
-                  return Text(data.toString());
-                  // return ListView.builder(
-                  //   itemBuilder: (BuildContext, index) {
-                  //     return NewsItem(
-                  //         postEntity: data[index],
-                  //         category: data[index].category,
-                  //         title: data[index].title,
-                  //         credit: "Mizema",
-                  //         createdAt: "May 7, 2022",
-                  //         imagUrl: data[index].banner);
-                  //   },
-                  //   itemCount: data.length,
-                  //   shrinkWrap: true,
-                  //   padding: EdgeInsets.all(5),
-                  //   scrollDirection: Axis.vertical,
-                  // );
+                  return ListView.builder(
+                    itemBuilder: (BuildContext, index) {
+                      return NewsItem(
+                          postEntity: PostEntity(
+                              bookmarkId: data[index].id,
+                              isBookMark: true,
+                              id: data[index].id,
+                              title: data[index].title,
+                              banner: data[index].banner,
+                              videoUrl: data[index].videoUrl,
+                              audioUrl: data[index].audioUrl,
+                              content: data[index].content,
+                              topic: data[index].topic,
+                              category: data[index].category),
+                          category: data[index].category,
+                          title: data[index].title,
+                          credit: "Mizema",
+                          createdAt: "May 7, 2022",
+                          imagUrl: data[index].banner);
+                    },
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.all(5),
+                    scrollDirection: Axis.vertical,
+                  );
                 }, error: (msg) {
                   print("error: $msg");
                   return Center(

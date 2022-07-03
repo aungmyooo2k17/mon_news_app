@@ -54,8 +54,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<PostModel>> getPosts() async {
-    final response =
-        await apiClient.get('post', params: {"page": 1, "rows": 100});
+    final response = await apiClient
+        .get('post', params: {"datatable": true, "page": 1, "rows": 100});
 
     final posts = PostsResultModel.fromJson(response).posts;
 
@@ -127,7 +127,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .post(path: 'bookmark', body: {"post_id": postId, "uuid": uuid});
 
     if (response != null) {
-      return 1;
+      return response["id"];
     }
 
     return 0;

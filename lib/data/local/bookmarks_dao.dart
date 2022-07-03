@@ -14,25 +14,32 @@ class BookmarksDao extends DatabaseAccessor<ThanLwinTimesDatabase>
 
   Future<List<BookmarkDtoData>> fetchAllBookmark() => select(bookmarkDto).get();
 
-  Future<List<BookmarkDtoData>> fetchAllBookmarkById(String id) {
-    return (select(bookmarkDto)..where((tbl) => tbl.uuid.equals(id))).get();
-  }
-
   Future<void> addBookmark(BookmarkDtoData entry) {
     return into(bookmarkDto).insert(entry);
   }
 
   Future<void> deleteBookmark(int id) {
-    return (delete(bookmarkDto)..where((t) => t.id.equals(id))).go();
+    return (delete(bookmarkDto)..where((t) => t.bookmarkId.equals(id))).go();
   }
 
   Future<void> insertAllBookmarks(List<BookmarkDtoData> bookmarks) async {
+    (delete(bookmarkDto)).go();
     await batch((batch) => {
           batch.insertAllOnConflictUpdate(
               bookmarkDto,
               bookmarks
                   .map((e) => BookmarkDtoCompanion.insert(
-                      postId: e.postId, uuid: e.uuid, post: e.post))
+                      bookmarkId: e.bookmarkId,
+                      postId: e.postId,
+                      uuid: e.uuid,
+                      audioUrl: e.audioUrl,
+                      videoUrl: e.videoUrl,
+                      banner: e.banner,
+                      category: e.category,
+                      content: e.content,
+                      title: e.title,
+                      topic: e.topic,
+                      topicId: e.topicId))
                   .toList())
         });
   }

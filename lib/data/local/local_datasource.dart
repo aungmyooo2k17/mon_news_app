@@ -22,7 +22,6 @@ abstract class LocalDatasource {
   Future<void> insertBookmark(BookmarkDtoData postBookmark);
   Future<void> insertAllBookmarks(List<BookmarkDtoData> bookmarks);
   Future<List<BookmarkDtoData>> getAllBookmark();
-  Future<List<BookmarkDtoData>> getAllBookmarkByUuid(String id);
   Future<void> deleteBookmark(int id);
 
   Future<void> insertComment(List<CommentDtoData> comments);
@@ -93,11 +92,6 @@ class LocalDatasourceImpl implements LocalDatasource {
   @override
   Future<void> insertBookmark(BookmarkDtoData postBookmark) async {
     await bookmarksDao.addBookmark(postBookmark);
-  }
-
-  @override
-  Future<List<BookmarkDtoData>> getAllBookmarkByUuid(String id) async {
-    return await bookmarksDao.fetchAllBookmarkById(id);
   }
 
   @override
