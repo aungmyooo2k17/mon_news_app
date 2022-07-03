@@ -27,6 +27,7 @@ abstract class AppRepo {
   Future<List<CategoryEntity>> getCategories();
   Future<List<PostEntity>> getPostsByTopicId(
       int topicId, int page, int perPage);
+  Future<PostEntity> getPostDetail(int postId);
 
   Future<int> insertBookmark(String postId, String uuid);
   Future<List<BookmarkEntity>> getBookmarks();
@@ -146,5 +147,24 @@ class AppRepoImpl implements AppRepo {
 
     final dbResult = await localDatasource.getAllBookmark();
     return bookmarkEntityMapper.tos(dbResult);
+  }
+
+  @override
+  Future<PostEntity> getPostDetail(int postId) async {
+    final response = await remoteDataSource.getPostDetail(postId);
+
+    await localDatasource.updatePost(response.id ?? 0, response.views ?? 0,
+        response.likes ?? 0, response.comments ?? 0);
+
+    final dbResult = await localDatasource.getPostById(postId);
+
+    final bookmarkResponse =
+        await remoteDataSource.getBookmarks(globals.deviceId);
+    await localDatasource
+        .insertAllBookmarks(bookmarkDtoMapper.fromResponse(bookmarkResponse));
+
+    final bookmarkResult = await localDatasource.getAllBookmark();
+
+    return postEntityMapper.toDetail(dbResult, bookmarkResult);
   }
 }

@@ -16,6 +16,8 @@ abstract class LocalDatasource {
 
   Future<void> insertAllPosts(List<PostDtoData> topics);
   Future<List<PostDtoData>> getAllPosts();
+  Future<void> updatePost(int postId, int views, int likes, int comments);
+  Future<PostDtoData> getPostById(int postId);
   Future<List<PostDtoData>> getAllPostsByTopicId(
       int topicId, int limit, int offset);
 
@@ -107,5 +109,16 @@ class LocalDatasourceImpl implements LocalDatasource {
   @override
   Future<void> insertAllBookmarks(List<BookmarkDtoData> bookmarks) async {
     await bookmarksDao.insertAllBookmarks(bookmarks);
+  }
+
+  @override
+  Future<void> updatePost(
+      int postId, int views, int likes, int comments) async {
+    await postsDao.updatePost(postId, views, likes, comments);
+  }
+
+  @override
+  Future<PostDtoData> getPostById(int postId) async {
+    return await postsDao.fetchPostById(postId);
   }
 }

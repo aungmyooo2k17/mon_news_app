@@ -17,6 +17,7 @@ abstract class RemoteDataSource {
   Future<List<TopicModel>> getTopics();
   Future<List<CategoryModel>> getCategories();
   Future<List<PostModel>> getPosts();
+  Future<PostModel> getPostDetail(int postId);
   Future<List<PostModel>> getPostsByTopicId(int topicId, int page, int perPage);
   Future<List<CommentModel>> getCommentsByPostId(int postId);
   Future<int> postLike(String postId, String uuid);
@@ -144,5 +145,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     return 0;
+  }
+
+  @override
+  Future<PostModel> getPostDetail(int postId) async {
+    final response = await apiClient.get('post/$postId');
+
+    final post = PostModel.fromJsonDetail(response);
+
+    return post;
   }
 }

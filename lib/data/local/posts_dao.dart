@@ -14,6 +14,17 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
 
   Future<List<PostDtoData>> fetchAllPosts() => select(postDto).get();
 
+  Future<PostDtoData> fetchPostById(int postId) {
+    return (select(postDto)..where((tbl) => tbl.id.equals(postId))).getSingle();
+  }
+
+  Future updatePost(int postId, int views, int likes, int comments) {
+    return (update(postDto)..where((t) => t.id.equals(postId))).write(
+      PostDtoCompanion(
+          views: Value(views), likes: Value(likes), comments: Value(comments)),
+    );
+  }
+
   Future<List<PostDtoData>> fetchAllPostsByTopicId(
       int topicId, int limit, int offset) {
     return (select(postDto)

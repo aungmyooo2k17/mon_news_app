@@ -6,6 +6,7 @@ import 'package:mon_news_app/presentation/provider/category_provider.dart';
 import 'package:mon_news_app/presentation/provider/comment_provider.dart';
 import 'package:mon_news_app/presentation/provider/like_provider.dart';
 import 'package:mon_news_app/presentation/provider/movie_provider.dart';
+import 'package:mon_news_app/presentation/provider/post_detail_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/splash_screen.dart';
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<CommentProvider>(
           create: (_) => CommentProvider(appRepo: getItInstance<AppRepo>()),
+        ),
+        ChangeNotifierProvider<PostDetailProvider>(
+          create: (_) => PostDetailProvider(appRepo: getItInstance<AppRepo>()),
         ),
       ],
       child: Consumer<AppLocale>(builder: (context, locale, child) {

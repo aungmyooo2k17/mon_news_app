@@ -37,6 +37,12 @@ class _$PostStateTearOff {
       message,
     );
   }
+
+  DetailState detail(PostEntity entities) {
+    return DetailState(
+      entities,
+    );
+  }
 }
 
 /// @nodoc
@@ -50,6 +56,7 @@ mixin _$PostState {
     required TResult Function() loading,
     required TResult Function(List<PostEntity> entities) data,
     required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +65,7 @@ mixin _$PostState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,6 +74,7 @@ mixin _$PostState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +84,7 @@ mixin _$PostState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +93,7 @@ mixin _$PostState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,6 +102,7 @@ mixin _$PostState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +167,7 @@ class _$InitialState implements InitialState {
     required TResult Function() loading,
     required TResult Function(List<PostEntity> entities) data,
     required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
   }) {
     return initial();
   }
@@ -166,6 +179,7 @@ class _$InitialState implements InitialState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
   }) {
     return initial?.call();
   }
@@ -177,6 +191,7 @@ class _$InitialState implements InitialState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -192,6 +207,7 @@ class _$InitialState implements InitialState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
   }) {
     return initial(this);
   }
@@ -203,6 +219,7 @@ class _$InitialState implements InitialState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
   }) {
     return initial?.call(this);
   }
@@ -214,6 +231,7 @@ class _$InitialState implements InitialState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -271,6 +289,7 @@ class _$LoadingState implements LoadingState {
     required TResult Function() loading,
     required TResult Function(List<PostEntity> entities) data,
     required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
   }) {
     return loading();
   }
@@ -282,6 +301,7 @@ class _$LoadingState implements LoadingState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
   }) {
     return loading?.call();
   }
@@ -293,6 +313,7 @@ class _$LoadingState implements LoadingState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -308,6 +329,7 @@ class _$LoadingState implements LoadingState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
   }) {
     return loading(this);
   }
@@ -319,6 +341,7 @@ class _$LoadingState implements LoadingState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
   }) {
     return loading?.call(this);
   }
@@ -330,6 +353,7 @@ class _$LoadingState implements LoadingState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -409,6 +433,7 @@ class _$DataState implements DataState {
     required TResult Function() loading,
     required TResult Function(List<PostEntity> entities) data,
     required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
   }) {
     return data(entities);
   }
@@ -420,6 +445,7 @@ class _$DataState implements DataState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
   }) {
     return data?.call(entities);
   }
@@ -431,6 +457,7 @@ class _$DataState implements DataState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -446,6 +473,7 @@ class _$DataState implements DataState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
   }) {
     return data(this);
   }
@@ -457,6 +485,7 @@ class _$DataState implements DataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
   }) {
     return data?.call(this);
   }
@@ -468,6 +497,7 @@ class _$DataState implements DataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -553,6 +583,7 @@ class _$ErrorState implements ErrorState {
     required TResult Function() loading,
     required TResult Function(List<PostEntity> entities) data,
     required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
   }) {
     return error(message);
   }
@@ -564,6 +595,7 @@ class _$ErrorState implements ErrorState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
   }) {
     return error?.call(message);
   }
@@ -575,6 +607,7 @@ class _$ErrorState implements ErrorState {
     TResult Function()? loading,
     TResult Function(List<PostEntity> entities)? data,
     TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -590,6 +623,7 @@ class _$ErrorState implements ErrorState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
   }) {
     return error(this);
   }
@@ -601,6 +635,7 @@ class _$ErrorState implements ErrorState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
   }) {
     return error?.call(this);
   }
@@ -612,6 +647,7 @@ class _$ErrorState implements ErrorState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -627,5 +663,156 @@ abstract class ErrorState implements PostState {
   String? get message;
   @JsonKey(ignore: true)
   $ErrorStateCopyWith<ErrorState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DetailStateCopyWith<$Res> {
+  factory $DetailStateCopyWith(
+          DetailState value, $Res Function(DetailState) then) =
+      _$DetailStateCopyWithImpl<$Res>;
+  $Res call({PostEntity entities});
+}
+
+/// @nodoc
+class _$DetailStateCopyWithImpl<$Res> extends _$PostStateCopyWithImpl<$Res>
+    implements $DetailStateCopyWith<$Res> {
+  _$DetailStateCopyWithImpl(
+      DetailState _value, $Res Function(DetailState) _then)
+      : super(_value, (v) => _then(v as DetailState));
+
+  @override
+  DetailState get _value => super._value as DetailState;
+
+  @override
+  $Res call({
+    Object? entities = freezed,
+  }) {
+    return _then(DetailState(
+      entities == freezed
+          ? _value.entities
+          : entities // ignore: cast_nullable_to_non_nullable
+              as PostEntity,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DetailState implements DetailState {
+  const _$DetailState(this.entities);
+
+  @override
+  final PostEntity entities;
+
+  @override
+  String toString() {
+    return 'PostState.detail(entities: $entities)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DetailState &&
+            const DeepCollectionEquality().equals(other.entities, entities));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(entities));
+
+  @JsonKey(ignore: true)
+  @override
+  $DetailStateCopyWith<DetailState> get copyWith =>
+      _$DetailStateCopyWithImpl<DetailState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<PostEntity> entities) data,
+    required TResult Function(String? message) error,
+    required TResult Function(PostEntity entities) detail,
+  }) {
+    return detail(entities);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<PostEntity> entities)? data,
+    TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
+  }) {
+    return detail?.call(entities);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<PostEntity> entities)? data,
+    TResult Function(String? message)? error,
+    TResult Function(PostEntity entities)? detail,
+    required TResult orElse(),
+  }) {
+    if (detail != null) {
+      return detail(entities);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(DataState value) data,
+    required TResult Function(ErrorState value) error,
+    required TResult Function(DetailState value) detail,
+  }) {
+    return detail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(DataState value)? data,
+    TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
+  }) {
+    return detail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(DataState value)? data,
+    TResult Function(ErrorState value)? error,
+    TResult Function(DetailState value)? detail,
+    required TResult orElse(),
+  }) {
+    if (detail != null) {
+      return detail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DetailState implements PostState {
+  const factory DetailState(PostEntity entities) = _$DetailState;
+
+  PostEntity get entities;
+  @JsonKey(ignore: true)
+  $DetailStateCopyWith<DetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }

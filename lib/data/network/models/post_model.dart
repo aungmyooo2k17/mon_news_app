@@ -11,6 +11,9 @@ class PostModel {
   final String? content;
   final TopicModel? topic;
   final CategoryModel? category;
+  final int? views;
+  final int? comments;
+  final int? likes;
 
   PostModel(
       {required this.id,
@@ -20,7 +23,10 @@ class PostModel {
       required this.audioUrl,
       required this.content,
       this.topic,
-      this.category});
+      this.category,
+      this.views,
+      this.comments,
+      this.likes});
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
@@ -30,6 +36,21 @@ class PostModel {
       videoUrl: json['video_url'],
       audioUrl: json['audio_url'],
       content: json['content'],
+      topic: TopicModel.fromJson(json['topic'] ?? {}),
+      category: CategoryModel.fromJson(json['category'] ?? {}),
+    );
+  }
+  factory PostModel.fromJsonDetail(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id'],
+      title: json['title'],
+      banner: BannerModel.fromJson(json['banner']),
+      videoUrl: json['video_url'],
+      audioUrl: json['audio_url'],
+      content: json['content'],
+      views: json['views'] ?? 0,
+      likes: json['likes'] ?? 0,
+      comments: json['comments'] ?? 0,
       topic: TopicModel.fromJson(json['topic'] ?? {}),
       category: CategoryModel.fromJson(json['category'] ?? {}),
     );

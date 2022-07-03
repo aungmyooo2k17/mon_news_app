@@ -51,6 +51,9 @@ class PostDto extends Table {
   TextColumn get audioUrl => text()();
   TextColumn get content => text()();
   IntColumn get topicId => integer()();
+  IntColumn get views => integer().nullable()();
+  IntColumn get comments => integer().nullable()();
+  IntColumn get likes => integer().nullable()();
   TextColumn get topic => text()();
   TextColumn get category => text()();
 

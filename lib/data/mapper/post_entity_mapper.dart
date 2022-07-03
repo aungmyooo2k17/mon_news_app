@@ -28,4 +28,27 @@ class PostEntityMapper {
             .firstWhereOrNull((element) => element.postId == dto.id)
             ?.bookmarkId);
   }
+
+  PostEntity toDetail(PostDtoData dto, List<BookmarkDtoData> bookmarkDtos) {
+    return PostEntity(
+        id: dto.id,
+        title: dto.title,
+        videoUrl: dto.videoUrl,
+        content: dto.content,
+        topic: dto.topic,
+        banner: dto.banner,
+        category: dto.category,
+        audioUrl: dto.audioUrl,
+        isBookMark: bookmarkDtos
+                    .firstWhereOrNull((element) => element.postId == dto.id) !=
+                null
+            ? true
+            : false,
+        bookmarkId: bookmarkDtos
+            .firstWhereOrNull((element) => element.postId == dto.id)
+            ?.bookmarkId,
+        views: dto.views,
+        likes: dto.likes,
+        comments: dto.comments);
+  }
 }

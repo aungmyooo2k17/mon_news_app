@@ -465,6 +465,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
   final String audioUrl;
   final String content;
   final int topicId;
+  final int? views;
+  final int? comments;
+  final int? likes;
   final String topic;
   final String category;
   PostDtoData(
@@ -475,6 +478,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       required this.audioUrl,
       required this.content,
       required this.topicId,
+      this.views,
+      this.comments,
+      this.likes,
       required this.topic,
       required this.category});
   factory PostDtoData.fromData(Map<String, dynamic> data, {String? prefix}) {
@@ -494,6 +500,12 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
       topicId: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}topic_id'])!,
+      views: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}views']),
+      comments: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}comments']),
+      likes: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}likes']),
       topic: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}topic'])!,
       category: const StringType()
@@ -510,6 +522,15 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
     map['audio_url'] = Variable<String>(audioUrl);
     map['content'] = Variable<String>(content);
     map['topic_id'] = Variable<int>(topicId);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int?>(views);
+    }
+    if (!nullToAbsent || comments != null) {
+      map['comments'] = Variable<int?>(comments);
+    }
+    if (!nullToAbsent || likes != null) {
+      map['likes'] = Variable<int?>(likes);
+    }
     map['topic'] = Variable<String>(topic);
     map['category'] = Variable<String>(category);
     return map;
@@ -524,6 +545,13 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       audioUrl: Value(audioUrl),
       content: Value(content),
       topicId: Value(topicId),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
+      comments: comments == null && nullToAbsent
+          ? const Value.absent()
+          : Value(comments),
+      likes:
+          likes == null && nullToAbsent ? const Value.absent() : Value(likes),
       topic: Value(topic),
       category: Value(category),
     );
@@ -540,6 +568,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       audioUrl: serializer.fromJson<String>(json['audioUrl']),
       content: serializer.fromJson<String>(json['content']),
       topicId: serializer.fromJson<int>(json['topicId']),
+      views: serializer.fromJson<int?>(json['views']),
+      comments: serializer.fromJson<int?>(json['comments']),
+      likes: serializer.fromJson<int?>(json['likes']),
       topic: serializer.fromJson<String>(json['topic']),
       category: serializer.fromJson<String>(json['category']),
     );
@@ -555,6 +586,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       'audioUrl': serializer.toJson<String>(audioUrl),
       'content': serializer.toJson<String>(content),
       'topicId': serializer.toJson<int>(topicId),
+      'views': serializer.toJson<int?>(views),
+      'comments': serializer.toJson<int?>(comments),
+      'likes': serializer.toJson<int?>(likes),
       'topic': serializer.toJson<String>(topic),
       'category': serializer.toJson<String>(category),
     };
@@ -568,6 +602,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           String? audioUrl,
           String? content,
           int? topicId,
+          int? views,
+          int? comments,
+          int? likes,
           String? topic,
           String? category}) =>
       PostDtoData(
@@ -578,6 +615,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
         audioUrl: audioUrl ?? this.audioUrl,
         content: content ?? this.content,
         topicId: topicId ?? this.topicId,
+        views: views ?? this.views,
+        comments: comments ?? this.comments,
+        likes: likes ?? this.likes,
         topic: topic ?? this.topic,
         category: category ?? this.category,
       );
@@ -591,6 +631,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           ..write('audioUrl: $audioUrl, ')
           ..write('content: $content, ')
           ..write('topicId: $topicId, ')
+          ..write('views: $views, ')
+          ..write('comments: $comments, ')
+          ..write('likes: $likes, ')
           ..write('topic: $topic, ')
           ..write('category: $category')
           ..write(')'))
@@ -598,8 +641,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, title, banner, videoUrl, audioUrl, content, topicId, topic, category);
+  int get hashCode => Object.hash(id, title, banner, videoUrl, audioUrl,
+      content, topicId, views, comments, likes, topic, category);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -611,6 +654,9 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           other.audioUrl == this.audioUrl &&
           other.content == this.content &&
           other.topicId == this.topicId &&
+          other.views == this.views &&
+          other.comments == this.comments &&
+          other.likes == this.likes &&
           other.topic == this.topic &&
           other.category == this.category);
 }
@@ -623,6 +669,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
   final Value<String> audioUrl;
   final Value<String> content;
   final Value<int> topicId;
+  final Value<int?> views;
+  final Value<int?> comments;
+  final Value<int?> likes;
   final Value<String> topic;
   final Value<String> category;
   const PostDtoCompanion({
@@ -633,6 +682,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     this.audioUrl = const Value.absent(),
     this.content = const Value.absent(),
     this.topicId = const Value.absent(),
+    this.views = const Value.absent(),
+    this.comments = const Value.absent(),
+    this.likes = const Value.absent(),
     this.topic = const Value.absent(),
     this.category = const Value.absent(),
   });
@@ -644,6 +696,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     required String audioUrl,
     required String content,
     required int topicId,
+    this.views = const Value.absent(),
+    this.comments = const Value.absent(),
+    this.likes = const Value.absent(),
     required String topic,
     required String category,
   })  : title = Value(title),
@@ -662,6 +717,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     Expression<String>? audioUrl,
     Expression<String>? content,
     Expression<int>? topicId,
+    Expression<int?>? views,
+    Expression<int?>? comments,
+    Expression<int?>? likes,
     Expression<String>? topic,
     Expression<String>? category,
   }) {
@@ -673,6 +731,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       if (audioUrl != null) 'audio_url': audioUrl,
       if (content != null) 'content': content,
       if (topicId != null) 'topic_id': topicId,
+      if (views != null) 'views': views,
+      if (comments != null) 'comments': comments,
+      if (likes != null) 'likes': likes,
       if (topic != null) 'topic': topic,
       if (category != null) 'category': category,
     });
@@ -686,6 +747,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       Value<String>? audioUrl,
       Value<String>? content,
       Value<int>? topicId,
+      Value<int?>? views,
+      Value<int?>? comments,
+      Value<int?>? likes,
       Value<String>? topic,
       Value<String>? category}) {
     return PostDtoCompanion(
@@ -696,6 +760,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       audioUrl: audioUrl ?? this.audioUrl,
       content: content ?? this.content,
       topicId: topicId ?? this.topicId,
+      views: views ?? this.views,
+      comments: comments ?? this.comments,
+      likes: likes ?? this.likes,
       topic: topic ?? this.topic,
       category: category ?? this.category,
     );
@@ -725,6 +792,15 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     if (topicId.present) {
       map['topic_id'] = Variable<int>(topicId.value);
     }
+    if (views.present) {
+      map['views'] = Variable<int?>(views.value);
+    }
+    if (comments.present) {
+      map['comments'] = Variable<int?>(comments.value);
+    }
+    if (likes.present) {
+      map['likes'] = Variable<int?>(likes.value);
+    }
     if (topic.present) {
       map['topic'] = Variable<String>(topic.value);
     }
@@ -744,6 +820,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
           ..write('audioUrl: $audioUrl, ')
           ..write('content: $content, ')
           ..write('topicId: $topicId, ')
+          ..write('views: $views, ')
+          ..write('comments: $comments, ')
+          ..write('likes: $likes, ')
           ..write('topic: $topic, ')
           ..write('category: $category')
           ..write(')'))
@@ -791,6 +870,21 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
   late final GeneratedColumn<int?> topicId = GeneratedColumn<int?>(
       'topic_id', aliasedName, false,
       type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _viewsMeta = const VerificationMeta('views');
+  @override
+  late final GeneratedColumn<int?> views = GeneratedColumn<int?>(
+      'views', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _commentsMeta = const VerificationMeta('comments');
+  @override
+  late final GeneratedColumn<int?> comments = GeneratedColumn<int?>(
+      'comments', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _likesMeta = const VerificationMeta('likes');
+  @override
+  late final GeneratedColumn<int?> likes = GeneratedColumn<int?>(
+      'likes', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _topicMeta = const VerificationMeta('topic');
   @override
   late final GeneratedColumn<String?> topic = GeneratedColumn<String?>(
@@ -810,6 +904,9 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
         audioUrl,
         content,
         topicId,
+        views,
+        comments,
+        likes,
         topic,
         category
       ];
@@ -860,6 +957,18 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
           topicId.isAcceptableOrUnknown(data['topic_id']!, _topicIdMeta));
     } else if (isInserting) {
       context.missing(_topicIdMeta);
+    }
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
+    }
+    if (data.containsKey('comments')) {
+      context.handle(_commentsMeta,
+          comments.isAcceptableOrUnknown(data['comments']!, _commentsMeta));
+    }
+    if (data.containsKey('likes')) {
+      context.handle(
+          _likesMeta, likes.isAcceptableOrUnknown(data['likes']!, _likesMeta));
     }
     if (data.containsKey('topic')) {
       context.handle(
