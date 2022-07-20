@@ -19,6 +19,7 @@ class CommentsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
   }
 
   Future<void> insertAllComments(List<CommentDtoData> comments) async {
+    (delete(commentDto)).go();
     await batch((batch) => {
           batch.insertAllOnConflictUpdate(
               commentDto,

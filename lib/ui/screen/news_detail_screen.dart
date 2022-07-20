@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 import 'package:mon_news_app/presentation/model/post_detail_state.dart';
@@ -9,6 +10,7 @@ import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/comment_screen/comment_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../globals.dart' as globals;
 import '../../presentation/provider/bookmark_provider.dart';
@@ -96,29 +98,24 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                             ),
                             Image.network(widget.postEntity.banner),
                             Padding(
-                              padding: const EdgeInsets.all(Sizes.dimen_8),
-                              child: SizedBox(
-                                height: 850,
-                                child: WebView(
-                                    javascriptMode: JavascriptMode.unrestricted,
-                                    onWebViewCreated: (WebViewController
-                                        webViewController) async {
-                                      await webViewController.loadHtmlString('''
-                          <!DOCTYPE html>
+                              padding: const EdgeInsets.only(
+                                  left: Sizes.dimen_8, right: Sizes.dimen_8),
+                              child: Html(style: {
+                                "body": Style(color: Colors.black),
+                              }, data: """
+                            <!DOCTYPE html>
                             <html lang="en">
                               <head>
-                                <meta charset="UTF-8" />
-                                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                                <title>Document</title>
+                              <meta charset="UTF-8" />
+                              <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                              <title>Document</title>
                               </head>
-                              <body>
-                                ${widget.postEntity.content}
+                              <body style="color: #EEEEEE">
+                              ${widget.postEntity.content}
                               </body>
                             </html>
-                          ''');
-                                    }),
-                              ),
+                            """),
                             )
                           ],
                         ),
@@ -258,7 +255,8 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                               //   ),
                               // ),
                               GestureDetector(
-                                onTap: () => {},
+                                onTap: () =>
+                                    {Share.share("https://www.google.com")},
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: ElevatedButton.icon(

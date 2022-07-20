@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
+import 'package:mon_news_app/ui/screen/no_data.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
@@ -37,22 +38,25 @@ class _StoryPostPageState extends State<StoryPostPage> {
             return state.whenOrNull(loading: () {
                   return const Center(child: CircularProgressIndicator());
                 }, data: (data) {
-                  print(data.length);
-                  return ListView.builder(
-                    itemBuilder: (BuildContext, index) {
-                      return NewsItem(
-                          postEntity: data[index],
-                          category: data[index].category,
-                          title: data[index].title,
-                          credit: "Thanlwin",
-                          createdAt: "May 7, 2022",
-                          imagUrl: data[index].banner);
-                    },
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(5),
-                    scrollDirection: Axis.vertical,
-                  );
+                  if (data.length != 0) {
+                    return ListView.builder(
+                      itemBuilder: (BuildContext, index) {
+                        return NewsItem(
+                            postEntity: data[index],
+                            category: data[index].category,
+                            title: data[index].title,
+                            credit: "Thanlwin",
+                            createdAt: "May 7, 2022",
+                            imagUrl: data[index].banner);
+                      },
+                      itemCount: data.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(5),
+                      scrollDirection: Axis.vertical,
+                    );
+                  } else {
+                    return const NoData();
+                  }
                 }, error: (msg) {
                   print("error: $msg");
                   return Center(
