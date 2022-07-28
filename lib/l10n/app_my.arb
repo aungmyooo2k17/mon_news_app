@@ -28,6 +28,6 @@
     "submit": "MM Submit",
     "ads": "MM Ads",
     "choose_app_language": "MM Choose application language",
-    "ok": "MM OK",
-    "comments": "MM Comments"
+    "enter_message": "MM Enter your message",
+    "message": "MM Message"
 }

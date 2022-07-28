@@ -29,5 +29,7 @@
     "ads": "MON Ads",
     "choose_app_language": "MON Choose application language",
     "ok": "MON OK",
-    "comments": "Mon Comments"
+    "comments": "Mon Comments",
+    "enter_message": "Mon Enter your message",
+    "message": "Mon Message"
 }

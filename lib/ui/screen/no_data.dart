@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
+import 'package:mon_news_app/ui/screen/home_screen.dart';
 import 'package:mon_news_app/widget/app_btn_outline.dart';
 
 class NoData extends StatelessWidget {
@@ -29,7 +30,9 @@ class NoData extends StatelessWidget {
             label: "Refresh",
             color: Colors.grey,
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (Route<dynamic> route) => false);
             },
           ),
         ],

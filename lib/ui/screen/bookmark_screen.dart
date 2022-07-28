@@ -31,7 +31,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
     return Scaffold(
         appBar: AppBar(
           title: const MyAppBar(
-            title: "Editor-In-Chief",
+            title: "Bookmarks",
           ),
           backgroundColor: Colors.white,
         ),

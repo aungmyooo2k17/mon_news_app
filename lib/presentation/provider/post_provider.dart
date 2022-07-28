@@ -40,7 +40,6 @@ class PostProvider with ChangeNotifier {
   void fetchPostsByTopicId(int topicId) async {
     try {
       _resetData();
-      debugPrint("debug:" + _postList.length.toString());
 
       _postState = const PostState.loading();
       notifyListeners();
@@ -49,6 +48,8 @@ class PostProvider with ChangeNotifier {
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
       _isCallProcessing = false;
       _postList.addAll(result);
+
+      debugPrint("Data: ${_postList.length.toString()}");
 
       _postState = PostState.data(_postList);
     } catch (e) {

@@ -9,5 +9,6 @@ class CommentState with _$CommentState {
   const factory CommentState.loading() = LoadingState;
   const factory CommentState.data(List<CommentEntity> entities) = DataState;
   const factory CommentState.commentedData(int response) = CommentedDataState;
+  const factory CommentState.reportComment(int response) = ReportCommentState;
   const factory CommentState.error(String? message) = ErrorState;
 }

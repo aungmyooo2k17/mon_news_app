@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
@@ -96,10 +97,13 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                                 ],
                               ),
                             ),
-                            Image.network(widget.postEntity.banner),
+                            CachedNetworkImage(
+                                imageUrl: widget.postEntity.banner),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: Sizes.dimen_8, right: Sizes.dimen_8),
+                                  bottom: Sizes.dimen_20,
+                                  left: Sizes.dimen_8,
+                                  right: Sizes.dimen_8),
                               child: Html(style: {
                                 "body": Style(color: Colors.black),
                               }, data: """

@@ -29,12 +29,15 @@ class AppTextField extends StatelessWidget {
           controller: controller,
           style: const TextStyle(height: 0, color: Colors.black87),
           decoration: InputDecoration(
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: AppColor.primaryColor, width: 1),
+              ),
               hintText: hint,
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(width: 0, color: Colors.grey.shade300),
               )),
         ),
       )

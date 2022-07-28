@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mon_news_app/data/sharepreference/bookmark_preference.dart';
+import 'package:mon_news_app/presentation/provider/app_general_provider.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/presentation/provider/category_provider.dart';
 import 'package:mon_news_app/presentation/provider/comment_provider.dart';
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<PostDetailProvider>(
           create: (_) => PostDetailProvider(appRepo: getItInstance<AppRepo>()),
+        ),
+        ChangeNotifierProvider<AppGeneralProvider>(
+          create: (_) => AppGeneralProvider(appRepo: getItInstance<AppRepo>()),
         ),
       ],
       child: Consumer<AppLocale>(builder: (context, locale, child) {

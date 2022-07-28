@@ -38,6 +38,12 @@ class _$CommentStateTearOff {
     );
   }
 
+  ReportCommentState reportComment(int response) {
+    return ReportCommentState(
+      response,
+    );
+  }
+
   ErrorState error(String? message) {
     return ErrorState(
       message,
@@ -56,6 +62,7 @@ mixin _$CommentState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +72,7 @@ mixin _$CommentState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +82,7 @@ mixin _$CommentState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) =>
@@ -84,6 +93,7 @@ mixin _$CommentState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -93,6 +103,7 @@ mixin _$CommentState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -102,6 +113,7 @@ mixin _$CommentState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) =>
@@ -168,6 +180,7 @@ class _$InitialState implements InitialState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) {
     return initial();
@@ -180,6 +193,7 @@ class _$InitialState implements InitialState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) {
     return initial?.call();
@@ -192,6 +206,7 @@ class _$InitialState implements InitialState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -208,6 +223,7 @@ class _$InitialState implements InitialState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) {
     return initial(this);
@@ -220,6 +236,7 @@ class _$InitialState implements InitialState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) {
     return initial?.call(this);
@@ -232,6 +249,7 @@ class _$InitialState implements InitialState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -290,6 +308,7 @@ class _$LoadingState implements LoadingState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) {
     return loading();
@@ -302,6 +321,7 @@ class _$LoadingState implements LoadingState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) {
     return loading?.call();
@@ -314,6 +334,7 @@ class _$LoadingState implements LoadingState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -330,6 +351,7 @@ class _$LoadingState implements LoadingState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) {
     return loading(this);
@@ -342,6 +364,7 @@ class _$LoadingState implements LoadingState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) {
     return loading?.call(this);
@@ -354,6 +377,7 @@ class _$LoadingState implements LoadingState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -434,6 +458,7 @@ class _$DataState implements DataState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) {
     return data(entities);
@@ -446,6 +471,7 @@ class _$DataState implements DataState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) {
     return data?.call(entities);
@@ -458,6 +484,7 @@ class _$DataState implements DataState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -474,6 +501,7 @@ class _$DataState implements DataState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) {
     return data(this);
@@ -486,6 +514,7 @@ class _$DataState implements DataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) {
     return data?.call(this);
@@ -498,6 +527,7 @@ class _$DataState implements DataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -586,6 +616,7 @@ class _$CommentedDataState implements CommentedDataState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) {
     return commentedData(response);
@@ -598,6 +629,7 @@ class _$CommentedDataState implements CommentedDataState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) {
     return commentedData?.call(response);
@@ -610,6 +642,7 @@ class _$CommentedDataState implements CommentedDataState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -626,6 +659,7 @@ class _$CommentedDataState implements CommentedDataState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) {
     return commentedData(this);
@@ -638,6 +672,7 @@ class _$CommentedDataState implements CommentedDataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) {
     return commentedData?.call(this);
@@ -650,6 +685,7 @@ class _$CommentedDataState implements CommentedDataState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {
@@ -666,6 +702,164 @@ abstract class CommentedDataState implements CommentState {
   int get response;
   @JsonKey(ignore: true)
   $CommentedDataStateCopyWith<CommentedDataState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ReportCommentStateCopyWith<$Res> {
+  factory $ReportCommentStateCopyWith(
+          ReportCommentState value, $Res Function(ReportCommentState) then) =
+      _$ReportCommentStateCopyWithImpl<$Res>;
+  $Res call({int response});
+}
+
+/// @nodoc
+class _$ReportCommentStateCopyWithImpl<$Res>
+    extends _$CommentStateCopyWithImpl<$Res>
+    implements $ReportCommentStateCopyWith<$Res> {
+  _$ReportCommentStateCopyWithImpl(
+      ReportCommentState _value, $Res Function(ReportCommentState) _then)
+      : super(_value, (v) => _then(v as ReportCommentState));
+
+  @override
+  ReportCommentState get _value => super._value as ReportCommentState;
+
+  @override
+  $Res call({
+    Object? response = freezed,
+  }) {
+    return _then(ReportCommentState(
+      response == freezed
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReportCommentState implements ReportCommentState {
+  const _$ReportCommentState(this.response);
+
+  @override
+  final int response;
+
+  @override
+  String toString() {
+    return 'CommentState.reportComment(response: $response)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ReportCommentState &&
+            const DeepCollectionEquality().equals(other.response, response));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+
+  @JsonKey(ignore: true)
+  @override
+  $ReportCommentStateCopyWith<ReportCommentState> get copyWith =>
+      _$ReportCommentStateCopyWithImpl<ReportCommentState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<CommentEntity> entities) data,
+    required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
+    required TResult Function(String? message) error,
+  }) {
+    return reportComment(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<CommentEntity> entities)? data,
+    TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
+    TResult Function(String? message)? error,
+  }) {
+    return reportComment?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<CommentEntity> entities)? data,
+    TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
+    TResult Function(String? message)? error,
+    required TResult orElse(),
+  }) {
+    if (reportComment != null) {
+      return reportComment(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialState value) initial,
+    required TResult Function(LoadingState value) loading,
+    required TResult Function(DataState value) data,
+    required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
+    required TResult Function(ErrorState value) error,
+  }) {
+    return reportComment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(DataState value)? data,
+    TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
+    TResult Function(ErrorState value)? error,
+  }) {
+    return reportComment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialState value)? initial,
+    TResult Function(LoadingState value)? loading,
+    TResult Function(DataState value)? data,
+    TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
+    TResult Function(ErrorState value)? error,
+    required TResult orElse(),
+  }) {
+    if (reportComment != null) {
+      return reportComment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReportCommentState implements CommentState {
+  const factory ReportCommentState(int response) = _$ReportCommentState;
+
+  int get response;
+  @JsonKey(ignore: true)
+  $ReportCommentStateCopyWith<ReportCommentState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -736,6 +930,7 @@ class _$ErrorState implements ErrorState {
     required TResult Function() loading,
     required TResult Function(List<CommentEntity> entities) data,
     required TResult Function(int response) commentedData,
+    required TResult Function(int response) reportComment,
     required TResult Function(String? message) error,
   }) {
     return error(message);
@@ -748,6 +943,7 @@ class _$ErrorState implements ErrorState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
   }) {
     return error?.call(message);
@@ -760,6 +956,7 @@ class _$ErrorState implements ErrorState {
     TResult Function()? loading,
     TResult Function(List<CommentEntity> entities)? data,
     TResult Function(int response)? commentedData,
+    TResult Function(int response)? reportComment,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -776,6 +973,7 @@ class _$ErrorState implements ErrorState {
     required TResult Function(LoadingState value) loading,
     required TResult Function(DataState value) data,
     required TResult Function(CommentedDataState value) commentedData,
+    required TResult Function(ReportCommentState value) reportComment,
     required TResult Function(ErrorState value) error,
   }) {
     return error(this);
@@ -788,6 +986,7 @@ class _$ErrorState implements ErrorState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
   }) {
     return error?.call(this);
@@ -800,6 +999,7 @@ class _$ErrorState implements ErrorState {
     TResult Function(LoadingState value)? loading,
     TResult Function(DataState value)? data,
     TResult Function(CommentedDataState value)? commentedData,
+    TResult Function(ReportCommentState value)? reportComment,
     TResult Function(ErrorState value)? error,
     required TResult orElse(),
   }) {

@@ -39,4 +39,14 @@ class CommentProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<int> postCommentReport(int commentId, String reportReason) async {
+    try {
+      int result = await appRepo.postCommentReport(commentId, reportReason);
+      return result;
+    } catch (e) {
+      _commentState = CommentState.error(e.toString());
+    }
+    return 0;
+  }
 }

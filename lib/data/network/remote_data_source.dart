@@ -30,6 +30,11 @@ abstract class RemoteDataSource {
 
   Future<int> postBookmark(String postId, String uuid);
   Future<int> deleteBookmark(int id);
+
+  Future<int> postCommentReport(int commentId, String reportReason);
+  Future<int> postDonate(String name, String email, String phoneNumber);
+  Future<int> postFeedback(
+      String name, String email, String phoneNumber, String message);
 }
 
 @LazySingleton(as: RemoteDataSource)
@@ -179,6 +184,49 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     );
 
     if (response["code"] != 204) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  @override
+  Future<int> postCommentReport(int commentId, String reportReason) async {
+    final response = await apiClient.post(
+        path: 'report',
+        body: {"comment_id": "$commentId", "report": reportReason});
+
+    if (response["code"] != 200) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  @override
+  Future<int> postDonate(String name, String email, String phoneNumber) async {
+    final response = await apiClient.post(
+        path: 'donate',
+        body: {"name": name, "email": email, "phone": phoneNumber});
+
+    if (response["code"] != 200) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  @override
+  Future<int> postFeedback(
+      String name, String email, String phoneNumber, String message) async {
+    final response = await apiClient.post(path: 'feedback', body: {
+      "name": name,
+      "email": email,
+      "phone": phoneNumber,
+      "message": message
+    });
+
+    if (response["code"] != 200) {
       return 1;
     }
 

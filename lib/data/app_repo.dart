@@ -4,13 +4,14 @@ import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
 import 'package:mon_news_app/data/mapper/bookmark_entity_mapper.dart';
 import 'package:mon_news_app/data/mapper/category_dto_mapper.dart';
-import 'package:mon_news_app/data/network/models/bookmark_model.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mon_news_app/domain/bookmark_entity.dart';
 import 'package:mon_news_app/domain/comment_entity.dart';
 
 import '../domain/category_entity.dart';
 import '../domain/post_entity.dart';
 import '../domain/topic_entity.dart';
+import '../helper/app_helper.dart';
 import 'local/local_datasource.dart';
 import 'mapper/category_entity_mapper.dart';
 import 'mapper/comment_dto_mapper.dart';
@@ -37,6 +38,11 @@ abstract class AppRepo {
   Future<int> postLike(String postId, String uuid);
   Future<int> deleteLike(int likeId);
   Future<int> postComment(String postId, String comment, String uuid);
+
+  Future<int> postCommentReport(int commentId, String reportReason);
+  Future<int> postDonate(String name, String email, String phoneNumber);
+  Future<int> postFeedback(
+      String name, String email, String phoneNumber, String message);
 }
 
 @LazySingleton(as: AppRepo)
@@ -63,9 +69,12 @@ class AppRepoImpl implements AppRepo {
 
   @override
   Future<List<TopicEntity>> getTopics() async {
-    final response = await remoteDataSource.getTopics();
-    await localDatasource
-        .insertAllTopics(movieDtoMapper.fromResponse(response));
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getTopics();
+      await localDatasource
+          .insertAllTopics(movieDtoMapper.fromResponse(response));
+    }
 
     final dbResult = await localDatasource.getAllTopics();
     return movieEntityMapper.tos(dbResult);
@@ -73,9 +82,12 @@ class AppRepoImpl implements AppRepo {
 
   @override
   Future<List<CategoryEntity>> getCategories() async {
-    final response = await remoteDataSource.getCategories();
-    await localDatasource
-        .insertAllCategories(categoryDtoMapper.fromResponse(response));
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getCategories();
+      await localDatasource
+          .insertAllCategories(categoryDtoMapper.fromResponse(response));
+    }
 
     final dbResult = await localDatasource.getAllCategories();
     return categoryEntityMapper.tos(dbResult);
@@ -84,15 +96,19 @@ class AppRepoImpl implements AppRepo {
   @override
   Future<List<PostEntity>> getPostsByTopicId(
       int topicId, int page, int perPage) async {
-    final response =
-        await remoteDataSource.getPostsByTopicId(topicId, page, perPage);
-    await localDatasource.insertAllPosts(postDtoMapper.fromResponse(response));
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response =
+          await remoteDataSource.getPostsByTopicId(topicId, page, perPage);
+      await localDatasource
+          .insertAllPosts(postDtoMapper.fromResponse(response));
 
-    //bookmark api
-    final bookmarkResponse =
-        await remoteDataSource.getBookmarks(globals.deviceId);
-    await localDatasource
-        .insertAllBookmarks(bookmarkDtoMapper.fromResponse(bookmarkResponse));
+      //bookmark api
+      final bookmarkResponse =
+          await remoteDataSource.getBookmarks(globals.deviceId);
+      await localDatasource
+          .insertAllBookmarks(bookmarkDtoMapper.fromResponse(bookmarkResponse));
+    }
 
     final bookmarkResult = await localDatasource.getAllBookmark();
 
@@ -104,21 +120,33 @@ class AppRepoImpl implements AppRepo {
 
   @override
   Future<int> insertBookmark(String postId, String uuid) async {
-    final response = await remoteDataSource.postBookmark(postId, uuid);
-    return response;
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.postBookmark(postId, uuid);
+      return response;
+    }
+
+    return 0;
   }
 
   @override
   Future<int> deleteBookmark(int id) async {
-    final response = await remoteDataSource.deleteBookmark(id);
-    return response;
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.deleteBookmark(id);
+      return response;
+    }
+    return 0;
   }
 
   @override
   Future<List<CommentEntity>> getCommentByPostId(int id) async {
-    final response = await remoteDataSource.getCommentsByPostId(id);
-    await localDatasource
-        .insertComment(commentDtoMapper.fromResponse(response));
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getCommentsByPostId(id);
+      await localDatasource
+          .insertComment(commentDtoMapper.fromResponse(response));
+    }
 
     final dbResult = await localDatasource.getCommentByPostId(id);
     return commentEntityMapper.tos(dbResult);
@@ -126,25 +154,35 @@ class AppRepoImpl implements AppRepo {
 
   @override
   Future<int> postLike(String postId, String uuid) async {
-    final response = await remoteDataSource.postLike(postId, uuid);
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.postLike(postId, uuid);
 
-    return response;
+      return response;
+    }
+    return 0;
   }
 
   @override
   Future<int> postComment(String postId, String comment, String uuid) async {
-    final response = await remoteDataSource.postComment(postId, comment, uuid);
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response =
+          await remoteDataSource.postComment(postId, comment, uuid);
 
-    return response;
+      return response;
+    }
+    return 0;
   }
 
   @override
   Future<List<BookmarkEntity>> getBookmarks() async {
-    final response = await remoteDataSource.getBookmarks(globals.deviceId);
-
-    print(response);
-    await localDatasource
-        .insertAllBookmarks(bookmarkDtoMapper.fromResponse(response));
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getBookmarks(globals.deviceId);
+      await localDatasource
+          .insertAllBookmarks(bookmarkDtoMapper.fromResponse(response));
+    }
 
     final dbResult = await localDatasource.getAllBookmark();
     return bookmarkEntityMapper.tos(dbResult);
@@ -152,30 +190,69 @@ class AppRepoImpl implements AppRepo {
 
   @override
   Future<PostEntity> getPostDetail(int postId) async {
-    final response = await remoteDataSource.getPostDetail(postId);
+    int likeResponse = 0;
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getPostDetail(postId);
 
-    await localDatasource.updatePost(response.id ?? 0, response.views ?? 0,
-        response.likes ?? 0, response.comments ?? 0);
+      await localDatasource.updatePost(response.id ?? 0, response.views ?? 0,
+          response.likes ?? 0, response.comments ?? 0);
 
-    final dbResult = await localDatasource.getPostById(postId);
+      final bookmarkResponse =
+          await remoteDataSource.getBookmarks(globals.deviceId);
+      await localDatasource
+          .insertAllBookmarks(bookmarkDtoMapper.fromResponse(bookmarkResponse));
 
-    final bookmarkResponse =
-        await remoteDataSource.getBookmarks(globals.deviceId);
-    await localDatasource
-        .insertAllBookmarks(bookmarkDtoMapper.fromResponse(bookmarkResponse));
+      likeResponse = await remoteDataSource.getLikes(postId, globals.deviceId);
+    }
 
     final bookmarkResult = await localDatasource.getAllBookmark();
-
-    final likeResponse =
-        await remoteDataSource.getLikes(postId, globals.deviceId);
+    final dbResult = await localDatasource.getPostById(postId);
 
     return postEntityMapper.toDetail(dbResult, bookmarkResult, likeResponse);
   }
 
   @override
   Future<int> deleteLike(int likeId) async {
-    final response = await remoteDataSource.deleteLike(likeId);
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.deleteLike(likeId);
+      return response;
+    }
+    return 0;
+  }
 
-    return response;
+  @override
+  Future<int> postCommentReport(int commentId, String reportReason) async {
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response =
+          await remoteDataSource.postCommentReport(commentId, reportReason);
+      return response;
+    }
+    return 0;
+  }
+
+  @override
+  Future<int> postDonate(String name, String email, String phoneNumber) async {
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response =
+          await remoteDataSource.postDonate(name, email, phoneNumber);
+      return response;
+    }
+    return 0;
+  }
+
+  @override
+  Future<int> postFeedback(
+      String name, String email, String phoneNumber, String message) async {
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.postFeedback(
+          name, email, phoneNumber, message);
+      return response;
+    }
+    return 0;
   }
 }

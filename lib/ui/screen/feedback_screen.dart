@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mon_news_app/constants/size_constant.dart';
-import 'package:mon_news_app/constants/string_constant.dart';
-import 'package:mon_news_app/presentation/provider/app_general_provider.dart';
-import 'package:mon_news_app/theme/theme_text.dart';
-import 'package:mon_news_app/widget/app_btn.dart';
-import 'package:mon_news_app/widget/app_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class CardsPage extends StatefulWidget {
-  const CardsPage({Key? key}) : super(key: key);
+import '../../constants/size_constant.dart';
+import '../../theme/theme_text.dart';
+import '../../widget/app_btn.dart';
+import '../../widget/app_text_field.dart';
+
+class FeedbackPage extends StatefulWidget {
+  FeedbackPage({Key? key}) : super(key: key);
 
   @override
-  State<CardsPage> createState() => _CardsPageState();
+  State<FeedbackPage> createState() => _FeedbackPageState();
 }
 
-class _CardsPageState extends State<CardsPage> {
+class _FeedbackPageState extends State<FeedbackPage> {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPhone = TextEditingController();
+  final TextEditingController _controllerMessage = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +31,11 @@ class _CardsPageState extends State<CardsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.cards_title,
+                  AppLocalizations.of(context)!.share_feedback,
                   style: ThemeText.title,
                 ),
                 const SizedBox(
                   height: Sizes.dimen_8,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.cards_desc,
-                  style: ThemeText.blackBodyText2,
-                ),
-                const SizedBox(
-                  height: Sizes.dimen_12,
                 ),
                 AppTextField(
                   controller: _controllerName,
@@ -64,6 +57,14 @@ class _CardsPageState extends State<CardsPage> {
                   controller: _controllerPhone,
                   label: AppLocalizations.of(context)!.phone,
                   hint: AppLocalizations.of(context)!.enter_phone,
+                ),
+                const SizedBox(
+                  height: Sizes.dimen_8,
+                ),
+                AppTextField(
+                  controller: _controllerMessage,
+                  label: AppLocalizations.of(context)!.message,
+                  hint: AppLocalizations.of(context)!.enter_message,
                 ),
                 const SizedBox(
                   height: Sizes.dimen_8,
@@ -90,9 +91,5 @@ class _CardsPageState extends State<CardsPage> {
         ),
       ),
     );
-  }
-
-  void showInSnackBar(String value) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
   }
 }

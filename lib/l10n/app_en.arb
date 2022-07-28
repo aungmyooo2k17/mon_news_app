@@ -29,5 +29,7 @@
     "ads": "Ads",
     "choose_app_language": "Choose application language",
     "ok": "OK",
-    "comments": "Comments"
+    "comments": "Comments",
+    "enter_message": "Enter your message",
+    "message": "Message"
 }
