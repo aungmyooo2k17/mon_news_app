@@ -12,4 +12,16 @@ class AppHelper {
     }
     return false;
   }
+
+  static String getLanguageCode(String languageCode) {
+    if (languageCode == 'my') {
+      return 'mm';
+    }
+
+    if (languageCode == 'de') {
+      return 'mm_mon';
+    }
+
+    return 'en';
+  }
 }

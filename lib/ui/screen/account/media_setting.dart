@@ -3,6 +3,7 @@ import 'package:mon_news_app/helper/shared_pref.dart';
 import 'package:mon_news_app/provider/app_locale.dart';
 import 'package:mon_news_app/ui/screen/bookmark_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../constants/size_constant.dart';
 import '../../../model/app_language.dart';
 import '../../../theme/color_theme.dart';
@@ -106,19 +107,22 @@ class _MediaSettingState extends State<MediaSetting> {
         const SizedBox(
           height: 8.0,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.share_app,
-              style: ThemeText.blackBodyText2,
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: AppColor.primaryColor,
-              size: Sizes.dimen_20,
-            ),
-          ],
+        GestureDetector(
+          onTap: () => {Share.share("https://www.google.com")},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.share_app,
+                style: ThemeText.blackBodyText2,
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: AppColor.primaryColor,
+                size: Sizes.dimen_20,
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 8.0,

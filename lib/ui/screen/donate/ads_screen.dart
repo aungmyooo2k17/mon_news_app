@@ -58,18 +58,16 @@ class AdsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// sanitize or query document here
-    return SafeArea(
+    return const SafeArea(
       child: WebView(
         javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          _onLoadHtmlStringExample(webViewController, context);
-        },
+        initialUrl: "https://thanlwintimes.apitoolz.com/en/donate",
       ),
     );
   }
 
-  Future<void> _onLoadHtmlStringExample(
-      WebViewController controller, BuildContext context) async {
-    await controller.loadHtmlString(htmlData);
-  }
+  // Future<void> _onLoadHtmlStringExample(
+  //     WebViewController controller, BuildContext context) async {
+  //   await controller.loadHtmlString(htmlData);
+  // }
 }

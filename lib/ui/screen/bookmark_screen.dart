@@ -34,6 +34,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
             title: "Bookmarks",
           ),
           backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
         body: Selector<BookmarkProvider, BookmarkState>(
           selector: (_, provider) => provider.postState,
