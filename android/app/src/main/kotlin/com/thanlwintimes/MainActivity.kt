@@ -1,4 +1,4 @@
-package com.android.thanlwintimes
+package com.thanlwintimes
 
 import io.flutter.embedding.android.FlutterActivity
 

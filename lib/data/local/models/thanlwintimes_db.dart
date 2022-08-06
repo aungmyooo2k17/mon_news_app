@@ -56,6 +56,7 @@ class PostDto extends Table {
   IntColumn get likes => integer().nullable()();
   TextColumn get topic => text()();
   TextColumn get category => text()();
+  TextColumn get shareLink => text()();
 
   @override
   Set<Column> get primaryKey => {id};

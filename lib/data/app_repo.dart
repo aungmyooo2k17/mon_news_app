@@ -195,8 +195,12 @@ class AppRepoImpl implements AppRepo {
       globals.hasConnection = true;
       final response = await remoteDataSource.getPostDetail(postId);
 
-      await localDatasource.updatePost(response.id ?? 0, response.views ?? 0,
-          response.likes ?? 0, response.comments ?? 0);
+      await localDatasource.updatePost(
+          response.id ?? 0,
+          response.views ?? 0,
+          response.likes ?? 0,
+          response.comments ?? 0,
+          response.shareLink ?? "");
 
       final bookmarkResponse =
           await remoteDataSource.getBookmarks(globals.deviceId);

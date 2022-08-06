@@ -470,6 +470,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
   final int? likes;
   final String topic;
   final String category;
+  final String shareLink;
   PostDtoData(
       {required this.id,
       required this.title,
@@ -482,7 +483,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       this.comments,
       this.likes,
       required this.topic,
-      required this.category});
+      required this.category,
+      required this.shareLink});
   factory PostDtoData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PostDtoData(
@@ -510,6 +512,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}topic'])!,
       category: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
+      shareLink: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}share_link'])!,
     );
   }
   @override
@@ -533,6 +537,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
     }
     map['topic'] = Variable<String>(topic);
     map['category'] = Variable<String>(category);
+    map['share_link'] = Variable<String>(shareLink);
     return map;
   }
 
@@ -554,6 +559,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           likes == null && nullToAbsent ? const Value.absent() : Value(likes),
       topic: Value(topic),
       category: Value(category),
+      shareLink: Value(shareLink),
     );
   }
 
@@ -573,6 +579,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       likes: serializer.fromJson<int?>(json['likes']),
       topic: serializer.fromJson<String>(json['topic']),
       category: serializer.fromJson<String>(json['category']),
+      shareLink: serializer.fromJson<String>(json['shareLink']),
     );
   }
   @override
@@ -591,6 +598,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       'likes': serializer.toJson<int?>(likes),
       'topic': serializer.toJson<String>(topic),
       'category': serializer.toJson<String>(category),
+      'shareLink': serializer.toJson<String>(shareLink),
     };
   }
 
@@ -606,7 +614,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           int? comments,
           int? likes,
           String? topic,
-          String? category}) =>
+          String? category,
+          String? shareLink}) =>
       PostDtoData(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -620,6 +629,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
         likes: likes ?? this.likes,
         topic: topic ?? this.topic,
         category: category ?? this.category,
+        shareLink: shareLink ?? this.shareLink,
       );
   @override
   String toString() {
@@ -635,14 +645,15 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           ..write('comments: $comments, ')
           ..write('likes: $likes, ')
           ..write('topic: $topic, ')
-          ..write('category: $category')
+          ..write('category: $category, ')
+          ..write('shareLink: $shareLink')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(id, title, banner, videoUrl, audioUrl,
-      content, topicId, views, comments, likes, topic, category);
+      content, topicId, views, comments, likes, topic, category, shareLink);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -658,7 +669,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           other.comments == this.comments &&
           other.likes == this.likes &&
           other.topic == this.topic &&
-          other.category == this.category);
+          other.category == this.category &&
+          other.shareLink == this.shareLink);
 }
 
 class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
@@ -674,6 +686,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
   final Value<int?> likes;
   final Value<String> topic;
   final Value<String> category;
+  final Value<String> shareLink;
   const PostDtoCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
@@ -687,6 +700,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     this.likes = const Value.absent(),
     this.topic = const Value.absent(),
     this.category = const Value.absent(),
+    this.shareLink = const Value.absent(),
   });
   PostDtoCompanion.insert({
     this.id = const Value.absent(),
@@ -701,6 +715,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     this.likes = const Value.absent(),
     required String topic,
     required String category,
+    required String shareLink,
   })  : title = Value(title),
         banner = Value(banner),
         videoUrl = Value(videoUrl),
@@ -708,7 +723,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
         content = Value(content),
         topicId = Value(topicId),
         topic = Value(topic),
-        category = Value(category);
+        category = Value(category),
+        shareLink = Value(shareLink);
   static Insertable<PostDtoData> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -722,6 +738,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     Expression<int?>? likes,
     Expression<String>? topic,
     Expression<String>? category,
+    Expression<String>? shareLink,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -736,6 +753,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       if (likes != null) 'likes': likes,
       if (topic != null) 'topic': topic,
       if (category != null) 'category': category,
+      if (shareLink != null) 'share_link': shareLink,
     });
   }
 
@@ -751,7 +769,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       Value<int?>? comments,
       Value<int?>? likes,
       Value<String>? topic,
-      Value<String>? category}) {
+      Value<String>? category,
+      Value<String>? shareLink}) {
     return PostDtoCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -765,6 +784,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       likes: likes ?? this.likes,
       topic: topic ?? this.topic,
       category: category ?? this.category,
+      shareLink: shareLink ?? this.shareLink,
     );
   }
 
@@ -807,6 +827,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     if (category.present) {
       map['category'] = Variable<String>(category.value);
     }
+    if (shareLink.present) {
+      map['share_link'] = Variable<String>(shareLink.value);
+    }
     return map;
   }
 
@@ -824,7 +847,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
           ..write('comments: $comments, ')
           ..write('likes: $likes, ')
           ..write('topic: $topic, ')
-          ..write('category: $category')
+          ..write('category: $category, ')
+          ..write('shareLink: $shareLink')
           ..write(')'))
         .toString();
   }
@@ -895,6 +919,11 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
   late final GeneratedColumn<String?> category = GeneratedColumn<String?>(
       'category', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _shareLinkMeta = const VerificationMeta('shareLink');
+  @override
+  late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
+      'share_link', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -908,7 +937,8 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
         comments,
         likes,
         topic,
-        category
+        category,
+        shareLink
       ];
   @override
   String get aliasedName => _alias ?? 'post_dto';
@@ -981,6 +1011,12 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
           category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     } else if (isInserting) {
       context.missing(_categoryMeta);
+    }
+    if (data.containsKey('share_link')) {
+      context.handle(_shareLinkMeta,
+          shareLink.isAcceptableOrUnknown(data['share_link']!, _shareLinkMeta));
+    } else if (isInserting) {
+      context.missing(_shareLinkMeta);
     }
     return context;
   }

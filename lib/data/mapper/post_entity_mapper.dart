@@ -32,6 +32,7 @@ class PostEntityMapper {
   PostEntity toDetail(
       PostDtoData dto, List<BookmarkDtoData> bookmarkDtos, int likeResponse) {
     return PostEntity(
+        shareLink: dto.shareLink,
         id: dto.id,
         title: dto.title,
         videoUrl: dto.videoUrl,

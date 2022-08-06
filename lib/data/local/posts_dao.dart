@@ -18,10 +18,14 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
     return (select(postDto)..where((tbl) => tbl.id.equals(postId))).getSingle();
   }
 
-  Future updatePost(int postId, int views, int likes, int comments) {
+  Future updatePost(
+      int postId, int views, int likes, int comments, String shareLink) {
     return (update(postDto)..where((t) => t.id.equals(postId))).write(
       PostDtoCompanion(
-          views: Value(views), likes: Value(likes), comments: Value(comments)),
+          views: Value(views),
+          likes: Value(likes),
+          comments: Value(comments),
+          shareLink: Value(shareLink)),
     );
   }
 
@@ -48,7 +52,8 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
                       category: e.category,
                       content: e.content,
                       audioUrl: e.audioUrl,
-                      banner: e.banner))
+                      banner: e.banner,
+                      shareLink: e.shareLink))
                   .toList())
         });
   }

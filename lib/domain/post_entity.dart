@@ -14,6 +14,7 @@ class PostEntity {
   final int? bookmarkId;
   final bool? isliked;
   final int? likeId;
+  final String? shareLink;
 
   const PostEntity(
       {required this.id,
@@ -30,7 +31,8 @@ class PostEntity {
       required this.isBookMark,
       this.bookmarkId,
       this.isliked,
-      this.likeId});
+      this.likeId,
+      this.shareLink});
 
   PostEntity copy(
       {String? title,
@@ -46,7 +48,8 @@ class PostEntity {
       bool? isBookmark,
       int? bookmarkId,
       bool? isliked,
-      int? likeId}) {
+      int? likeId,
+      String? shareLink}) {
     return PostEntity(
         id: id,
         title: title ?? this.title,
@@ -62,6 +65,7 @@ class PostEntity {
         isBookMark: isBookmark ?? isBookMark,
         bookmarkId: bookmarkId ?? this.bookmarkId,
         isliked: isliked ?? this.isliked,
-        likeId: likeId ?? this.likeId);
+        likeId: likeId ?? this.likeId,
+        shareLink: shareLink ?? this.shareLink);
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/rendering.dart';
-import 'package:mon_news_app/data/local/models/thanlwintimes_db.dart';
 
-import '../network/models/category_model.dart';
+import '../local/models/thanlwintimes_db.dart';
 import '../network/models/post_model.dart';
 
 class PostDtoMapper {
@@ -19,6 +18,7 @@ class PostDtoMapper {
         category: model.category?.name ?? '',
         content: model.content ?? '',
         audioUrl: '',
-        videoUrl: '');
+        videoUrl: '',
+        shareLink: model.shareLink ?? "");
   }
 }

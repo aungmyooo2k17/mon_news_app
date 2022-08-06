@@ -14,6 +14,7 @@ class PostModel {
   final int? views;
   final int? comments;
   final int? likes;
+  final String? shareLink;
 
   PostModel(
       {required this.id,
@@ -26,7 +27,8 @@ class PostModel {
       this.category,
       this.views,
       this.comments,
-      this.likes});
+      this.likes,
+      this.shareLink});
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
@@ -50,6 +52,7 @@ class PostModel {
       content: json['content'],
       views: json['views'] ?? 0,
       likes: json['likes'] ?? 0,
+      shareLink: json['share_link'] ?? "",
       comments: json['comments'] ?? 0,
       topic: TopicModel.fromJson(json['topic'] ?? {}),
       category: CategoryModel.fromJson(json['category'] ?? {}),

@@ -259,8 +259,11 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                               //   ),
                               // ),
                               GestureDetector(
-                                onTap: () =>
-                                    {Share.share("https://www.google.com")},
+                                onTap: () {
+                                  debugPrint("********");
+                                  debugPrint(data.shareLink ?? "");
+                                  Share.share(data.shareLink ?? "");
+                                },
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width / 3,
                                   child: ElevatedButton.icon(

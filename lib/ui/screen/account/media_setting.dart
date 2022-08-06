@@ -108,7 +108,10 @@ class _MediaSettingState extends State<MediaSetting> {
           height: 8.0,
         ),
         GestureDetector(
-          onTap: () => {Share.share("https://www.google.com")},
+          onTap: () => {
+            Share.share(
+                "https://play.google.com/store/apps/details?id=com.thanlwintimes")
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
