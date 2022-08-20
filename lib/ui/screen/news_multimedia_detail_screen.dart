@@ -28,8 +28,11 @@ class _NewsMultimediaDetailPageState extends State<NewsMultimediaDetailPage> {
   @override
   void initState() {
     super.initState();
+    String? url = widget.postEntity.audioUrl != ""
+        ? widget.postEntity.audioUrl
+        : widget.postEntity.videoUrl;
     _controller = YoutubePlayerController(
-      initialVideoId: 'w6LT7lVQX7U',
+      initialVideoId: YoutubePlayer.convertUrlToId(url!) ?? "",
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -40,7 +43,6 @@ class _NewsMultimediaDetailPageState extends State<NewsMultimediaDetailPage> {
         enableCaption: true,
       ),
     );
-
     WidgetsBinding.instance.scheduleFrameCallback((_) {
       context.read<PostDetailProvider>().fetchPostDetail(widget.postEntity.id);
     });
@@ -98,6 +100,9 @@ class _NewsMultimediaDetailPageState extends State<NewsMultimediaDetailPage> {
                                                 Icons.remove_red_eye,
                                                 color: Colors.black,
                                                 size: Sizes.dimen_20,
+                                              ),
+                                              const SizedBox(
+                                                width: Sizes.dimen_8,
                                               ),
                                               Text(
                                                 data.views.toString(),

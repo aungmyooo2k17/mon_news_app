@@ -37,19 +37,27 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
+            icon: const ImageIcon(
+              AssetImage("assets/images/new.png"),
+            ),
             label: AppLocalizations.of(context)!.news,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.business),
+            icon: const ImageIcon(
+              AssetImage("assets/images/editor.png"),
+            ),
             label: AppLocalizations.of(context)!.story_post,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.money),
+            icon: const ImageIcon(
+              AssetImage("assets/images/donate.png"),
+            ),
             label: AppLocalizations.of(context)!.donate,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
+            icon: const ImageIcon(
+              AssetImage("assets/images/account.png"),
+            ),
             label: AppLocalizations.of(context)!.setting,
           ),
         ],

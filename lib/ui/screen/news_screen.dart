@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
 import 'package:mon_news_app/ui/screen/news_list_screen.dart';
@@ -32,9 +33,8 @@ class _NewsPageState extends State<NewsPage> {
           return state.whenOrNull(loading: () {
                 return const Center(child: CircularProgressIndicator());
               }, data: (data) {
-                print(data.length);
                 return DefaultTabController(
-                  length: data.length,
+                  length: data.length - 1,
                   child: Scaffold(
                     appBar: AppBar(
                       title: MyAppBar(),
@@ -45,6 +45,7 @@ class _NewsPageState extends State<NewsPage> {
                         unselectedLabelColor: Colors.black54,
                         indicatorColor: AppColor.primaryColor,
                         tabs: data
+                            .where((element) => element.id != 8)
                             .map((e) => Tab(
                                   text: e.name,
                                 ))
@@ -52,7 +53,9 @@ class _NewsPageState extends State<NewsPage> {
                       ),
                     ),
                     body: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: data
+                          .where((element) => element.id != 8)
                           .map((e) => NewsListPage(
                                 topicId: e.id,
                               ))
@@ -61,7 +64,6 @@ class _NewsPageState extends State<NewsPage> {
                   ),
                 );
               }, error: (msg) {
-                print("error: $msg");
                 return Center(
                   child: Text(msg.toString()),
                 );

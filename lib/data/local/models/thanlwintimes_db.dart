@@ -72,7 +72,7 @@ class BookmarkDto extends Table {
   TextColumn get videoUrl => text()();
   TextColumn get audioUrl => text()();
   TextColumn get content => text()();
-  IntColumn get topicId => integer()();
+  IntColumn get topicId => integer().nullable()();
   TextColumn get topic => text()();
   TextColumn get category => text()();
 

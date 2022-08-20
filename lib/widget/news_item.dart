@@ -41,84 +41,82 @@ class NewsItem extends StatefulWidget {
 class _NewsItemState extends State<NewsItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(Sizes.dimen_8),
-        height: Sizes.dimen_200,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(widget.imagUrl ?? ''),
-            fit: BoxFit.fill,
-          ),
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14.0),
-        ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(0, 0, 0, 0),
-                    Color.fromARGB(96, 0, 0, 0),
-                    Color.fromARGB(200, 0, 0, 0)
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(14.0),
-              ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => widget.postEntity.topic == 'Multimedia'
+                  ? NewsMultimediaDetailPage(postEntity: widget.postEntity)
+                  : NewsDetailPage(
+                      postEntity: widget.postEntity,
+                    )),
+        );
+      },
+      child: Container(
+          margin: const EdgeInsets.all(Sizes.dimen_8),
+          height: Sizes.dimen_200,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(widget.imagUrl ?? ''),
+              fit: BoxFit.fill,
             ),
-            widget.audioUrl != null
-                ? Row(
-                    children: [
-                      const Icon(
-                        Icons.play_circle,
-                        color: Colors.white,
-                        size: Sizes.dimen_20,
-                      ),
-                      Text(
-                        "Audio Content",
-                        style: ThemeText.whiteBodyText2,
-                      )
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14.0),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(0, 0, 0, 0),
+                      Color.fromARGB(96, 0, 0, 0),
+                      Color.fromARGB(200, 0, 0, 0)
                     ],
-                  )
-                : Container(
-                    padding: const EdgeInsets.only(
-                        top: Sizes.dimen_4,
-                        bottom: Sizes.dimen_4,
-                        right: Sizes.dimen_8,
-                        left: Sizes.dimen_8),
-                    margin: const EdgeInsets.only(
-                        top: Sizes.dimen_8, left: Sizes.dimen_8),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: Text(
-                      widget.category,
-                      style: ThemeText.whiteBodyText2,
-                    ),
                   ),
-            Positioned(
-              bottom: Sizes.dimen_14,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                widget.postEntity.topic == 'Multimedia'
-                                    ? NewsMultimediaDetailPage(
-                                        postEntity: widget.postEntity)
-                                    : NewsDetailPage(
-                                        postEntity: widget.postEntity,
-                                      )),
-                      );
-                    },
-                    child: Padding(
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+              ),
+              widget.audioUrl != null
+                  ? Row(
+                      children: [
+                        const Icon(
+                          Icons.play_circle,
+                          color: Colors.white,
+                          size: Sizes.dimen_20,
+                        ),
+                        Text(
+                          "Audio Content",
+                          style: ThemeText.whiteBodyText2,
+                        )
+                      ],
+                    )
+                  : Container(
+                      padding: const EdgeInsets.only(
+                          top: Sizes.dimen_4,
+                          bottom: Sizes.dimen_4,
+                          right: Sizes.dimen_8,
+                          left: Sizes.dimen_8),
+                      margin: const EdgeInsets.only(
+                          top: Sizes.dimen_8, left: Sizes.dimen_8),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Text(
+                        widget.category,
+                        style: ThemeText.whiteBodyText2,
+                      ),
+                    ),
+              Positioned(
+                bottom: Sizes.dimen_14,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.only(left: Sizes.dimen_8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,60 +141,60 @@ class _NewsItemState extends State<NewsItem> {
                           ),
                         ],
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: Sizes.dimen_14,
-              right: Sizes.dimen_14,
-              child: IconButton(
-                onPressed: () async {
-                  if (widget.postEntity.isBookMark) {
-                    context.read<BookmarkProvider>().deleteBookmark(
-                        widget.postEntity.bookmarkId!, globals.deviceId);
-                    globals.gBookmarkList
-                        .remove(widget.postEntity.bookmarkId!.toString());
-                    context
-                        .read<PostProvider>()
-                        .removeBookmark(widget.postEntity.bookmarkId!);
-                  } else {
-                    int bookmarkId = await context
-                        .read<BookmarkProvider>()
-                        .insertBookmark(
-                            widget.postEntity.id.toString(), globals.deviceId);
-                    // ignore: use_build_context_synchronously
-                    context
-                        .read<PostProvider>()
-                        .addBookmark(widget.postEntity.id, bookmarkId);
-                  }
-                },
-                icon: widget.postEntity.isBookMark
-                    ? const Icon(
-                        Icons.bookmark,
-                        color: AppColor.secondaryColor,
-                        size: Sizes.dimen_20,
-                      )
-                    : const Icon(
-                        Icons.bookmark,
+              Positioned(
+                bottom: Sizes.dimen_14,
+                right: Sizes.dimen_14,
+                child: IconButton(
+                  onPressed: () async {
+                    if (widget.postEntity.isBookMark) {
+                      context.read<BookmarkProvider>().deleteBookmark(
+                          widget.postEntity.bookmarkId!, globals.deviceId);
+                      globals.gBookmarkList
+                          .remove(widget.postEntity.bookmarkId!.toString());
+                      context
+                          .read<PostProvider>()
+                          .removeBookmark(widget.postEntity.bookmarkId!);
+                    } else {
+                      int bookmarkId = await context
+                          .read<BookmarkProvider>()
+                          .insertBookmark(widget.postEntity.id.toString(),
+                              globals.deviceId);
+                      // ignore: use_build_context_synchronously
+                      context
+                          .read<PostProvider>()
+                          .addBookmark(widget.postEntity.id, bookmarkId);
+                    }
+                  },
+                  icon: widget.postEntity.isBookMark
+                      ? const Icon(
+                          Icons.bookmark,
+                          color: AppColor.secondaryColor,
+                          size: Sizes.dimen_20,
+                        )
+                      : const Icon(
+                          Icons.bookmark,
+                          color: Colors.white,
+                          size: Sizes.dimen_20,
+                        ),
+                ),
+              ),
+              widget.audioUrl != null || widget.videoUrl != null
+                  ? const Positioned.fill(
+                      child: Align(
+                      alignment: Alignment.center,
+                      child: Icon(
+                        Icons.play_circle,
                         color: Colors.white,
                         size: Sizes.dimen_20,
                       ),
-              ),
-            ),
-            widget.audioUrl != null || widget.videoUrl != null
-                ? const Positioned.fill(
-                    child: Align(
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.play_circle,
-                      color: Colors.white,
-                      size: Sizes.dimen_20,
-                    ),
-                  ))
-                : Container()
-          ],
-        ));
+                    ))
+                  : Container()
+            ],
+          )),
+    );
   }
 }

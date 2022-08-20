@@ -10,9 +10,9 @@ class CategoryDtoMapper {
 
   CategoryDtoData from(CategoryModel model) {
     return CategoryDtoData(
-      id: model.id,
-      name: model.name,
-      priority: model.priority,
+      id: model.id ?? 0,
+      name: model.name ?? "",
+      priority: model.priority ?? 0,
       topic: model.topic?.name ?? '',
     );
   }

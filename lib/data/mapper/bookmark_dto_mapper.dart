@@ -14,11 +14,11 @@ class BookmarkDtoMapper {
         audioUrl: model.postModel.audioUrl ?? "",
         videoUrl: model.postModel.videoUrl ?? "",
         banner: model.postModel.banner!.url,
-        category: model.postModel.category!.name,
+        category: model.postModel.category!.name ?? "",
         content: model.postModel.content ?? "",
         title: model.postModel.title ?? "",
         topic: model.postModel.topic!.name ?? "",
-        topicId: model.postModel.topic!.id!,
+        topicId: model.postModel.topic!.id ?? 0,
         bookmarkId: model.id);
   }
 }

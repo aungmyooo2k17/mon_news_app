@@ -24,6 +24,7 @@ import 'network/remote_data_source.dart';
 import '../globals.dart' as globals;
 
 abstract class AppRepo {
+  Future<String> getAuth();
   Future<List<TopicEntity>> getTopics();
   Future<List<CategoryEntity>> getCategories();
   Future<List<PostEntity>> getPostsByTopicId(
@@ -258,5 +259,15 @@ class AppRepoImpl implements AppRepo {
       return response;
     }
     return 0;
+  }
+
+  @override
+  Future<String> getAuth() async {
+    if (await AppHelper.hasConnection()) {
+      globals.hasConnection = true;
+      final response = await remoteDataSource.getAuth();
+      return response;
+    }
+    return "";
   }
 }

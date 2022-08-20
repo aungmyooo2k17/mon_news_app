@@ -20,13 +20,16 @@ class PostProvider with ChangeNotifier {
   bool _isItemEmpty = false;
 
   void fetchPostsByTopicIdWithPagination(int topicId) async {
+    print("((((((pagination))))))");
     try {
       if (_isCallProcessing || _isItemEmpty) {
         return;
       }
-      _currentPage++;
+      _currentPage = _currentPage + 1;
       _isCallProcessing = true;
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
+      // print("***************************");
+      // print(result[0].title);
       _isCallProcessing = false;
       _isItemEmpty = result.length < 5;
       _postList.addAll(result);
@@ -46,10 +49,10 @@ class PostProvider with ChangeNotifier {
       _isCallProcessing = true;
 
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
+      print("response");
+      print(result);
       _isCallProcessing = false;
       _postList.addAll(result);
-
-      debugPrint("Data: ${_postList.length.toString()}");
 
       _postState = PostState.data(_postList);
     } catch (e) {
@@ -60,7 +63,7 @@ class PostProvider with ChangeNotifier {
 
   void _resetData() {
     _isCallProcessing = false;
-    _currentPage = 0;
+    _currentPage = 1;
     _isItemEmpty = false;
     _postList = [];
   }

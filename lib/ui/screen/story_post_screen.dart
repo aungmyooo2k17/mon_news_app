@@ -15,12 +15,24 @@ class StoryPostPage extends StatefulWidget {
 }
 
 class _StoryPostPageState extends State<StoryPostPage> {
+  late ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(invokeOnScrollEnd);
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<PostProvider>().fetchPostsByTopicId(1);
+      context.read<PostProvider>().fetchPostsByTopicId(8);
     });
+  }
+
+  void invokeOnScrollEnd() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent) {
+      context.read<PostProvider>().fetchPostsByTopicIdWithPagination(8);
+    }
   }
 
   @override
@@ -58,7 +70,6 @@ class _StoryPostPageState extends State<StoryPostPage> {
                     return const NoData();
                   }
                 }, error: (msg) {
-                  print("error: $msg");
                   return Center(
                     child: Text(msg.toString()),
                   );

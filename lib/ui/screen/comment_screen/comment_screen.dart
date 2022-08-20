@@ -78,7 +78,8 @@ class _CommentPageState extends State<CommentPage> {
                                   width: MediaQuery.of(context).size.width -
                                       Sizes.dimen_64,
                                   child: AppTextField(
-                                    hint: "Leave",
+                                    borderRadius: 0,
+                                    hint: "Leave your comment",
                                     controller: _commentController,
                                   )),
                               SizedBox(
@@ -86,6 +87,7 @@ class _CommentPageState extends State<CommentPage> {
                                 height: Sizes.dimen_58,
                                 child: AppBtn(
                                   label: "Post",
+                                  borderRadius: 0,
                                   onTap: () => {
                                     context.read<CommentProvider>().postComment(
                                         widget.postId.toString(),
@@ -102,7 +104,6 @@ class _CommentPageState extends State<CommentPage> {
                     ),
                   );
                 }, error: (msg) {
-                  print("error: $msg");
                   return Center(
                     child: Text(msg.toString()),
                   );

@@ -27,7 +27,6 @@ class _BookMarkPageState extends State<BookMarkPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(globals.deviceId);
     return Scaffold(
         appBar: AppBar(
           title: const MyAppBar(
@@ -72,7 +71,6 @@ class _BookMarkPageState extends State<BookMarkPage> {
                     return const NoData();
                   }
                 }, error: (msg) {
-                  print("error: $msg");
                   return Center(
                     child: Text(msg.toString()),
                   );

@@ -15,6 +15,7 @@ import 'models/categories_result_model.dart';
 import 'models/category_model.dart';
 
 abstract class RemoteDataSource {
+  Future<String> getAuth();
   Future<List<TopicModel>> getTopics();
   Future<List<CategoryModel>> getCategories();
   Future<List<PostModel>> getPosts();
@@ -44,7 +45,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<TopicModel>> getTopics() async {
-    final response = await apiClient.get('topic',
+    final response = await apiClient.get('api/topic',
         params: {"sort": "priority", "order": "desc", "rows": 100});
 
     final topics = TopicsResultModel.fromJson(response).topics;
@@ -54,7 +55,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<CategoryModel>> getCategories() async {
-    final response = await apiClient.get('category',
+    final response = await apiClient.get('api/category',
         params: {"sort": "priority", "order": "desc", "rows": 100});
 
     final categories = CategoriesResultModel.fromJson(response).categories;
@@ -64,7 +65,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<PostModel>> getPosts() async {
     final response = await apiClient
-        .get('post', params: {"datatable": true, "page": 1, "rows": 100});
+        .get('api/post', params: {"datatable": true, "page": 1, "rows": 100});
 
     final posts = PostsResultModel.fromJson(response).posts;
 
@@ -74,12 +75,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<PostModel>> getPostsByTopicId(
       int topicId, int page, int perPage) async {
-    final response = await apiClient.get('post', params: {
+    final response = await apiClient.get('api/post', params: {
       "datatable": true,
       "page": page,
       "rows": perPage,
       "search": "topic_id:equal:$topicId"
     });
+
+    print("***");
+    print(response);
 
     final posts = PostsResultModel.fromJson(response).posts;
 
@@ -89,7 +93,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<CommentModel>> getCommentsByPostId(int postId) async {
     final response = await apiClient
-        .get('comment', params: {"search": "post_id:equal:$postId"});
+        .get('api/comment', params: {"search": "post_id:equal:$postId"});
 
     final comments = CommentsResultModel.fromJson(response).comments;
     return comments ?? [];
@@ -98,7 +102,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postLike(String postId, String uuid) async {
     final response = await apiClient
-        .post(path: 'like', body: {"post_id": postId, "uuid": uuid});
+        .post(path: 'api/like', body: {"post_id": postId, "uuid": uuid});
 
     if (response != null) {
       return response["id"];
@@ -110,7 +114,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postComment(String postId, String comment, String uuid) async {
     final response = await apiClient.post(
-        path: 'comment',
+        path: 'api/comment',
         body: {"post_id": postId, "comment": comment, "uuid": uuid});
 
     if (response != null) {
@@ -122,8 +126,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<BookmarkModel>> getBookmarks(String uuid) async {
-    final response =
-        await apiClient.get('bookmark', params: {"search": "uuid:equal:$uuid"});
+    final response = await apiClient
+        .get('api/bookmark', params: {"search": "uuid:equal:$uuid"});
 
     final bookmarks = BookmarksResultModel.fromJson(response).bookmarks;
 
@@ -133,7 +137,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postBookmark(String postId, String uuid) async {
     final response = await apiClient
-        .post(path: 'bookmark', body: {"post_id": postId, "uuid": uuid});
+        .post(path: 'api/bookmark', body: {"post_id": postId, "uuid": uuid});
 
     if (response != null) {
       return response["id"];
@@ -145,7 +149,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> deleteBookmark(int id) async {
     final response = await apiClient.delete(
-      path: 'bookmark/$id',
+      path: 'api/bookmark/$id',
     );
 
     if (response != null) {
@@ -157,7 +161,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<PostModel> getPostDetail(int postId) async {
-    final response = await apiClient.get('post/$postId');
+    final response = await apiClient.get('api/post/$postId');
 
     final post = PostModel.fromJsonDetail(response);
 
@@ -166,7 +170,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<int> getLikes(int postId, String uuid) async {
-    final response = await apiClient.get('like',
+    final response = await apiClient.get('api/like',
         params: {"search": "uuid:equal:$uuid|post_id:requal:$postId"});
 
     List resp = response as List;
@@ -180,7 +184,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> deleteLike(int likeId) async {
     final response = await apiClient.delete(
-      path: 'like/$likeId',
+      path: 'api/like/$likeId',
     );
 
     if (response["code"] != 204) {
@@ -193,7 +197,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postCommentReport(int commentId, String reportReason) async {
     final response = await apiClient.post(
-        path: 'report',
+        path: 'api/report',
         body: {"comment_id": "$commentId", "report": reportReason});
 
     if (response["code"] != 200) {
@@ -206,7 +210,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postDonate(String name, String email, String phoneNumber) async {
     final response = await apiClient.post(
-        path: 'donate',
+        path: 'api/donate',
         body: {"name": name, "email": email, "phone": phoneNumber});
 
     if (response["code"] != 200) {
@@ -219,7 +223,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<int> postFeedback(
       String name, String email, String phoneNumber, String message) async {
-    final response = await apiClient.post(path: 'feedback', body: {
+    final response = await apiClient.post(path: 'api/feedback', body: {
       "name": name,
       "email": email,
       "phone": phoneNumber,
@@ -231,5 +235,20 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     }
 
     return 0;
+  }
+
+  @override
+  Future<String> getAuth() async {
+    final response = await apiClient.post(path: 'oauth/token', body: {
+      "grant_type": "client_credentials",
+      "client_id": "3",
+      "client_secret": "p9503GTT0QaeypbIrCNba2Gl3UtsTazwuejj2Yw2"
+    });
+
+    if (response["code"] != 200) {
+      return response["access_token"];
+    }
+
+    return "";
   }
 }

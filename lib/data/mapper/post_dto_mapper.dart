@@ -17,8 +17,8 @@ class PostDtoMapper {
         title: model.title ?? '',
         category: model.category?.name ?? '',
         content: model.content ?? '',
-        audioUrl: '',
-        videoUrl: '',
+        audioUrl: model.audioUrl ?? '',
+        videoUrl: model.videoUrl ?? '',
         shareLink: model.shareLink ?? "");
   }
 }

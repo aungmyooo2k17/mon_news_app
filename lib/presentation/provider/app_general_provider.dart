@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_repo.dart';
 import '../model/like_state.dart';
+import '../../helper/shared_pref.dart';
 
 class AppGeneralProvider with ChangeNotifier {
   final AppRepo appRepo;
@@ -22,6 +23,16 @@ class AppGeneralProvider with ChangeNotifier {
     try {
       final result =
           await appRepo.postFeedback(name, email, phoneNumber, message);
+      return result;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<String> getAuth() async {
+    try {
+      final result = await appRepo.getAuth();
+      setAuth(result);
       return result;
     } catch (e) {
       throw Exception(e);

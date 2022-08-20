@@ -86,6 +86,9 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                                             color: Colors.black,
                                             size: Sizes.dimen_20,
                                           ),
+                                          const SizedBox(
+                                            width: Sizes.dimen_8,
+                                          ),
                                           Text(
                                             data.views.toString(),
                                             style: ThemeText.blackBodyText2,

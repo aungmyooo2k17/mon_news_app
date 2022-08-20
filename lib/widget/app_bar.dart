@@ -16,12 +16,7 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: Sizes.dimen_8,
-        bottom: Sizes.dimen_8,
-        left: Sizes.dimen_8,
-        right: Sizes.dimen_8,
-      ),
+      padding: const EdgeInsets.only(top: Sizes.dimen_8, bottom: Sizes.dimen_8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

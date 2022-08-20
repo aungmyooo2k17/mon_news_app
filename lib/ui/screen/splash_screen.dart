@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:mon_news_app/presentation/provider/app_general_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/ui/screen/home_screen.dart';
@@ -19,6 +20,9 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.scheduleFrameCallback((_) {
+      context.read<AppGeneralProvider>().getAuth();
+    });
     Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,

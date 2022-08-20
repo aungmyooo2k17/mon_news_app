@@ -38,7 +38,7 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
   }
 
   Future<void> insertAllPosts(List<PostDtoData> posts) async {
-    (delete(postDto)).go();
+    // (delete(postDto)).go();
     await batch((batch) => {
           batch.insertAllOnConflictUpdate(
               postDto,

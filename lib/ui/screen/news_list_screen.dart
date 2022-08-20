@@ -57,7 +57,6 @@ class _NewsListPageState extends State<NewsListPage> {
                   return ListView.builder(
                     controller: _scrollController,
                     itemBuilder: (buildContext, index) {
-                      //TODO : Pass whole object instead of passing separately
                       return NewsItem(
                           postEntity: data[index],
                           category: data[index].category,
@@ -75,7 +74,6 @@ class _NewsListPageState extends State<NewsListPage> {
                   return const NoData();
                 }
               }, error: (msg) {
-                print("error: $msg");
                 return Center(
                   child: Text(msg.toString()),
                 );
