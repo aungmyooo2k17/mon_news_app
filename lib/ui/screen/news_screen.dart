@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
@@ -21,6 +22,7 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.scheduleFrameCallback((_) {
+      debugPrint('FetchAllTopic');
       context.read<TopicProvider>().fetchAllTopics();
     });
   }
@@ -34,10 +36,11 @@ class _NewsPageState extends State<NewsPage> {
                 return const Center(child: CircularProgressIndicator());
               }, data: (data) {
                 return DefaultTabController(
+                  key: Key(data.length.toString()),
                   length: data.length - 1,
                   child: Scaffold(
                     appBar: AppBar(
-                      title: MyAppBar(),
+                      title: const MyAppBar(),
                       backgroundColor: Colors.white,
                       bottom: TabBar(
                         isScrollable: true,
@@ -58,6 +61,7 @@ class _NewsPageState extends State<NewsPage> {
                           .where((element) => element.id != 8)
                           .map((e) => NewsListPage(
                                 topicId: e.id,
+                                key: Key(e.id.toString()),
                               ))
                           .toList(),
                     ),

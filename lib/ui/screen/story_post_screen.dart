@@ -24,8 +24,14 @@ class _StoryPostPageState extends State<StoryPostPage> {
     _scrollController = ScrollController();
     _scrollController.addListener(invokeOnScrollEnd);
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-      context.read<PostProvider>().fetchPostsByTopicId(8);
+     context.read<PostProvider>().fetchPostsByTopicId(8);
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void invokeOnScrollEnd() {
