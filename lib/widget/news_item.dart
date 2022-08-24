@@ -94,23 +94,25 @@ class _NewsItemState extends State<NewsItem> {
                         )
                       ],
                     )
-                  : Container(
-                      padding: const EdgeInsets.only(
-                          top: Sizes.dimen_4,
-                          bottom: Sizes.dimen_4,
-                          right: Sizes.dimen_8,
-                          left: Sizes.dimen_8),
-                      margin: const EdgeInsets.only(
-                          top: Sizes.dimen_8, left: Sizes.dimen_8),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Text(
-                        widget.category,
-                        style: ThemeText.whiteBodyText2,
-                      ),
-                    ),
+                  : widget.category != ""
+                      ? Container(
+                          padding: const EdgeInsets.only(
+                              top: Sizes.dimen_4,
+                              bottom: Sizes.dimen_4,
+                              right: Sizes.dimen_8,
+                              left: Sizes.dimen_8),
+                          margin: const EdgeInsets.only(
+                              top: Sizes.dimen_8, left: Sizes.dimen_8),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Text(
+                            widget.category,
+                            style: ThemeText.whiteBodyText2,
+                          ),
+                        )
+                      : Container(),
               Positioned(
                 bottom: Sizes.dimen_14,
                 child: Column(

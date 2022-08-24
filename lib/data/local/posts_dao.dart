@@ -14,6 +14,8 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
 
   Future<List<PostDtoData>> fetchAllPosts() => select(postDto).get();
 
+  Future<void> deleteAllPosts() => delete(postDto).go();
+
   Future<PostDtoData> fetchPostById(int postId) {
     return (select(postDto)..where((tbl) => tbl.id.equals(postId))).getSingle();
   }
@@ -33,6 +35,7 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
       int topicId, int limit, int offset) {
     return (select(postDto)
           ..where((tbl) => tbl.topicId.equals(topicId))
+          ..orderBy([(u) => OrderingTerm.desc(u.id)])
           ..limit(limit, offset: offset))
         .get();
   }

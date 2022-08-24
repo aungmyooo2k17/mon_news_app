@@ -263,8 +263,6 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                               // ),
                               GestureDetector(
                                 onTap: () {
-                                  debugPrint("********");
-                                  debugPrint(data.shareLink ?? "");
                                   Share.share(data.shareLink ?? "");
                                 },
                                 child: SizedBox(

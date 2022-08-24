@@ -24,7 +24,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
     _scrollController = ScrollController();
     _scrollController.addListener(invokeOnScrollEnd);
     WidgetsBinding.instance.scheduleFrameCallback((_) {
-     context.read<PostProvider>().fetchPostsByTopicId(8);
+      context.read<PostProvider>().fetchPostsByTopicId(8);
     });
   }
 
@@ -51,6 +51,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
           backgroundColor: Colors.white,
         ),
         body: Selector<PostProvider, PostState>(
+          shouldRebuild: (previous, next) => (true),
           selector: (_, provider) => provider.postState,
           builder: (context, state, _) {
             return state.whenOrNull(loading: () {
@@ -58,6 +59,7 @@ class _StoryPostPageState extends State<StoryPostPage> {
                 }, data: (data) {
                   if (data.length != 0) {
                     return ListView.builder(
+                      controller: _scrollController,
                       itemBuilder: (BuildContext, index) {
                         return NewsItem(
                             postEntity: data[index],

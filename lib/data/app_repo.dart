@@ -29,6 +29,7 @@ abstract class AppRepo {
   Future<List<CategoryEntity>> getCategories();
   Future<List<PostEntity>> getPostsByTopicId(
       int topicId, int page, int perPage);
+  Future<void> deleteAllPost();
   Future<PostEntity> getPostDetail(int postId);
 
   Future<int> insertBookmark(String postId, String uuid);
@@ -269,5 +270,10 @@ class AppRepoImpl implements AppRepo {
       return response;
     }
     return "";
+  }
+
+  @override
+  Future<void> deleteAllPost() async {
+    await localDatasource.deleteAllPosts();
   }
 }

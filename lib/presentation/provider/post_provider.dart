@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 
 import '../../data/app_repo.dart';
+import '../../helper/app_helper.dart';
 import '../model/category_state.dart';
 import '../model/post_state.dart';
 
@@ -20,7 +21,6 @@ class PostProvider with ChangeNotifier {
   bool _isItemEmpty = false;
 
   void fetchPostsByTopicIdWithPagination(int topicId) async {
-    print("((((((pagination))))))");
     try {
       if (_isCallProcessing || _isItemEmpty) {
         return;
@@ -28,8 +28,6 @@ class PostProvider with ChangeNotifier {
       _currentPage = _currentPage + 1;
       _isCallProcessing = true;
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
-      // print("***************************");
-      // print(result[0].title);
       _isCallProcessing = false;
       _isItemEmpty = result.length < 5;
       _postList.addAll(result);
@@ -47,10 +45,11 @@ class PostProvider with ChangeNotifier {
       _postState = const PostState.loading();
       notifyListeners();
       _isCallProcessing = true;
+      if (await AppHelper.hasConnection()) {
+        appRepo.deleteAllPost();
+      }
 
       final result = await appRepo.getPostsByTopicId(topicId, _currentPage, 5);
-      print("response");
-      print(result);
       _isCallProcessing = false;
       _postList.addAll(result);
 

@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/local/bookmarks_dao.dart';
 import 'package:mon_news_app/data/local/comments_dao.dart';
@@ -15,6 +16,7 @@ abstract class LocalDatasource {
   Future<List<CategoryDtoData>> getAllCategories();
 
   Future<void> insertAllPosts(List<PostDtoData> topics);
+  Future<void> deleteAllPosts();
   Future<List<PostDtoData>> getAllPosts();
   Future<void> updatePost(
       int postId, int views, int likes, int comments, String shareLink);
@@ -121,5 +123,10 @@ class LocalDatasourceImpl implements LocalDatasource {
   @override
   Future<PostDtoData> getPostById(int postId) async {
     return await postsDao.fetchPostById(postId);
+  }
+
+  @override
+  Future<void> deleteAllPosts() async {
+    await postsDao.deleteAllPosts();
   }
 }

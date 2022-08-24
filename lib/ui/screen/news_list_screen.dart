@@ -47,7 +47,7 @@ class _NewsListPageState extends State<NewsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Selector<PostProvider, PostState>(
-        shouldRebuild: (previous, next) => true,
+        shouldRebuild: (previous, next) => (true),
         selector: (_, provider) => provider.postState,
         builder: (context, state, _) {
           return state.whenOrNull(loading: () {

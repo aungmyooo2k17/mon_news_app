@@ -82,9 +82,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       "search": "topic_id:equal:$topicId"
     });
 
-    print("***");
-    print(response);
-
     final posts = PostsResultModel.fromJson(response).posts;
 
     return posts ?? [];
