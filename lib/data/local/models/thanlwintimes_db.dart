@@ -57,6 +57,7 @@ class PostDto extends Table {
   TextColumn get topic => text()();
   TextColumn get category => text()();
   TextColumn get shareLink => text()();
+  TextColumn get publishedAt => text()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -75,6 +76,7 @@ class BookmarkDto extends Table {
   IntColumn get topicId => integer().nullable()();
   TextColumn get topic => text()();
   TextColumn get category => text()();
+  TextColumn get publishedAt => text()();
 
   @override
   Set<Column> get primaryKey => {id};

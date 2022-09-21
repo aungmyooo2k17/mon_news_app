@@ -1,5 +1,5 @@
 class ApiConstants {
   ApiConstants._();
 
-  static const String BASE_URL = "https://thanlwintimes.apitoolz.com/";
+  static const String BASE_URL = "https://app.thanlwintimes.com/";
 }

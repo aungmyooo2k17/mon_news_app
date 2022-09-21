@@ -39,7 +39,7 @@ class BookmarksDao extends DatabaseAccessor<ThanLwinTimesDatabase>
                       content: e.content,
                       title: e.title,
                       topic: e.topic,
-                      topicId: e.topicId))
+                      publishedAt: e.publishedAt))
                   .toList())
         });
   }

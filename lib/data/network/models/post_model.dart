@@ -15,6 +15,7 @@ class PostModel {
   final int? comments;
   final int? likes;
   final String? shareLink;
+  final String? publishedAt;
 
   PostModel(
       {required this.id,
@@ -28,34 +29,35 @@ class PostModel {
       this.views,
       this.comments,
       this.likes,
-      this.shareLink});
+      this.shareLink,
+      this.publishedAt});
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
-      id: json['id'],
-      title: json['title'],
-      banner: BannerModel.fromJson(json['banner']),
-      videoUrl: json['video_url'],
-      audioUrl: json['audio_url'],
-      content: json['content'],
-      topic: TopicModel.fromJson(json['topic'] ?? {}),
-      category: CategoryModel.fromJson(json['category'] ?? {}),
-    );
+        id: json['id'],
+        title: json['title'],
+        banner: BannerModel.fromJson(json['banner']),
+        videoUrl: json['video_url'],
+        audioUrl: json['audio_url'],
+        content: json['content'],
+        topic: TopicModel.fromJson(json['topic'] ?? {}),
+        category: CategoryModel.fromJson(json['category'] ?? {}),
+        publishedAt: json['published_at']);
   }
   factory PostModel.fromJsonDetail(Map<String, dynamic> json) {
     return PostModel(
-      id: json['id'],
-      title: json['title'],
-      banner: BannerModel.fromJson(json['banner']),
-      videoUrl: json['video_url'],
-      audioUrl: json['audio_url'],
-      content: json['content'],
-      views: json['views'] ?? 0,
-      likes: json['likes'] ?? 0,
-      shareLink: json['share_link'] ?? "",
-      comments: json['comments'] ?? 0,
-      topic: TopicModel.fromJson(json['topic'] ?? {}),
-      category: CategoryModel.fromJson(json['category'] ?? {}),
-    );
+        id: json['id'],
+        title: json['title'],
+        banner: BannerModel.fromJson(json['banner']),
+        videoUrl: json['video_url'],
+        audioUrl: json['audio_url'],
+        content: json['content'],
+        views: json['views'] ?? 0,
+        likes: json['likes'] ?? 0,
+        shareLink: json['share_link'] ?? "",
+        comments: json['comments'] ?? 0,
+        topic: TopicModel.fromJson(json['topic'] ?? {}),
+        category: CategoryModel.fromJson(json['category'] ?? {}),
+        publishedAt: json['published_at']);
   }
 }

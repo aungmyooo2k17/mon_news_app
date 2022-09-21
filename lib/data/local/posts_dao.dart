@@ -56,7 +56,8 @@ class PostsDao extends DatabaseAccessor<ThanLwinTimesDatabase>
                       content: e.content,
                       audioUrl: e.audioUrl,
                       banner: e.banner,
-                      shareLink: e.shareLink))
+                      shareLink: e.shareLink,
+                      publishedAt: e.publishedAt))
                   .toList())
         });
   }

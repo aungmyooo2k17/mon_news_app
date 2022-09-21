@@ -19,6 +19,7 @@ class PostEntityMapper {
         banner: dto.banner,
         category: dto.category,
         audioUrl: dto.audioUrl,
+        publishedAt: dto.publishedAt,
         isBookMark: bookmarkDtos
                     .firstWhereOrNull((element) => element.postId == dto.id) !=
                 null
@@ -41,6 +42,7 @@ class PostEntityMapper {
         banner: dto.banner,
         category: dto.category,
         audioUrl: dto.audioUrl,
+        publishedAt: dto.publishedAt,
         isBookMark: bookmarkDtos
                     .firstWhereOrNull((element) => element.postId == dto.id) !=
                 null

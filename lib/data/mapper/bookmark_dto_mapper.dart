@@ -19,6 +19,7 @@ class BookmarkDtoMapper {
         title: model.postModel.title ?? "",
         topic: model.postModel.topic!.name ?? "",
         topicId: model.postModel.topic!.id ?? 0,
-        bookmarkId: model.id);
+        bookmarkId: model.id,
+        publishedAt: model.postModel.publishedAt ?? "");
   }
 }

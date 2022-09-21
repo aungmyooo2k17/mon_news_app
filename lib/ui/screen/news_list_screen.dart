@@ -61,8 +61,8 @@ class _NewsListPageState extends State<NewsListPage> {
                           postEntity: data[index],
                           category: data[index].category,
                           title: data[index].title,
-                          credit: "Mizema",
-                          createdAt: "May 7, 2022",
+                          credit: "",
+                          createdAt: data[index].publishedAt ?? "",
                           imagUrl: data[index].banner);
                     },
                     itemCount: data.length,

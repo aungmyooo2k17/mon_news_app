@@ -8,17 +8,17 @@ class BookmarkEntityMapper {
 
   BookmarkEntity to(BookmarkDtoData dto) {
     return BookmarkEntity(
-      id: dto.bookmarkId,
-      postId: dto.postId,
-      uuid: dto.uuid,
-      audioUrl: dto.audioUrl,
-      videoUrl: dto.videoUrl,
-      banner: dto.banner,
-      category: dto.category,
-      content: dto.content,
-      title: dto.title,
-      topic: dto.topic,
-      topicId: dto.topicId,
-    );
+        id: dto.bookmarkId,
+        postId: dto.postId,
+        uuid: dto.uuid,
+        audioUrl: dto.audioUrl,
+        videoUrl: dto.videoUrl,
+        banner: dto.banner,
+        category: dto.category,
+        content: dto.content,
+        title: dto.title,
+        topic: dto.topic,
+        topicId: dto.topicId ?? 0,
+        publishedAt: dto.publishedAt);
   }
 }

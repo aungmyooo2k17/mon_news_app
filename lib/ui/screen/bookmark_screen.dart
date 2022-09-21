@@ -58,9 +58,9 @@ class _BookMarkPageState extends State<BookMarkPage> {
                                 category: data[index].category),
                             category: data[index].category,
                             title: data[index].title,
-                            credit: "Mizema",
-                            createdAt: "May 7, 2022",
-                            imagUrl: data[index].banner);
+                            credit: "TLTNews",
+                            createdAt: data[index].publishedAt,
+                            imagUrl: data[index].category);
                       },
                       itemCount: data.length,
                       shrinkWrap: true,

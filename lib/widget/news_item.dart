@@ -137,7 +137,7 @@ class _NewsItemState extends State<NewsItem> {
                             height: Sizes.dimen_16,
                           ),
                           Text(
-                            '${widget.credit} - ${widget.createdAt}',
+                            'TLTNews - ${widget.postEntity.publishedAt}',
                             maxLines: 2,
                             style: ThemeText.newsItemCreditAndTime,
                           ),

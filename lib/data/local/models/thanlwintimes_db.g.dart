@@ -471,6 +471,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
   final String topic;
   final String category;
   final String shareLink;
+  final String publishedAt;
   PostDtoData(
       {required this.id,
       required this.title,
@@ -484,7 +485,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       this.likes,
       required this.topic,
       required this.category,
-      required this.shareLink});
+      required this.shareLink,
+      required this.publishedAt});
   factory PostDtoData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PostDtoData(
@@ -514,6 +516,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
       shareLink: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}share_link'])!,
+      publishedAt: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}published_at'])!,
     );
   }
   @override
@@ -538,6 +542,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
     map['topic'] = Variable<String>(topic);
     map['category'] = Variable<String>(category);
     map['share_link'] = Variable<String>(shareLink);
+    map['published_at'] = Variable<String>(publishedAt);
     return map;
   }
 
@@ -560,6 +565,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       topic: Value(topic),
       category: Value(category),
       shareLink: Value(shareLink),
+      publishedAt: Value(publishedAt),
     );
   }
 
@@ -580,6 +586,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       topic: serializer.fromJson<String>(json['topic']),
       category: serializer.fromJson<String>(json['category']),
       shareLink: serializer.fromJson<String>(json['shareLink']),
+      publishedAt: serializer.fromJson<String>(json['publishedAt']),
     );
   }
   @override
@@ -599,6 +606,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
       'topic': serializer.toJson<String>(topic),
       'category': serializer.toJson<String>(category),
       'shareLink': serializer.toJson<String>(shareLink),
+      'publishedAt': serializer.toJson<String>(publishedAt),
     };
   }
 
@@ -615,7 +623,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           int? likes,
           String? topic,
           String? category,
-          String? shareLink}) =>
+          String? shareLink,
+          String? publishedAt}) =>
       PostDtoData(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -630,6 +639,7 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
         topic: topic ?? this.topic,
         category: category ?? this.category,
         shareLink: shareLink ?? this.shareLink,
+        publishedAt: publishedAt ?? this.publishedAt,
       );
   @override
   String toString() {
@@ -646,14 +656,28 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           ..write('likes: $likes, ')
           ..write('topic: $topic, ')
           ..write('category: $category, ')
-          ..write('shareLink: $shareLink')
+          ..write('shareLink: $shareLink, ')
+          ..write('publishedAt: $publishedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, banner, videoUrl, audioUrl,
-      content, topicId, views, comments, likes, topic, category, shareLink);
+  int get hashCode => Object.hash(
+      id,
+      title,
+      banner,
+      videoUrl,
+      audioUrl,
+      content,
+      topicId,
+      views,
+      comments,
+      likes,
+      topic,
+      category,
+      shareLink,
+      publishedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -670,7 +694,8 @@ class PostDtoData extends DataClass implements Insertable<PostDtoData> {
           other.likes == this.likes &&
           other.topic == this.topic &&
           other.category == this.category &&
-          other.shareLink == this.shareLink);
+          other.shareLink == this.shareLink &&
+          other.publishedAt == this.publishedAt);
 }
 
 class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
@@ -687,6 +712,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
   final Value<String> topic;
   final Value<String> category;
   final Value<String> shareLink;
+  final Value<String> publishedAt;
   const PostDtoCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
@@ -701,6 +727,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     this.topic = const Value.absent(),
     this.category = const Value.absent(),
     this.shareLink = const Value.absent(),
+    this.publishedAt = const Value.absent(),
   });
   PostDtoCompanion.insert({
     this.id = const Value.absent(),
@@ -716,6 +743,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     required String topic,
     required String category,
     required String shareLink,
+    required String publishedAt,
   })  : title = Value(title),
         banner = Value(banner),
         videoUrl = Value(videoUrl),
@@ -724,7 +752,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
         topicId = Value(topicId),
         topic = Value(topic),
         category = Value(category),
-        shareLink = Value(shareLink);
+        shareLink = Value(shareLink),
+        publishedAt = Value(publishedAt);
   static Insertable<PostDtoData> custom({
     Expression<int>? id,
     Expression<String>? title,
@@ -739,6 +768,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     Expression<String>? topic,
     Expression<String>? category,
     Expression<String>? shareLink,
+    Expression<String>? publishedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -754,6 +784,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       if (topic != null) 'topic': topic,
       if (category != null) 'category': category,
       if (shareLink != null) 'share_link': shareLink,
+      if (publishedAt != null) 'published_at': publishedAt,
     });
   }
 
@@ -770,7 +801,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       Value<int?>? likes,
       Value<String>? topic,
       Value<String>? category,
-      Value<String>? shareLink}) {
+      Value<String>? shareLink,
+      Value<String>? publishedAt}) {
     return PostDtoCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -785,6 +817,7 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
       topic: topic ?? this.topic,
       category: category ?? this.category,
       shareLink: shareLink ?? this.shareLink,
+      publishedAt: publishedAt ?? this.publishedAt,
     );
   }
 
@@ -830,6 +863,9 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
     if (shareLink.present) {
       map['share_link'] = Variable<String>(shareLink.value);
     }
+    if (publishedAt.present) {
+      map['published_at'] = Variable<String>(publishedAt.value);
+    }
     return map;
   }
 
@@ -848,7 +884,8 @@ class PostDtoCompanion extends UpdateCompanion<PostDtoData> {
           ..write('likes: $likes, ')
           ..write('topic: $topic, ')
           ..write('category: $category, ')
-          ..write('shareLink: $shareLink')
+          ..write('shareLink: $shareLink, ')
+          ..write('publishedAt: $publishedAt')
           ..write(')'))
         .toString();
   }
@@ -924,6 +961,12 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
   late final GeneratedColumn<String?> shareLink = GeneratedColumn<String?>(
       'share_link', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _publishedAtMeta =
+      const VerificationMeta('publishedAt');
+  @override
+  late final GeneratedColumn<String?> publishedAt = GeneratedColumn<String?>(
+      'published_at', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -938,7 +981,8 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
         likes,
         topic,
         category,
-        shareLink
+        shareLink,
+        publishedAt
       ];
   @override
   String get aliasedName => _alias ?? 'post_dto';
@@ -1018,6 +1062,14 @@ class $PostDtoTable extends PostDto with TableInfo<$PostDtoTable, PostDtoData> {
     } else if (isInserting) {
       context.missing(_shareLinkMeta);
     }
+    if (data.containsKey('published_at')) {
+      context.handle(
+          _publishedAtMeta,
+          publishedAt.isAcceptableOrUnknown(
+              data['published_at']!, _publishedAtMeta));
+    } else if (isInserting) {
+      context.missing(_publishedAtMeta);
+    }
     return context;
   }
 
@@ -1045,9 +1097,10 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
   final String videoUrl;
   final String audioUrl;
   final String content;
-  final int topicId;
+  final int? topicId;
   final String topic;
   final String category;
+  final String publishedAt;
   BookmarkDtoData(
       {required this.id,
       required this.bookmarkId,
@@ -1058,9 +1111,10 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
       required this.videoUrl,
       required this.audioUrl,
       required this.content,
-      required this.topicId,
+      this.topicId,
       required this.topic,
-      required this.category});
+      required this.category,
+      required this.publishedAt});
   factory BookmarkDtoData.fromData(Map<String, dynamic> data,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -1084,11 +1138,13 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
       content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
       topicId: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}topic_id'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}topic_id']),
       topic: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}topic'])!,
       category: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
+      publishedAt: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}published_at'])!,
     );
   }
   @override
@@ -1103,9 +1159,12 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
     map['video_url'] = Variable<String>(videoUrl);
     map['audio_url'] = Variable<String>(audioUrl);
     map['content'] = Variable<String>(content);
-    map['topic_id'] = Variable<int>(topicId);
+    if (!nullToAbsent || topicId != null) {
+      map['topic_id'] = Variable<int?>(topicId);
+    }
     map['topic'] = Variable<String>(topic);
     map['category'] = Variable<String>(category);
+    map['published_at'] = Variable<String>(publishedAt);
     return map;
   }
 
@@ -1120,9 +1179,12 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
       videoUrl: Value(videoUrl),
       audioUrl: Value(audioUrl),
       content: Value(content),
-      topicId: Value(topicId),
+      topicId: topicId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(topicId),
       topic: Value(topic),
       category: Value(category),
+      publishedAt: Value(publishedAt),
     );
   }
 
@@ -1139,9 +1201,10 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
       videoUrl: serializer.fromJson<String>(json['videoUrl']),
       audioUrl: serializer.fromJson<String>(json['audioUrl']),
       content: serializer.fromJson<String>(json['content']),
-      topicId: serializer.fromJson<int>(json['topicId']),
+      topicId: serializer.fromJson<int?>(json['topicId']),
       topic: serializer.fromJson<String>(json['topic']),
       category: serializer.fromJson<String>(json['category']),
+      publishedAt: serializer.fromJson<String>(json['publishedAt']),
     );
   }
   @override
@@ -1157,9 +1220,10 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
       'videoUrl': serializer.toJson<String>(videoUrl),
       'audioUrl': serializer.toJson<String>(audioUrl),
       'content': serializer.toJson<String>(content),
-      'topicId': serializer.toJson<int>(topicId),
+      'topicId': serializer.toJson<int?>(topicId),
       'topic': serializer.toJson<String>(topic),
       'category': serializer.toJson<String>(category),
+      'publishedAt': serializer.toJson<String>(publishedAt),
     };
   }
 
@@ -1175,7 +1239,8 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
           String? content,
           int? topicId,
           String? topic,
-          String? category}) =>
+          String? category,
+          String? publishedAt}) =>
       BookmarkDtoData(
         id: id ?? this.id,
         bookmarkId: bookmarkId ?? this.bookmarkId,
@@ -1189,6 +1254,7 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
         topicId: topicId ?? this.topicId,
         topic: topic ?? this.topic,
         category: category ?? this.category,
+        publishedAt: publishedAt ?? this.publishedAt,
       );
   @override
   String toString() {
@@ -1204,14 +1270,15 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
           ..write('content: $content, ')
           ..write('topicId: $topicId, ')
           ..write('topic: $topic, ')
-          ..write('category: $category')
+          ..write('category: $category, ')
+          ..write('publishedAt: $publishedAt')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(id, bookmarkId, postId, uuid, title, banner,
-      videoUrl, audioUrl, content, topicId, topic, category);
+      videoUrl, audioUrl, content, topicId, topic, category, publishedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1227,7 +1294,8 @@ class BookmarkDtoData extends DataClass implements Insertable<BookmarkDtoData> {
           other.content == this.content &&
           other.topicId == this.topicId &&
           other.topic == this.topic &&
-          other.category == this.category);
+          other.category == this.category &&
+          other.publishedAt == this.publishedAt);
 }
 
 class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
@@ -1240,9 +1308,10 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
   final Value<String> videoUrl;
   final Value<String> audioUrl;
   final Value<String> content;
-  final Value<int> topicId;
+  final Value<int?> topicId;
   final Value<String> topic;
   final Value<String> category;
+  final Value<String> publishedAt;
   const BookmarkDtoCompanion({
     this.id = const Value.absent(),
     this.bookmarkId = const Value.absent(),
@@ -1256,6 +1325,7 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
     this.topicId = const Value.absent(),
     this.topic = const Value.absent(),
     this.category = const Value.absent(),
+    this.publishedAt = const Value.absent(),
   });
   BookmarkDtoCompanion.insert({
     this.id = const Value.absent(),
@@ -1267,9 +1337,10 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
     required String videoUrl,
     required String audioUrl,
     required String content,
-    required int topicId,
+    this.topicId = const Value.absent(),
     required String topic,
     required String category,
+    required String publishedAt,
   })  : bookmarkId = Value(bookmarkId),
         postId = Value(postId),
         uuid = Value(uuid),
@@ -1278,9 +1349,9 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
         videoUrl = Value(videoUrl),
         audioUrl = Value(audioUrl),
         content = Value(content),
-        topicId = Value(topicId),
         topic = Value(topic),
-        category = Value(category);
+        category = Value(category),
+        publishedAt = Value(publishedAt);
   static Insertable<BookmarkDtoData> custom({
     Expression<int>? id,
     Expression<int>? bookmarkId,
@@ -1291,9 +1362,10 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
     Expression<String>? videoUrl,
     Expression<String>? audioUrl,
     Expression<String>? content,
-    Expression<int>? topicId,
+    Expression<int?>? topicId,
     Expression<String>? topic,
     Expression<String>? category,
+    Expression<String>? publishedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1308,6 +1380,7 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
       if (topicId != null) 'topic_id': topicId,
       if (topic != null) 'topic': topic,
       if (category != null) 'category': category,
+      if (publishedAt != null) 'published_at': publishedAt,
     });
   }
 
@@ -1321,9 +1394,10 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
       Value<String>? videoUrl,
       Value<String>? audioUrl,
       Value<String>? content,
-      Value<int>? topicId,
+      Value<int?>? topicId,
       Value<String>? topic,
-      Value<String>? category}) {
+      Value<String>? category,
+      Value<String>? publishedAt}) {
     return BookmarkDtoCompanion(
       id: id ?? this.id,
       bookmarkId: bookmarkId ?? this.bookmarkId,
@@ -1337,6 +1411,7 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
       topicId: topicId ?? this.topicId,
       topic: topic ?? this.topic,
       category: category ?? this.category,
+      publishedAt: publishedAt ?? this.publishedAt,
     );
   }
 
@@ -1371,13 +1446,16 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
       map['content'] = Variable<String>(content.value);
     }
     if (topicId.present) {
-      map['topic_id'] = Variable<int>(topicId.value);
+      map['topic_id'] = Variable<int?>(topicId.value);
     }
     if (topic.present) {
       map['topic'] = Variable<String>(topic.value);
     }
     if (category.present) {
       map['category'] = Variable<String>(category.value);
+    }
+    if (publishedAt.present) {
+      map['published_at'] = Variable<String>(publishedAt.value);
     }
     return map;
   }
@@ -1396,7 +1474,8 @@ class BookmarkDtoCompanion extends UpdateCompanion<BookmarkDtoData> {
           ..write('content: $content, ')
           ..write('topicId: $topicId, ')
           ..write('topic: $topic, ')
-          ..write('category: $category')
+          ..write('category: $category, ')
+          ..write('publishedAt: $publishedAt')
           ..write(')'))
         .toString();
   }
@@ -1456,8 +1535,8 @@ class $BookmarkDtoTable extends BookmarkDto
   final VerificationMeta _topicIdMeta = const VerificationMeta('topicId');
   @override
   late final GeneratedColumn<int?> topicId = GeneratedColumn<int?>(
-      'topic_id', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      'topic_id', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
   final VerificationMeta _topicMeta = const VerificationMeta('topic');
   @override
   late final GeneratedColumn<String?> topic = GeneratedColumn<String?>(
@@ -1467,6 +1546,12 @@ class $BookmarkDtoTable extends BookmarkDto
   @override
   late final GeneratedColumn<String?> category = GeneratedColumn<String?>(
       'category', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _publishedAtMeta =
+      const VerificationMeta('publishedAt');
+  @override
+  late final GeneratedColumn<String?> publishedAt = GeneratedColumn<String?>(
+      'published_at', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
@@ -1481,7 +1566,8 @@ class $BookmarkDtoTable extends BookmarkDto
         content,
         topicId,
         topic,
-        category
+        category,
+        publishedAt
       ];
   @override
   String get aliasedName => _alias ?? 'bookmark_dto';
@@ -1548,8 +1634,6 @@ class $BookmarkDtoTable extends BookmarkDto
     if (data.containsKey('topic_id')) {
       context.handle(_topicIdMeta,
           topicId.isAcceptableOrUnknown(data['topic_id']!, _topicIdMeta));
-    } else if (isInserting) {
-      context.missing(_topicIdMeta);
     }
     if (data.containsKey('topic')) {
       context.handle(
@@ -1562,6 +1646,14 @@ class $BookmarkDtoTable extends BookmarkDto
           category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     } else if (isInserting) {
       context.missing(_categoryMeta);
+    }
+    if (data.containsKey('published_at')) {
+      context.handle(
+          _publishedAtMeta,
+          publishedAt.isAcceptableOrUnknown(
+              data['published_at']!, _publishedAtMeta));
+    } else if (isInserting) {
+      context.missing(_publishedAtMeta);
     }
     return context;
   }

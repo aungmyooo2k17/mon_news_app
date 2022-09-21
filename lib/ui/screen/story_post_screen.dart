@@ -65,8 +65,8 @@ class _StoryPostPageState extends State<StoryPostPage> {
                             postEntity: data[index],
                             category: data[index].category,
                             title: data[index].title,
-                            credit: "Thanlwin",
-                            createdAt: "May 7, 2022",
+                            credit: "TLTNews",
+                            createdAt: data[index].publishedAt ?? "",
                             imagUrl: data[index].banner);
                       },
                       itemCount: data.length,

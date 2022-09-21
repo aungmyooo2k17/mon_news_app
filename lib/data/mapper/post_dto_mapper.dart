@@ -1,5 +1,3 @@
-import 'package:flutter/rendering.dart';
-
 import '../local/models/thanlwintimes_db.dart';
 import '../network/models/post_model.dart';
 
@@ -19,6 +17,7 @@ class PostDtoMapper {
         content: model.content ?? '',
         audioUrl: model.audioUrl ?? '',
         videoUrl: model.videoUrl ?? '',
-        shareLink: model.shareLink ?? "");
+        shareLink: model.shareLink ?? "",
+        publishedAt: model.publishedAt ?? "");
   }
 }
