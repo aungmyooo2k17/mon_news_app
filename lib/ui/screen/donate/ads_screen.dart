@@ -61,7 +61,7 @@ class AdsPage extends StatelessWidget {
     return const SafeArea(
       child: WebView(
         javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: "https://thanlwintimes.apitoolz.com/en/donate",
+        initialUrl: "https://app.thanlwintimes.com/en/donate",
       ),
     );
   }

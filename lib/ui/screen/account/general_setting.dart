@@ -63,7 +63,7 @@ class GeneralSetting extends StatelessWidget {
                   builder: (context) => DynamicWebContentpage(
                         title: AppLocalizations.of(context)!.privacy,
                         url:
-                            "https://thanlwintimes.apitoolz.com/${AppHelper.getLanguageCode(language.languageCode)}/privacy-policy",
+                            "https://app.thanlwintimes.com/${AppHelper.getLanguageCode(language.languageCode)}/privacy-policy",
                       )),
             );
           },
@@ -99,7 +99,7 @@ class GeneralSetting extends StatelessWidget {
                   builder: (context) => DynamicWebContentpage(
                         title: AppLocalizations.of(context)!.terms_of_use,
                         url:
-                            "https://thanlwintimes.apitoolz.com/${AppHelper.getLanguageCode(language.languageCode)}/terms-condition",
+                            "https://app.thanlwintimes.com/${AppHelper.getLanguageCode(language.languageCode)}/terms-condition",
                       )),
             );
           },
@@ -135,7 +135,7 @@ class GeneralSetting extends StatelessWidget {
                   builder: (context) => DynamicWebContentpage(
                         title: AppLocalizations.of(context)!.about_us,
                         url:
-                            "https://thanlwintimes.apitoolz.com/${AppHelper.getLanguageCode(language.languageCode)}/about-us",
+                            "https://app.thanlwintimes.com/${AppHelper.getLanguageCode(language.languageCode)}/about-us",
                       )),
             );
           },
@@ -171,7 +171,7 @@ class GeneralSetting extends StatelessWidget {
                   builder: (context) => DynamicWebContentpage(
                         title: AppLocalizations.of(context)!.contact_us,
                         url:
-                            "https://thanlwintimes.apitoolz.com/${AppHelper.getLanguageCode(language.languageCode)}/contact-us",
+                            "https://app.thanlwintimes.com/${AppHelper.getLanguageCode(language.languageCode)}/contact-us",
                       )),
             );
           },
