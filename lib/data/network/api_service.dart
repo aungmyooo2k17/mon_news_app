@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/helper/shared_pref.dart';
-import '../../helper/shared_pref.dart';
 import 'api_constants.dart';
 
 @lazySingleton

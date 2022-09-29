@@ -5,14 +5,13 @@ import 'package:mon_news_app/presentation/provider/comment_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/ui/screen/comment_screen/comment_item.dart';
 import 'package:mon_news_app/widget/app_btn.dart';
-import 'package:mon_news_app/widget/app_btn_outline.dart';
 import 'package:mon_news_app/widget/app_text_field.dart';
 import 'package:mon_news_app/widget/report_radio_btn.dart';
 import 'package:provider/provider.dart';
 
 class ReportPage extends StatefulWidget {
   final CommentEntity commentEntity;
-  ReportPage({Key? key, required this.commentEntity}) : super(key: key);
+  const ReportPage({Key? key, required this.commentEntity}) : super(key: key);
 
   @override
   State<ReportPage> createState() => _ReportPageState();
@@ -47,19 +46,19 @@ class _ReportPageState extends State<ReportPage> {
             onPressed: () => Navigator.pop(context)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        title: Text('Report'),
+        title: const Text('Report'),
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Report Aung Myo oo",
+                "Report Users",
                 style: ThemeText.blackBodyText2,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Card(
@@ -67,7 +66,7 @@ class _ReportPageState extends State<ReportPage> {
                 commentEntity: widget.commentEntity,
                 isInReportPage: true,
               )),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               reporting()

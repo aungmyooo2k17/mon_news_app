@@ -1,6 +1,3 @@
-import 'package:mon_news_app/data/network/models/bookmark_model.dart';
-import 'package:mon_news_app/domain/post_entity.dart';
-
 class BookmarkEntity {
   final int id;
   final int postId;

@@ -1,9 +1,6 @@
-import 'package:drift/drift.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/theme/color_theme.dart';
 import 'package:mon_news_app/ui/screen/news_list_screen.dart';
-import 'package:mon_news_app/ui/screen/story_post_screen.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:provider/provider.dart';
 

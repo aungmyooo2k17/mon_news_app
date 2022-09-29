@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../data/app_repo.dart';
-import '../model/like_state.dart';
 import '../../helper/shared_pref.dart';
 
 class AppGeneralProvider with ChangeNotifier {

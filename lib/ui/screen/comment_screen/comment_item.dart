@@ -47,7 +47,7 @@ class CommentItem extends StatelessWidget {
                 height: 80,
               )),
             ),
-            SizedBox(
+            const SizedBox(
               width: 16,
             ),
             Column(
@@ -55,8 +55,10 @@ class CommentItem extends StatelessWidget {
                 Text(
                   'User',
                   style: ThemeText.blackSubtitle1,
+                  textAlign: TextAlign.left,
                 ),
-                Text('Apr 20, 2022', style: ThemeText.blackBodyText2)
+                Text(commentEntity.createdAt ?? '',
+                    style: ThemeText.blackBodyText2)
               ],
             ),
           ],

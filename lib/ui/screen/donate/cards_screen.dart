@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
-import 'package:mon_news_app/constants/string_constant.dart';
 import 'package:mon_news_app/presentation/provider/app_general_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
 import 'package:mon_news_app/widget/app_btn.dart';

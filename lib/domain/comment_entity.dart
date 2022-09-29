@@ -3,10 +3,12 @@ class CommentEntity {
   final int postId;
   final String comment;
   final String uuid;
+  final String? createdAt;
 
   CommentEntity(
       {required this.id,
       required this.postId,
       required this.comment,
-      required this.uuid});
+      required this.uuid,
+      this.createdAt});
 }

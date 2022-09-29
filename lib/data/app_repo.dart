@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/data/mapper/bookmark_dto_mapper.dart';
 import 'package:mon_news_app/data/mapper/bookmark_entity_mapper.dart';
 import 'package:mon_news_app/data/mapper/category_dto_mapper.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mon_news_app/domain/bookmark_entity.dart';
 import 'package:mon_news_app/domain/comment_entity.dart';
 

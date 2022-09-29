@@ -31,6 +31,7 @@ class _DynamicWebContentpageState extends State<DynamicWebContentpage> {
           foregroundColor: Colors.black,
           title: MyAppBar(
             title: widget.title,
+            showBookmark: false,
           ),
         ),
         body: WebView(

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 import 'package:mon_news_app/presentation/model/bookmark_state.dart';
-import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/ui/screen/no_data.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:mon_news_app/widget/news_item.dart';
 import 'package:provider/provider.dart';
-import '../../globals.dart' as globals;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookMarkPage extends StatefulWidget {
   const BookMarkPage({Key? key}) : super(key: key);
@@ -29,8 +28,9 @@ class _BookMarkPageState extends State<BookMarkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const MyAppBar(
-            title: "Bookmarks",
+          title: MyAppBar(
+            title: AppLocalizations.of(context)!.bookmarks,
+            showBookmark: false,
           ),
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -55,12 +55,13 @@ class _BookMarkPageState extends State<BookMarkPage> {
                                 audioUrl: data[index].audioUrl,
                                 content: data[index].content,
                                 topic: data[index].topic,
-                                category: data[index].category),
+                                category: data[index].category,
+                                publishedAt: data[index].publishedAt),
                             category: data[index].category,
                             title: data[index].title,
                             credit: "TLTNews",
                             createdAt: data[index].publishedAt,
-                            imagUrl: data[index].category);
+                            imagUrl: data[index].banner);
                       },
                       itemCount: data.length,
                       shrinkWrap: true,

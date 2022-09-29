@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 
 import '../../data/app_repo.dart';
 import '../../helper/app_helper.dart';
-import '../model/category_state.dart';
 import '../model/post_state.dart';
 
 class PostProvider with ChangeNotifier {

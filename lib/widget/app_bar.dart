@@ -7,10 +7,12 @@ import 'logo.dart';
 
 class MyAppBar extends StatelessWidget {
   final String? title;
+  final bool? showBookmark;
 
   const MyAppBar({
     Key? key,
     this.title,
+    this.showBookmark = true,
   });
 
   @override
@@ -28,19 +30,22 @@ class MyAppBar extends StatelessWidget {
                   title!,
                   style: ThemeText.appbarTitle,
                 ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BookMarkPage()),
-              );
-            },
-            icon: const Icon(
-              Icons.bookmark,
-              color: AppColor.secondaryColor,
-              size: Sizes.dimen_20,
-            ),
-          ),
+          showBookmark == true
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BookMarkPage()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.bookmark,
+                    color: AppColor.secondaryColor,
+                    size: Sizes.dimen_20,
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

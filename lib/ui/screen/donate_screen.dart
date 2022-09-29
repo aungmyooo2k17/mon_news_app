@@ -3,8 +3,6 @@ import 'package:mon_news_app/theme/color_theme.dart';
 import 'package:mon_news_app/ui/screen/donate/ads_screen.dart';
 import 'package:mon_news_app/ui/screen/donate/cards_screen.dart';
 import 'package:mon_news_app/ui/screen/donate/crypto_screen.dart';
-import 'package:mon_news_app/ui/screen/news_list_screen.dart';
-import 'package:mon_news_app/ui/screen/story_post_screen.dart';
 import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

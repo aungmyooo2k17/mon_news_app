@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
 
 import '../../data/app_repo.dart';
-import '../model/category_state.dart';
 import '../model/post_detail_state.dart';
-import '../model/post_state.dart';
 
 class PostDetailProvider with ChangeNotifier {
   final AppRepo appRepo;

@@ -1,4 +1,3 @@
-import 'package:mon_news_app/data/network/models/category_model.dart';
 import 'package:mon_news_app/data/network/models/post_model.dart';
 
 class PostsResultModel {

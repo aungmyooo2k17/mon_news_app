@@ -61,7 +61,7 @@ class ThemeText {
       );
 
   static TextStyle get appbarTitle => robotoTextTheme.headline1!.copyWith(
-      fontSize: Sizes.dimen_24,
+      fontSize: Sizes.dimen_18,
       color: AppColor.primaryColor,
       fontWeight: FontWeight.bold);
 

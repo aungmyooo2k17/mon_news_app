@@ -4,14 +4,13 @@ import 'package:provider/provider.dart';
 
 import '../../constants/size_constant.dart';
 import '../../presentation/provider/app_general_provider.dart';
-import '../../theme/color_theme.dart';
 import '../../theme/theme_text.dart';
 import '../../widget/app_bar.dart';
 import '../../widget/app_btn.dart';
 import '../../widget/app_text_field.dart';
 
 class FeedbackPage extends StatefulWidget {
-  FeedbackPage({Key? key}) : super(key: key);
+  const FeedbackPage({Key? key}) : super(key: key);
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -31,6 +30,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         foregroundColor: Colors.black,
         title: MyAppBar(
           title: AppLocalizations.of(context)!.share_feedback,
+          showBookmark: false,
         ),
       ),
       body: Center(
@@ -83,6 +83,16 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   AppBtn(
                     label: AppLocalizations.of(context)!.submit,
                     onTap: () async {
+                      if (_controllerName.text.isEmpty) {
+                        _dialogBuilder(
+                            context, "Required!", "Please enter your name.");
+                        return;
+                      }
+                      if (_controllerMessage.text.isEmpty) {
+                        _dialogBuilder(
+                            context, "Required!", "Please enter your message.");
+                        return;
+                      }
                       int result = await context
                           .read<AppGeneralProvider>()
                           .postFeedback(
@@ -111,5 +121,29 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   void showInSnackBar(String value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  }
+
+  Future<void> _dialogBuilder(
+      BuildContext context, String title, String message) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title, style: ThemeText.title),
+          content: Text(message, style: ThemeText.textFieldLabel),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

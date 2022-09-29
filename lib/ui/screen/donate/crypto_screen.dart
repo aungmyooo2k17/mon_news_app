@@ -19,7 +19,11 @@ class ScanQRPage extends StatelessWidget {
           const SizedBox(
             height: Sizes.dimen_12,
           ),
-          Image.asset("assets/images/qr_code.png"),
+          Image.network(
+            "https://app.thanlwintimes.com/assets/bitcoin.png",
+            width: 200,
+            height: 200,
+          ),
         ],
       ),
     );
