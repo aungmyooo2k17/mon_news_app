@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mon_news_app/constants/size_constant.dart';
 import 'package:mon_news_app/domain/post_entity.dart';
-import 'package:mon_news_app/presentation/model/post_state.dart';
 import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
@@ -58,7 +57,8 @@ class _NewsItemState extends State<NewsItem> {
           height: Sizes.dimen_200,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: CachedNetworkImageProvider(widget.imagUrl ?? ''),
+              image: CachedNetworkImageProvider(
+                  "${widget.imagUrl}?w=600&h=400&fit=crop"),
               fit: BoxFit.fill,
             ),
             color: Colors.white,
