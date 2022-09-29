@@ -5,7 +5,7 @@ import 'package:mon_news_app/widget/app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../presentation/model/topic_state.dart';
-import '../../presentation/provider/movie_provider.dart';
+import '../../presentation/provider/topic_provider.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);

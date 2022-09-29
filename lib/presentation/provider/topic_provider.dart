@@ -14,9 +14,6 @@ class TopicProvider with ChangeNotifier {
 
   void fetchAllTopics() async {
     try {
-      if(_topicState is DataState){
-        return;
-      }
       _topicState = const TopicState.loading();
       notifyListeners();
       final result = await topicRepo.getTopics();

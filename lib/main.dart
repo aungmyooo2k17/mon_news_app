@@ -6,7 +6,7 @@ import 'package:mon_news_app/presentation/provider/bookmark_provider.dart';
 import 'package:mon_news_app/presentation/provider/category_provider.dart';
 import 'package:mon_news_app/presentation/provider/comment_provider.dart';
 import 'package:mon_news_app/presentation/provider/like_provider.dart';
-import 'package:mon_news_app/presentation/provider/movie_provider.dart';
+import 'package:mon_news_app/presentation/provider/topic_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_detail_provider.dart';
 import 'package:mon_news_app/presentation/provider/post_provider.dart';
 import 'package:mon_news_app/theme/theme_text.dart';
